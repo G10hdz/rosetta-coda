@@ -1,0 +1,74 @@
+{
+  "codamd_hash": "e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899",
+  "cohort_flow": {
+    "after_codatype_filter": 709,
+    "after_handv_filter": 1142,
+    "after_whale_filter": 628,
+    "n_a": 338,
+    "n_i": 290,
+    "total_input": 1375
+  },
+  "details": {
+    "model_warnings": [
+      "The MLE may be on the boundary of the parameter space."
+    ]
+  },
+  "mixed_model": {
+    "coefficient_label": "vowel_code (i=1, a=0)",
+    "coefficient_value": -0.13184424421622426,
+    "converged": true,
+    "n_groups": 4,
+    "n_obs": 628,
+    "p_value": 3.73767095625381e-11,
+    "t_value": -6.614120539495718
+  },
+  "per_whale_effects": [
+    {
+      "n_a": 132,
+      "n_i": 128,
+      "raw_diff_a_minus_i": 0.14823545672348482,
+      "raw_mean_a": 1.1012553348484848,
+      "raw_mean_i": 0.953019878125,
+      "whale_id": "ATWOOD",
+      "z_diff_a_minus_i": 0.8955945101984027,
+      "z_mean_a": 0.440908066559214,
+      "z_mean_i": -0.45468644363918875
+    },
+    {
+      "n_a": 120,
+      "n_i": 92,
+      "raw_diff_a_minus_i": 0.1586021961594204,
+      "raw_mean_a": 1.2140847483333335,
+      "raw_mean_i": 1.055482552173913,
+      "whale_id": "FORK",
+      "z_diff_a_minus_i": 0.8399289361806783,
+      "z_mean_a": 0.36449746287086077,
+      "z_mean_i": -0.47543147330981755
+    },
+    {
+      "n_a": 51,
+      "n_i": 55,
+      "raw_diff_a_minus_i": 0.07166612973262065,
+      "raw_mean_a": 1.2659689588235294,
+      "raw_mean_i": 1.1943028290909088,
+      "whale_id": "PINCHY",
+      "z_diff_a_minus_i": 0.8121672775867024,
+      "z_mean_a": 0.42140754969121347,
+      "z_mean_i": -0.39075972789548885
+    },
+    {
+      "n_a": 35,
+      "n_i": 15,
+      "raw_diff_a_minus_i": 0.1678444819047622,
+      "raw_mean_a": 1.291737028571429,
+      "raw_mean_i": 1.1238925466666667,
+      "whale_id": "TBB",
+      "z_diff_a_minus_i": 0.860871988925301,
+      "z_mean_a": 0.25826159667758974,
+      "z_mean_i": -0.6026103922477113
+    }
+  ],
+  "schema_version": "0.1.0",
+  "state": "pass",
+  "summary": "All criteria met: hash match, sample counts match, i coefficient negative and within tolerance, all four within-whale raw and normalized a-i effects positive"
+}

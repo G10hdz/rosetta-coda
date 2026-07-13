@@ -1,0 +1,1000 @@
+{
+  "models": {
+    "CodaRecord": {
+      "$defs": {
+        "IdentityStatus": {
+          "enum": [
+            "resolved",
+            "unresolved_unknown",
+            "unresolved_composite",
+            "unresolved_uncertain"
+          ],
+          "title": "IdentityStatus",
+          "type": "string"
+        },
+        "SourceRef": {
+          "properties": {
+            "dataset": {
+              "title": "Dataset",
+              "type": "string"
+            },
+            "row": {
+              "title": "Row",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dataset",
+            "row"
+          ],
+          "title": "SourceRef",
+          "type": "object"
+        }
+      },
+      "properties": {
+        "clan": {
+          "title": "Clan",
+          "type": "string"
+        },
+        "click_count": {
+          "title": "Click Count",
+          "type": "integer"
+        },
+        "coda_id": {
+          "title": "Coda Id",
+          "type": "string"
+        },
+        "coda_type": {
+          "title": "Coda Type",
+          "type": "string"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date"
+        },
+        "duration_s": {
+          "title": "Duration S",
+          "type": "number"
+        },
+        "icis_s": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Icis S",
+          "type": "array"
+        },
+        "identity_status": {
+          "$ref": "#/$defs/IdentityStatus"
+        },
+        "source": {
+          "default": "metadata",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/SourceRef"
+        },
+        "source_values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Source Values",
+          "type": "object"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "whale_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Whale Id"
+        },
+        "whale_id_raw": {
+          "title": "Whale Id Raw",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coda_id",
+        "source_ref",
+        "click_count",
+        "duration_s",
+        "icis_s",
+        "coda_type",
+        "whale_id_raw",
+        "whale_id",
+        "identity_status",
+        "unit",
+        "clan"
+      ],
+      "title": "CodaRecord",
+      "type": "object"
+    },
+    "GateResult": {
+      "$defs": {
+        "GateState": {
+          "enum": [
+            "pass",
+            "fail",
+            "indeterminate"
+          ],
+          "title": "GateState",
+          "type": "string"
+        },
+        "MixedModelResult": {
+          "properties": {
+            "coefficient_label": {
+              "title": "Coefficient Label",
+              "type": "string"
+            },
+            "coefficient_value": {
+              "title": "Coefficient Value",
+              "type": "number"
+            },
+            "converged": {
+              "title": "Converged",
+              "type": "boolean"
+            },
+            "n_groups": {
+              "title": "N Groups",
+              "type": "integer"
+            },
+            "n_obs": {
+              "title": "N Obs",
+              "type": "integer"
+            },
+            "p_value": {
+              "title": "P Value",
+              "type": "number"
+            },
+            "t_value": {
+              "title": "T Value",
+              "type": "number"
+            }
+          },
+          "required": [
+            "coefficient_label",
+            "coefficient_value",
+            "t_value",
+            "p_value",
+            "converged",
+            "n_obs",
+            "n_groups"
+          ],
+          "title": "MixedModelResult",
+          "type": "object"
+        },
+        "PerWhaleEffect": {
+          "properties": {
+            "n_a": {
+              "title": "N A",
+              "type": "integer"
+            },
+            "n_i": {
+              "title": "N I",
+              "type": "integer"
+            },
+            "raw_diff_a_minus_i": {
+              "title": "Raw Diff A Minus I",
+              "type": "number"
+            },
+            "raw_mean_a": {
+              "title": "Raw Mean A",
+              "type": "number"
+            },
+            "raw_mean_i": {
+              "title": "Raw Mean I",
+              "type": "number"
+            },
+            "whale_id": {
+              "title": "Whale Id",
+              "type": "string"
+            },
+            "z_diff_a_minus_i": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Z Diff A Minus I"
+            },
+            "z_mean_a": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Z Mean A"
+            },
+            "z_mean_i": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Z Mean I"
+            }
+          },
+          "required": [
+            "whale_id",
+            "n_a",
+            "n_i",
+            "raw_mean_a",
+            "raw_mean_i",
+            "raw_diff_a_minus_i"
+          ],
+          "title": "PerWhaleEffect",
+          "type": "object"
+        }
+      },
+      "properties": {
+        "codamd_hash": {
+          "title": "Codamd Hash",
+          "type": "string"
+        },
+        "cohort_flow": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Cohort Flow",
+          "type": "object"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "mixed_model": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MixedModelResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "per_whale_effects": {
+          "items": {
+            "$ref": "#/$defs/PerWhaleEffect"
+          },
+          "title": "Per Whale Effects",
+          "type": "array"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/GateState"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state",
+        "summary",
+        "codamd_hash",
+        "cohort_flow",
+        "per_whale_effects"
+      ],
+      "title": "GateResult",
+      "type": "object"
+    },
+    "LoadResult": {
+      "$defs": {
+        "CodaRecord": {
+          "properties": {
+            "clan": {
+              "title": "Clan",
+              "type": "string"
+            },
+            "click_count": {
+              "title": "Click Count",
+              "type": "integer"
+            },
+            "coda_id": {
+              "title": "Coda Id",
+              "type": "string"
+            },
+            "coda_type": {
+              "title": "Coda Type",
+              "type": "string"
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "duration_s": {
+              "title": "Duration S",
+              "type": "number"
+            },
+            "icis_s": {
+              "items": {
+                "type": "number"
+              },
+              "title": "Icis S",
+              "type": "array"
+            },
+            "identity_status": {
+              "$ref": "#/$defs/IdentityStatus"
+            },
+            "source": {
+              "default": "metadata",
+              "title": "Source",
+              "type": "string"
+            },
+            "source_ref": {
+              "$ref": "#/$defs/SourceRef"
+            },
+            "source_values": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Source Values",
+              "type": "object"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "whale_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Whale Id"
+            },
+            "whale_id_raw": {
+              "title": "Whale Id Raw",
+              "type": "string"
+            }
+          },
+          "required": [
+            "coda_id",
+            "source_ref",
+            "click_count",
+            "duration_s",
+            "icis_s",
+            "coda_type",
+            "whale_id_raw",
+            "whale_id",
+            "identity_status",
+            "unit",
+            "clan"
+          ],
+          "title": "CodaRecord",
+          "type": "object"
+        },
+        "IdentityStatus": {
+          "enum": [
+            "resolved",
+            "unresolved_unknown",
+            "unresolved_composite",
+            "unresolved_uncertain"
+          ],
+          "title": "IdentityStatus",
+          "type": "string"
+        },
+        "QuarantinedRow": {
+          "properties": {
+            "coda_id_raw": {
+              "title": "Coda Id Raw",
+              "type": "string"
+            },
+            "raw_values": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Raw Values",
+              "type": "object"
+            },
+            "reason": {
+              "title": "Reason",
+              "type": "string"
+            },
+            "source_ref": {
+              "$ref": "#/$defs/SourceRef"
+            }
+          },
+          "required": [
+            "coda_id_raw",
+            "source_ref",
+            "reason",
+            "raw_values"
+          ],
+          "title": "QuarantinedRow",
+          "type": "object"
+        },
+        "SourceRef": {
+          "properties": {
+            "dataset": {
+              "title": "Dataset",
+              "type": "string"
+            },
+            "row": {
+              "title": "Row",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dataset",
+            "row"
+          ],
+          "title": "SourceRef",
+          "type": "object"
+        }
+      },
+      "properties": {
+        "cohort_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Cohort Counts",
+          "type": "object"
+        },
+        "dataset_hash": {
+          "title": "Dataset Hash",
+          "type": "string"
+        },
+        "quarantined": {
+          "items": {
+            "$ref": "#/$defs/QuarantinedRow"
+          },
+          "title": "Quarantined",
+          "type": "array"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/CodaRecord"
+          },
+          "title": "Records",
+          "type": "array"
+        },
+        "row_count": {
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "validation_warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "records",
+        "dataset_hash",
+        "row_count",
+        "cohort_counts"
+      ],
+      "title": "LoadResult",
+      "type": "object"
+    },
+    "MixedModelResult": {
+      "properties": {
+        "coefficient_label": {
+          "title": "Coefficient Label",
+          "type": "string"
+        },
+        "coefficient_value": {
+          "title": "Coefficient Value",
+          "type": "number"
+        },
+        "converged": {
+          "title": "Converged",
+          "type": "boolean"
+        },
+        "n_groups": {
+          "title": "N Groups",
+          "type": "integer"
+        },
+        "n_obs": {
+          "title": "N Obs",
+          "type": "integer"
+        },
+        "p_value": {
+          "title": "P Value",
+          "type": "number"
+        },
+        "t_value": {
+          "title": "T Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "coefficient_label",
+        "coefficient_value",
+        "t_value",
+        "p_value",
+        "converged",
+        "n_obs",
+        "n_groups"
+      ],
+      "title": "MixedModelResult",
+      "type": "object"
+    },
+    "NormalizationResult": {
+      "$defs": {
+        "IdentityStatus": {
+          "enum": [
+            "resolved",
+            "unresolved_unknown",
+            "unresolved_composite",
+            "unresolved_uncertain"
+          ],
+          "title": "IdentityStatus",
+          "type": "string"
+        },
+        "NormalizedCoda": {
+          "properties": {
+            "baseline_ref": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Baseline Ref"
+            },
+            "coda_id": {
+              "title": "Coda Id",
+              "type": "string"
+            },
+            "duration_z": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Duration Z"
+            },
+            "identity_status": {
+              "$ref": "#/$defs/IdentityStatus"
+            },
+            "raw_duration_s": {
+              "title": "Raw Duration S",
+              "type": "number"
+            },
+            "whale_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Whale Id"
+            },
+            "whale_id_raw": {
+              "title": "Whale Id Raw",
+              "type": "string"
+            }
+          },
+          "required": [
+            "coda_id",
+            "whale_id",
+            "whale_id_raw",
+            "identity_status",
+            "raw_duration_s"
+          ],
+          "title": "NormalizedCoda",
+          "type": "object"
+        },
+        "WhaleBaseline": {
+          "properties": {
+            "ineligible_reason": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Ineligible Reason"
+            },
+            "input_hash": {
+              "title": "Input Hash",
+              "type": "string"
+            },
+            "mean_s": {
+              "title": "Mean S",
+              "type": "number"
+            },
+            "n": {
+              "title": "N",
+              "type": "integer"
+            },
+            "partition_id": {
+              "title": "Partition Id",
+              "type": "string"
+            },
+            "sd_s": {
+              "title": "Sd S",
+              "type": "number"
+            },
+            "whale_id": {
+              "title": "Whale Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "whale_id",
+            "n",
+            "mean_s",
+            "sd_s",
+            "partition_id",
+            "input_hash"
+          ],
+          "title": "WhaleBaseline",
+          "type": "object"
+        }
+      },
+      "properties": {
+        "baselines": {
+          "items": {
+            "$ref": "#/$defs/WhaleBaseline"
+          },
+          "title": "Baselines",
+          "type": "array"
+        },
+        "counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Counts",
+          "type": "object"
+        },
+        "excluded": {
+          "items": {
+            "$ref": "#/$defs/NormalizedCoda"
+          },
+          "title": "Excluded",
+          "type": "array"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "normalized": {
+          "items": {
+            "$ref": "#/$defs/NormalizedCoda"
+          },
+          "title": "Normalized",
+          "type": "array"
+        },
+        "partition_id": {
+          "title": "Partition Id",
+          "type": "string"
+        },
+        "quarantined": {
+          "items": {
+            "$ref": "#/$defs/NormalizedCoda"
+          },
+          "title": "Quarantined",
+          "type": "array"
+        }
+      },
+      "required": [
+        "baselines",
+        "normalized",
+        "excluded",
+        "quarantined",
+        "counts",
+        "input_hash",
+        "partition_id"
+      ],
+      "title": "NormalizationResult",
+      "type": "object"
+    },
+    "NormalizedCoda": {
+      "$defs": {
+        "IdentityStatus": {
+          "enum": [
+            "resolved",
+            "unresolved_unknown",
+            "unresolved_composite",
+            "unresolved_uncertain"
+          ],
+          "title": "IdentityStatus",
+          "type": "string"
+        }
+      },
+      "properties": {
+        "baseline_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Ref"
+        },
+        "coda_id": {
+          "title": "Coda Id",
+          "type": "string"
+        },
+        "duration_z": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Z"
+        },
+        "identity_status": {
+          "$ref": "#/$defs/IdentityStatus"
+        },
+        "raw_duration_s": {
+          "title": "Raw Duration S",
+          "type": "number"
+        },
+        "whale_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Whale Id"
+        },
+        "whale_id_raw": {
+          "title": "Whale Id Raw",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coda_id",
+        "whale_id",
+        "whale_id_raw",
+        "identity_status",
+        "raw_duration_s"
+      ],
+      "title": "NormalizedCoda",
+      "type": "object"
+    },
+    "PerWhaleEffect": {
+      "properties": {
+        "n_a": {
+          "title": "N A",
+          "type": "integer"
+        },
+        "n_i": {
+          "title": "N I",
+          "type": "integer"
+        },
+        "raw_diff_a_minus_i": {
+          "title": "Raw Diff A Minus I",
+          "type": "number"
+        },
+        "raw_mean_a": {
+          "title": "Raw Mean A",
+          "type": "number"
+        },
+        "raw_mean_i": {
+          "title": "Raw Mean I",
+          "type": "number"
+        },
+        "whale_id": {
+          "title": "Whale Id",
+          "type": "string"
+        },
+        "z_diff_a_minus_i": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Z Diff A Minus I"
+        },
+        "z_mean_a": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Z Mean A"
+        },
+        "z_mean_i": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Z Mean I"
+        }
+      },
+      "required": [
+        "whale_id",
+        "n_a",
+        "n_i",
+        "raw_mean_a",
+        "raw_mean_i",
+        "raw_diff_a_minus_i"
+      ],
+      "title": "PerWhaleEffect",
+      "type": "object"
+    },
+    "QuarantinedRow": {
+      "$defs": {
+        "SourceRef": {
+          "properties": {
+            "dataset": {
+              "title": "Dataset",
+              "type": "string"
+            },
+            "row": {
+              "title": "Row",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dataset",
+            "row"
+          ],
+          "title": "SourceRef",
+          "type": "object"
+        }
+      },
+      "properties": {
+        "coda_id_raw": {
+          "title": "Coda Id Raw",
+          "type": "string"
+        },
+        "raw_values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Raw Values",
+          "type": "object"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/SourceRef"
+        }
+      },
+      "required": [
+        "coda_id_raw",
+        "source_ref",
+        "reason",
+        "raw_values"
+      ],
+      "title": "QuarantinedRow",
+      "type": "object"
+    },
+    "WhaleBaseline": {
+      "properties": {
+        "ineligible_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ineligible Reason"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "mean_s": {
+          "title": "Mean S",
+          "type": "number"
+        },
+        "n": {
+          "title": "N",
+          "type": "integer"
+        },
+        "partition_id": {
+          "title": "Partition Id",
+          "type": "string"
+        },
+        "sd_s": {
+          "title": "Sd S",
+          "type": "number"
+        },
+        "whale_id": {
+          "title": "Whale Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "whale_id",
+        "n",
+        "mean_s",
+        "sd_s",
+        "partition_id",
+        "input_hash"
+      ],
+      "title": "WhaleBaseline",
+      "type": "object"
+    }
+  },
+  "schema_version": "0.1.0"
+}
