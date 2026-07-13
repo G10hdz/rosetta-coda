@@ -1,0 +1,5 @@
+{
+  "schema_version": "0.1.0",
+  "sol_hypothesis_available": false,
+  "note": "Set sol_hypothesis_available to true only after scripts.run_sol_demo writes a schema-validated sol-hypothesis.json alongside this file. While false, the demo shows a clearly-labelled illustrative Preview and issues no request for the live artifact."
+}
