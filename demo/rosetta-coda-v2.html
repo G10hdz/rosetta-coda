@@ -111,9 +111,12 @@ body {
 /* ── Scenes ── */
 .scene {
   position: absolute; inset: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.scene--hidden { opacity: 0; pointer-events: none; }
+.scene--hidden {
+  opacity: 0; transform: scale(0.98);
+  pointer-events: none;
+}
 
 /* ── Acquisition scene ── */
 .scene--acq {
@@ -177,15 +180,14 @@ body {
   border-radius: 8px;
   padding: 0.8rem 0.9rem;
   position: relative; overflow: hidden;
-  transform: translateY(6px); opacity: 0;
-  animation: panelIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.evid-panel--cohort { animation-delay: 0.05s; }
-.evid-panel--readout { animation-delay: 0.12s; }
-.hypo-panel { animation-delay: 0.08s; }
-@keyframes panelIn {
-  to { transform: translateY(0); opacity: 1; }
-}
+.evid-panel--visible { opacity: 1; transform: translateY(0); }
+.evid-panel--cohort { transition-delay: 0.05s; }
+.evid-panel--readout { transition-delay: 0.12s; }
+.hypo-panel { transition-delay: 0.08s; }
 .evid-panel::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, oklch(0.60 0.06 200 / 0.25), transparent);
@@ -432,17 +434,44 @@ body {
 .loading-text {
   font-size: 0.75rem; color: oklch(0.45 0.035 220);
   font-style: italic;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.loading-text::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.60 0.06 200);
+  animation: loadPulse 1.4s ease-in-out infinite;
+}
+@keyframes loadPulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.6); }
+  50%      { opacity: 1;   transform: scale(1); }
 }
 .empty-text {
   font-size: 0.75rem; color: oklch(0.40 0.03 220);
   font-style: italic;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.empty-text::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.45 0.035 220 / 0.4);
+  animation: emptyPulse 3s ease-in-out infinite;
+}
+@keyframes emptyPulse {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.5; }
 }
 .error-box {
   font-size: 0.75rem; color: oklch(0.74 0.13 48); line-height: 1.5;
-  padding: 0.5rem 0.7rem;
+  padding: 0.5rem 0.7rem 0.5rem 1.4rem;
   border: 1px solid oklch(0.74 0.13 48 / 0.4);
   border-radius: 6px;
   background: oklch(0.74 0.13 48 / 0.05);
+  position: relative;
+}
+.error-box::before {
+  content: ""; position: absolute; left: 0.5rem; top: 0.6rem;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: oklch(0.74 0.13 48);
+  box-shadow: 0 0 8px oklch(0.74 0.13 48 / 0.5);
 }
 .error-box code { font-family: "SF Mono", ui-monospace, monospace; font-size: 0.68rem; }
 
@@ -607,6 +636,13 @@ document.querySelectorAll("[data-mode]").forEach(btn => {
     } else {
       acq.classList.add("scene--hidden");
       anl.classList.remove("scene--hidden");
+      // Staggered entry: remove then re-add visible class to replay transitions
+      const panels = anl.querySelectorAll(".evid-panel, .hypo-panel");
+      panels.forEach(p => {
+        p.classList.remove("evid-panel--visible");
+        p.getBoundingClientRect(); // force reflow
+        requestAnimationFrame(() => p.classList.add("evid-panel--visible"));
+      });
     }
   });
 });
@@ -665,6 +701,12 @@ async function boot() {
     return renderError(err);
   }
   renderGate(gate);
+
+  // Reveal analysis panels after data renders
+  const anlPanels = $("scene-anl").querySelectorAll(".evid-panel, .hypo-panel");
+  anlPanels.forEach((p, i) => {
+    setTimeout(() => p.classList.add("evid-panel--visible"), 80 * i + 50);
+  });
 
   let sol = null;
   try { sol = await fetchJSON(SOL_URL); } catch { sol = null; }
