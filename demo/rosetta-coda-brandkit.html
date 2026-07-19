@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rosetta Coda — Brand Identity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #0b0d12; }
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: oklch(0.88 0.01 215);
+  background: #0b0d12;
+  min-height: 100vh; display: flex; flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Canvas ── */
+.canvas {
+  max-width: 1400px; margin: 0 auto; padding: 2rem;
+  width: 100%;
+}
+.canvas h1 {
+  font-weight: 300; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: oklch(0.50 0.04 218); margin-bottom: 1.5rem;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.panel {
+  background: oklch(0.10 0.016 236);
+  border: 1px solid oklch(0.22 0.02 232 / 0.4);
+  border-radius: 10px;
+  padding: 2rem;
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 240px;
+}
+.panel::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, oklch(0.60 0.06 200 / 0.2), transparent);
+}
+.panel__label {
+  position: absolute; top: 0.7rem; left: 1rem;
+  font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: oklch(0.40 0.03 220);
+}
+.panel--span2 { grid-column: span 2; }
+
+/* ── Logo panel ── */
+.logo-mark {
+  display: flex; align-items: flex-end; gap: 5px; height: 60px;
+  margin-bottom: 1rem;
+}
+.logo-mark .bar {
+  width: 6px; border-radius: 3px 3px 0 0;
+  background: linear-gradient(oklch(0.76 0.08 200), oklch(0.60 0.06 200));
+  transition: height 0.3s ease;
+}
+.logo-mark .bar:nth-child(1) { height: 36px; }
+.logo-mark .bar:nth-child(2) { height: 48px; }
+.logo-mark .bar:nth-child(3) { height: 60px; }
+.logo-mark .bar:nth-child(4) { height: 28px; }
+.logo-mark .bar:nth-child(5) { height: 44px; }
+.logo-mark .bar:nth-child(6) { height: 20px; }
+.wordmark { text-align: center; }
+.wordmark h2 {
+  font-weight: 300; font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: oklch(0.92 0.01 210);
+}
+.wordmark .sub {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: oklch(0.50 0.04 218); margin-top: 0.3rem;
+}
+
+/* ── Logo construction ── */
+.construction { display: flex; gap: 1rem; align-items: center; }
+.construction .grid-lines {
+  width: 80px; height: 80px; position: relative;
+}
+.construction .grid-lines svg { width: 100%; height: 100%; }
+.construction .legend {
+  font-size: 0.6rem; color: oklch(0.50 0.04 218);
+  line-height: 1.6;
+}
+
+/* ── Tagline ── */
+.tagline {
+  font-weight: 200; font-size: clamp(1.1rem, 2vw, 1.6rem);
+  letter-spacing: 0.04em; text-align: center;
+  color: oklch(0.90 0.01 210);
+  line-height: 1.3;
+}
+
+/* ── Color system ── */
+.swatch-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+.swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+}
+.swatch__color {
+  width: 52px; height: 52px; border-radius: 8px;
+  border: 1px solid oklch(0.30 0.02 230 / 0.3);
+}
+.swatch__label {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.5rem; color: oklch(0.45 0.035 220);
+  text-align: center; line-height: 1.3;
+}
+
+/* ── Dashboard mockup ── */
+.dash-mock {
+  width: 100%; max-width: 380px;
+  background: oklch(0.08 0.014 238);
+  border: 1px solid oklch(0.25 0.02 230 / 0.3);
+  border-radius: 8px; padding: 0.8rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+}
+.dash-mock .header {
+  grid-column: span 2;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 0.4rem; border-bottom: 1px solid oklch(0.25 0.02 230 / 0.2);
+}
+.dash-mock .header .name {
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.dash-mock .header .lamp {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: oklch(0.84 0.11 85);
+  box-shadow: 0 0 10px oklch(0.84 0.11 85 / 0.5);
+}
+.dash-mock .stat {
+  display: flex; flex-direction: column; gap: 0.15rem;
+}
+.dash-mock .stat .num {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.8rem; font-weight: 500; color: oklch(0.76 0.08 200);
+}
+.dash-mock .stat .label {
+  font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: oklch(0.40 0.03 220);
+}
+.dash-mock .bar {
+  grid-column: span 2; height: 6px; display: flex; border-radius: 3px; overflow: hidden;
+  margin-top: 0.2rem;
+}
+.dash-mock .bar .seg { height: 100%; }
+.dash-mock .bar .seg--a { background: oklch(0.80 0.09 175); flex: 7; }
+.dash-mock .bar .seg--i { background: oklch(0.65 0.075 235); flex: 5; }
+
+/* ── Typography panel ── */
+.type-specimen { text-align: center; }
+.type-specimen .display {
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 200;
+  letter-spacing: -0.02em; color: oklch(0.92 0.01 210);
+}
+.type-specimen .mono-spec {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.7rem; color: oklch(0.60 0.06 200);
+  letter-spacing: 0.05em; margin-top: 0.5rem;
+}
+.type-specimen .pairing {
+  display: flex; gap: 1.5rem; justify-content: center; margin-top: 0.6rem;
+  font-size: 0.6rem; color: oklch(0.45 0.035 220);
+}
+
+/* ── Badge chips ── */
+.chips { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.chip {
+  font-size: 0.6rem; letter-spacing: 0.06em;
+  padding: 0.3rem 0.6rem; border-radius: 999px;
+  border: 1px solid oklch(0.30 0.02 230 / 0.3);
+  color: oklch(0.60 0.04 218);
+  background: oklch(0.08 0.014 238);
+}
+
+/* ── Atmosphere ── */
+.atmo {
+  position: relative; overflow: hidden;
+  min-height: 200px;
+  background: radial-gradient(ellipse 80% 60% at 50% 80%, oklch(0.15 0.04 210 / 0.3), transparent),
+              radial-gradient(ellipse 60% 40% at 30% 20%, oklch(0.12 0.03 250 / 0.2), transparent),
+              oklch(0.06 0.01 242);
+}
+.atmo-dot {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: oklch(0.76 0.08 200 / 0.3);
+  box-shadow: 0 0 6px 2px oklch(0.76 0.08 200 / 0.1);
+  animation: float linear infinite;
+}
+.atmo-dot:nth-child(1)  { left: 15%; bottom: -5%; animation-duration: 22s; animation-delay: 0s; }
+.atmo-dot:nth-child(2)  { left: 40%; bottom: -5%; animation-duration: 26s; animation-delay: 3s; }
+.atmo-dot:nth-child(3)  { left: 65%; bottom: -5%; animation-duration: 19s; animation-delay: 7s; }
+.atmo-dot:nth-child(4)  { left: 85%; bottom: -5%; animation-duration: 24s; animation-delay: 2s; }
+.atmo-dot:nth-child(5)  { left: 30%; bottom: -5%; animation-duration: 28s; animation-delay: 5s; }
+.atmo-dot:nth-child(6)  { left: 55%; bottom: -5%; animation-duration: 21s; animation-delay: 9s; }
+.atmo-dot:nth-child(7)  { left: 75%; bottom: -5%; animation-duration: 25s; animation-delay: 4s; }
+.atmo-dot:nth-child(8)  { left: 10%; bottom: -5%; animation-duration: 30s; animation-delay: 8s; }
+@keyframes float {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  15%  { opacity: 0.8; }
+  85%  { opacity: 0.4; }
+  100% { transform: translateY(-250px) translateX(30px); opacity: 0; }
+}
+.atmo .atmo-label {
+  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: oklch(0.35 0.025 220);
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center; padding: 2rem;
+  font-size: 0.5rem; letter-spacing: 0.15em;
+  color: oklch(0.35 0.025 220);
+}
+
+@media (max-width: 800px) {
+  .grid { grid-template-columns: 1fr; }
+  .panel--span2 { grid-column: span 1; }
+  .logo-mark .bar:nth-child(3) { height: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atmo-dot { animation: none; opacity: 0.4; }
+}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <h1>Rosetta Coda · Brand Identity</h1>
+    <div class="grid">
+
+      <!-- 1. Logo Cover -->
+      <div class="panel panel--span2">
+        <span class="panel__label">01 · Logo</span>
+        <div class="logo-mark">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <div class="wordmark">
+          <h2>Rosetta Coda</h2>
+          <p class="sub">Duration Gate · SPEC-004</p>
+        </div>
+      </div>
+
+      <!-- 2. Logo Construction -->
+      <div class="panel">
+        <span class="panel__label">02 · Construction</span>
+        <div class="construction">
+          <div class="grid-lines">
+            <svg viewBox="0 0 80 80" fill="none">
+              <line x1="10" y1="15" x2="10" y2="65" stroke="oklch(0.60 0.06 200 / 0.3)" stroke-width="1"/>
+              <line x1="20" y1="25" x2="20" y2="55" stroke="oklch(0.60 0.06 200 / 0.3)" stroke-width="1"/>
+              <line x1="30" y1="10" x2="30" y2="70" stroke="oklch(0.60 0.06 200 / 0.4)" stroke-width="1.2"/>
+              <line x1="40" y1="30" x2="40" y2="50" stroke="oklch(0.60 0.06 200 / 0.3)" stroke-width="1"/>
+              <line x1="50" y1="18" x2="50" y2="62" stroke="oklch(0.60 0.06 200 / 0.3)" stroke-width="1"/>
+              <line x1="60" y1="38" x2="60" y2="45" stroke="oklch(0.60 0.06 200 / 0.3)" stroke-width="1"/>
+              <line x1="70" y1="35" x2="70" y2="55" stroke="oklch(0.60 0.06 200 / 0.25)" stroke-width="1"/>
+              <circle cx="30" cy="40" r="28" stroke="oklch(0.60 0.06 200 / 0.08)" stroke-width="0.5" fill="none"/>
+              <circle cx="30" cy="40" r="22" stroke="oklch(0.60 0.06 200 / 0.06)" stroke-width="0.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="legend">
+            Click-train coda glyph<br>
+            Geometric construction<br>
+            R = 28 · 6 bars · ±5°
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Digital Application -->
+      <div class="panel">
+        <span class="panel__label">03 · Instrument UI</span>
+        <div class="dash-mock">
+          <div class="header">
+            <span class="name">Rosetta Coda</span>
+            <span class="lamp"></span>
+          </div>
+          <div class="stat">
+            <span class="num">7,240</span>
+            <span class="label">observations</span>
+          </div>
+          <div class="stat">
+            <span class="num">4</span>
+            <span class="label">whales</span>
+          </div>
+          <div class="bar">
+            <span class="seg seg--a"></span>
+            <span class="seg seg--i"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Brand Essence -->
+      <div class="panel">
+        <span class="panel__label">04 · Essence</span>
+        <p class="tagline">Impresionante pero<br>ridículamente sencillo</p>
+      </div>
+
+      <!-- 5. Color System -->
+      <div class="panel">
+        <span class="panel__label">05 · Color</span>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch__color" style="background:oklch(0.07 0.015 240)"></div>
+            <span class="swatch__label">abyss<br>0.07 0.015 240</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:oklch(0.76 0.08 200)"></div>
+            <span class="swatch__label">teal<br>0.76 0.08 200</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:oklch(0.80 0.09 175)"></div>
+            <span class="swatch__label">foam<br>0.80 0.09 175</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:oklch(0.84 0.11 85)"></div>
+            <span class="swatch__label">amber<br>0.84 0.11 85</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:oklch(0.74 0.13 48)"></div>
+            <span class="swatch__label">coral<br>0.74 0.13 48</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Typography -->
+      <div class="panel">
+        <span class="panel__label">06 · Typography</span>
+        <div class="type-specimen">
+          <div class="display">Aa</div>
+          <div class="mono-spec">SF Mono · 0.72rem</div>
+          <div class="pairing">
+            <span>Inter Display · 300</span>
+            <span>Inter Body · 400</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Atmosphere -->
+      <div class="panel atmo">
+        <span class="panel__label" style="color:oklch(0.40 0.03 220)">07 · Atmosphere</span>
+        <span class="atmo-dot"></span><span class="atmo-dot"></span>
+        <span class="atmo-dot"></span><span class="atmo-dot"></span>
+        <span class="atmo-dot"></span><span class="atmo-dot"></span>
+        <span class="atmo-dot"></span><span class="atmo-dot"></span>
+        <span class="atmo-label">Deep ocean · Abyssal plain</span>
+      </div>
+
+      <!-- 8. System Detail -->
+      <div class="panel">
+        <span class="panel__label">08 · Principles</span>
+        <div class="chips">
+          <span class="chip">Not a whale translator</span>
+          <span class="chip">Deterministic science first</span>
+          <span class="chip">No semantic claims</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer class="footer">Rosetta Coda · Duration Gate Instrument · SPEC-004</footer>
+</body>
+</html>

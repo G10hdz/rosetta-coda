@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rosetta Coda — Hydrophone Station</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body {
+  background: oklch(0.07 0.015 240);
+  font-family: "Inter", system-ui, sans-serif;
+  color: oklch(0.88 0.01 215);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Sonar ring background ── */
+.sonar-bg {
+  position: fixed; inset: 0; z-index: 0;
+  display: grid; place-items: center; pointer-events: none;
+}
+.sonar-bg::before, .sonar-bg::after {
+  content: ""; position: absolute;
+  border-radius: 50%;
+  border: 1px solid oklch(0.60 0.06 200 / 0.08);
+  animation: sonarPulse 6s ease-out infinite;
+}
+.sonar-bg::before { width: min(80vw, 700px); height: min(80vw, 700px); }
+.sonar-bg::after { width: min(60vw, 520px); height: min(60vw, 520px);
+  animation-delay: 2s; animation-duration: 5s; }
+@keyframes sonarPulse {
+  0%   { transform: scale(0.85); opacity: 0; }
+  15%  { opacity: 0.6; }
+  60%  { opacity: 0.15; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ── Instrument frame ── */
+.instrument {
+  position: relative; z-index: 1;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column;
+  padding: 1rem 1.4rem;
+  max-width: 1560px; margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  display: flex; align-items: center; justify-content: space-between;
+  flex: none; padding-bottom: 0.6rem;
+  border-bottom: 1px solid oklch(0.30 0.02 230 / 0.4);
+}
+.ident { display: flex; align-items: baseline; gap: 0.7rem; }
+.ident h1 {
+  font-weight: 500; font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  letter-spacing: -0.02em; color: oklch(0.92 0.01 210);
+}
+.ident .spec {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: oklch(0.55 0.04 218);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid oklch(0.30 0.02 230 / 0.4);
+  border-radius: 4px;
+}
+.controls { display: flex; align-items: center; gap: 1rem; }
+
+.mode-toggle { display: flex; gap: 2px;
+  background: oklch(0.12 0.018 236);
+  border-radius: 6px; padding: 2px;
+  border: 1px solid oklch(0.25 0.02 230 / 0.4);
+}
+.mode-toggle button {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.7rem; letter-spacing: 0.15em;
+  padding: 0.35rem 0.8rem; border: 0; border-radius: 5px;
+  cursor: pointer; transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  background: transparent; color: oklch(0.55 0.04 218);
+  text-transform: uppercase;
+}
+.mode-toggle button:active { transform: scale(0.96); }
+.mode-toggle button.active {
+  background: oklch(0.60 0.06 200 / 0.15);
+  color: oklch(0.76 0.08 200);
+}
+.mode-toggle button:hover:not(.active) { color: oklch(0.70 0.04 215); }
+
+.lamp {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: oklch(0.55 0.04 218);
+  flex: none;
+}
+.lamp[data-state="loading"] { background: oklch(0.76 0.08 200);
+  box-shadow: 0 0 12px 2px oklch(0.76 0.08 200 / 0.4);
+  animation: blink 1.1s steps(2) infinite; }
+.lamp[data-state="pass"] { background: oklch(0.84 0.11 85);
+  box-shadow: 0 0 14px 2px oklch(0.84 0.11 85 / 0.5);
+  animation: pulse 2.6s ease-in-out infinite; }
+.lamp[data-state="fail"] { background: oklch(0.74 0.13 48);
+  box-shadow: 0 0 14px 2px oklch(0.74 0.13 48 / 0.5); }
+@keyframes blink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* ── Viewport ── */
+.viewport {
+  flex: 1; min-height: 0; position: relative;
+  margin-top: 0.6rem;
+}
+
+/* ── Scenes ── */
+.scene {
+  position: absolute; inset: 0;
+  transition: opacity 0.5s ease;
+}
+.scene--hidden { opacity: 0; pointer-events: none; }
+
+/* ── Acquisition scene ── */
+.scene--acq {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2rem;
+}
+.waveform-container {
+  width: 100%; max-width: 900px; height: 120px;
+  position: relative;
+}
+.waveform-container canvas {
+  width: 100%; height: 100%;
+  border-radius: 6px;
+}
+.sonar-center {
+  width: 140px; height: 140px; position: relative;
+  display: grid; place-items: center;
+}
+.sonar-center .ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid oklch(0.60 0.06 200 / 0.15);
+  animation: sonarCenter 3s ease-out infinite;
+}
+.sonar-center .ring:nth-child(2) { animation-delay: 1s; }
+.sonar-center .ring:nth-child(3) { animation-delay: 2s; }
+@keyframes sonarCenter {
+  0%   { transform: scale(0.6); opacity: 0; }
+  20%  { opacity: 0.5; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.sonar-center .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: oklch(0.76 0.08 200);
+  box-shadow: 0 0 20px 4px oklch(0.76 0.08 200 / 0.4);
+}
+.acq-label {
+  font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: oklch(0.50 0.04 218);
+}
+.acq-label .count {
+  color: oklch(0.76 0.08 200); font-weight: 500;
+}
+
+/* ── Analysis scene ── */
+.scene--anl {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "cohort  hypo"
+    "readout hypo";
+  gap: 0.7rem;
+}
+
+/* Evidence readout panel */
+.evid-panel {
+  background: oklch(0.10 0.016 236);
+  border: 1px solid oklch(0.25 0.02 230 / 0.3);
+  border-radius: 8px;
+  padding: 0.8rem 0.9rem;
+  position: relative; overflow: hidden;
+  transform: translateY(6px); opacity: 0;
+  animation: panelIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.evid-panel--cohort { animation-delay: 0.05s; }
+.evid-panel--readout { animation-delay: 0.12s; }
+.hypo-panel { animation-delay: 0.08s; }
+@keyframes panelIn {
+  to { transform: translateY(0); opacity: 1; }
+}
+.evid-panel::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, oklch(0.60 0.06 200 / 0.25), transparent);
+}
+
+.funnel__row:hover {
+  background: oklch(0.14 0.02 234);
+  transition: background 0.15s ease;
+}
+.evid-panel__title {
+  font-weight: 500; font-size: 0.72rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: oklch(0.50 0.04 218);
+  margin-bottom: 0.5rem;
+}
+.evid-panel--cohort { grid-area: cohort; }
+.evid-panel--readout { grid-area: readout; }
+
+/* Funnel */
+.funnel { display: grid; gap: 0.2rem; }
+.funnel__row {
+  display: flex; align-items: center;
+  gap: 0.5rem; padding: 0.2rem 0;
+  border-bottom: 1px solid oklch(0.25 0.02 230 / 0.15);
+}
+.funnel__n {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.85rem; font-weight: 500;
+  color: oklch(0.76 0.08 200); min-width: 4ch; text-align: right;
+}
+.funnel__k { font-size: 0.7rem; letter-spacing: 0.05em;
+  color: oklch(0.50 0.04 218); text-transform: lowercase; }
+.funnel__row:last-child { border: 0; }
+
+/* Vowel split */
+.vowel-split {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 0.6rem; padding-top: 0.5rem;
+  border-top: 1px solid oklch(0.25 0.02 230 / 0.15);
+}
+.vowel-ring {
+  position: relative; width: 90px; height: 90px; flex: none;
+}
+.vowel-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.vowel-ring .track { fill: none; stroke: oklch(0.20 0.02 230);
+  stroke-width: 8; }
+.vowel-ring .arc-a { fill: none;
+  stroke: oklch(0.80 0.09 175);
+  stroke-width: 8; stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease; }
+.vowel-ring .arc-i { fill: none;
+  stroke: oklch(0.65 0.075 235);
+  stroke-width: 8; stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease; }
+.vowel-legend { display: grid; gap: 0.35rem; }
+.vowel-legend div {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; color: oklch(0.60 0.04 218);
+}
+.vowel-legend .swatch { width: 7px; height: 7px; border-radius: 2px;
+  flex: none; }
+.vowel-legend .swatch--a { background: oklch(0.80 0.09 175); }
+.vowel-legend .swatch--i { background: oklch(0.65 0.075 235); }
+.vowel-legend .val {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.82rem; color: oklch(0.88 0.01 215);
+}
+
+/* Model readout */
+.readout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.8rem; }
+.readout-item { display: flex; align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid oklch(0.25 0.02 230 / 0.12);
+  padding-bottom: 0.15rem; }
+.readout-item dt {
+  font-size: 0.68rem; letter-spacing: 0.06em;
+  color: oklch(0.50 0.04 218); text-transform: uppercase; }
+.readout-item dd {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.78rem; color: oklch(0.88 0.01 215); }
+.readout-item dd.sig { color: oklch(0.80 0.09 175); }
+
+.beta-readout {
+  margin-top: 0.6rem; padding-top: 0.5rem;
+  border-top: 1px solid oklch(0.25 0.02 230 / 0.15);
+  display: flex; align-items: baseline; gap: 0.5rem;
+}
+.beta-readout .num {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 500;
+  line-height: 1; color: oklch(0.80 0.09 175);
+}
+.beta-readout .unit {
+  font-size: 0.72rem; font-style: italic;
+  color: oklch(0.50 0.04 218);
+}
+
+/* Whale bars */
+.whale-row {
+  display: flex; gap: 0.6rem; margin-top: 0.4rem;
+}
+.whale-bar {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 0.2rem;
+}
+.whale-bar__track {
+  width: 100%; height: 60px;
+  display: flex; align-items: flex-end;
+  border-bottom: 1px solid oklch(0.30 0.02 230 / 0.3);
+}
+.whale-bar__fill {
+  width: 100%; border-radius: 3px 3px 0 0;
+  background: linear-gradient(oklch(0.80 0.09 175), oklch(0.66 0.08 180));
+  transform-origin: bottom; transform: scaleY(0);
+  animation: barGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative; min-height: 2px;
+}
+.whale-bar__fill .val {
+  position: absolute; top: -1rem; left: 0; right: 0; text-align: center;
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.65rem; color: oklch(0.80 0.09 175);
+}
+.whale-bar__id {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.65rem; color: oklch(0.50 0.04 218);
+  letter-spacing: 0.03em;
+}
+.whale-bar__n { font-size: 0.6rem; color: oklch(0.40 0.03 220); }
+@keyframes barGrow { to { transform: scaleY(1); } }
+
+/* ── Hypothesis overlay ── */
+.hypo-panel {
+  grid-area: hypo;
+  background: oklch(0.11 0.018 234);
+  border: 1px solid oklch(0.25 0.02 230 / 0.3);
+  border-radius: 8px; padding: 0.8rem 0.9rem;
+  display: flex; flex-direction: column; overflow: hidden;
+  position: relative;
+}
+.hypo-panel::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, oklch(0.60 0.06 200 / 0.3), oklch(0.80 0.09 175 / 0.3));
+}
+.hypo-panel__head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.5rem; flex: none; margin-bottom: 0.5rem;
+}
+.hypo-panel__head h2 {
+  font-weight: 500; font-size: clamp(0.85rem, 1.2vw, 1rem);
+  letter-spacing: -0.01em;
+}
+.hypo-panel__head .badge {
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.5rem; border-radius: 999px; font-weight: 500;
+  white-space: nowrap;
+}
+.badge--mock { color: oklch(0.74 0.13 48);
+  border: 1px solid oklch(0.74 0.13 48);
+  background: oklch(0.74 0.13 48 / 0.08); }
+.badge--live { color: oklch(0.84 0.11 85);
+  border: 1px solid oklch(0.84 0.11 85);
+  background: oklch(0.84 0.11 85 / 0.08); }
+
+.hypo-pinned { flex: none; }
+.hypo-pinned .preview-note {
+  font-size: 0.65rem; line-height: 1.3; color: oklch(0.74 0.13 48);
+  padding: 0.25rem 0.5rem; margin-bottom: 0.4rem;
+  border-left: 2px solid oklch(0.74 0.13 48);
+  background: oklch(0.74 0.13 48 / 0.05);
+  border-radius: 0 5px 5px 0;
+}
+.hypo-pinned .preview-note code {
+  font-family: "SF Mono", ui-monospace, monospace; font-size: 0.62rem;
+}
+.hypo-claim { margin-bottom: 0.4rem; }
+.hypo-claim__title {
+  font-weight: 500; font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  margin-bottom: 0.2rem; line-height: 1.2;
+}
+.hypo-claim__text {
+  font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+  line-height: 1.45; color: oklch(0.80 0.015 215);
+}
+
+.hypo-scroll {
+  flex: 1; min-height: 0; overflow-y: auto;
+  padding-right: 0.4rem; margin-top: 0.4rem;
+  scrollbar-width: thin; scrollbar-color: oklch(0.25 0.02 230) transparent;
+}
+.hypo-scroll::-webkit-scrollbar { width: 5px; }
+.hypo-scroll::-webkit-scrollbar-thumb { background: oklch(0.25 0.02 230); border-radius: 3px; }
+
+.hblock { margin-bottom: 0.5rem; }
+.hblock__label {
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: oklch(0.45 0.035 220); margin-bottom: 0.25rem;
+}
+.hlist { display: grid; gap: 0.2rem; list-style: none; }
+.hlist li {
+  font-size: 0.72rem; line-height: 1.35;
+  padding-left: 0.7rem; position: relative;
+  color: oklch(0.78 0.015 215);
+}
+.hlist li::before {
+  content: ""; position: absolute; left: 0; top: 0.45em;
+  width: 4px; height: 4px; border-radius: 50%;
+}
+.hlist--alt li::before   { background: oklch(0.76 0.08 200); }
+.hlist--fals li::before  { background: oklch(0.74 0.13 48); }
+.hlist--limit li::before { background: oklch(0.45 0.035 220); }
+
+.refs { display: flex; flex-wrap: wrap; gap: 0.2rem; list-style: none; }
+.refs code {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  background: oklch(0.08 0.014 238);
+  color: oklch(0.76 0.08 200);
+  padding: 0.15rem 0.4rem; border-radius: 4px;
+  border: 1px solid oklch(0.25 0.02 230 / 0.3);
+}
+.meta-row { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.chip {
+  font-size: 0.62rem; color: oklch(0.50 0.04 218);
+  background: oklch(0.08 0.014 238);
+  border: 1px solid oklch(0.25 0.02 230 / 0.3);
+  border-radius: 5px; padding: 0.15rem 0.4rem;
+}
+.chip strong { color: oklch(0.88 0.01 215); font-weight: 500; }
+
+/* ── Creed ── */
+.creed {
+  flex: none; text-align: center;
+  padding-top: 0.5rem; margin-top: 0.4rem;
+  border-top: 1px solid oklch(0.25 0.02 230 / 0.2);
+}
+.creed span {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: oklch(0.40 0.03 220);
+}
+.creed span + span::before {
+  content: " · "; letter-spacing: 0.15em; margin: 0 0.15rem;
+}
+
+/* ── States ── */
+.loading-text {
+  font-size: 0.75rem; color: oklch(0.45 0.035 220);
+  font-style: italic;
+}
+.empty-text {
+  font-size: 0.75rem; color: oklch(0.40 0.03 220);
+  font-style: italic;
+}
+.error-box {
+  font-size: 0.75rem; color: oklch(0.74 0.13 48); line-height: 1.5;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid oklch(0.74 0.13 48 / 0.4);
+  border-radius: 6px;
+  background: oklch(0.74 0.13 48 / 0.05);
+}
+.error-box code { font-family: "SF Mono", ui-monospace, monospace; font-size: 0.68rem; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .sonar-bg::before, .sonar-bg::after,
+  .sonar-center .ring,
+  .whale-bar__fill { animation: none !important; }
+  .lamp { animation: none !important; }
+  .sonar-bg::before { opacity: 0.08; }
+  .whale-bar__fill { transform: scaleY(1); }
+}
+
+/* ── Narrow ── */
+@media (max-height: 680px), (max-width: 860px) {
+  body { overflow: auto; }
+  .instrument { height: auto; min-height: 100vh; }
+  .scene--anl {
+    grid-template-columns: 1fr;
+    grid-template-areas: "cohort" "readout" "hypo";
+  }
+  .sonar-bg { display: none; }
+}
+</style>
+</head>
+<body>
+  <div class="sonar-bg" aria-hidden="true"></div>
+
+  <main class="instrument">
+    <header class="masthead">
+      <div class="ident">
+        <h1>Rosetta Coda</h1>
+        <span class="spec">SPEC-004</span>
+      </div>
+      <div class="controls">
+        <div class="mode-toggle" role="radiogroup" aria-label="Instrument mode">
+          <button role="radio" aria-checked="true" data-mode="acq" class="active">ACQ</button>
+          <button role="radio" aria-checked="false" data-mode="anl">ANL</button>
+        </div>
+        <span class="lamp" id="lamp" data-state="loading" aria-hidden="true"></span>
+      </div>
+    </header>
+
+    <div class="viewport">
+      <!-- Acquisition scene -->
+      <section class="scene scene--acq" id="scene-acq" aria-label="Acquisition mode">
+        <div class="waveform-container" aria-hidden="true">
+          <canvas id="wave-canvas"></canvas>
+        </div>
+        <div class="sonar-center" aria-hidden="true">
+          <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          <span class="dot"></span>
+        </div>
+        <p class="acq-label" id="acq-label">Deploying hydrophone array…</p>
+      </section>
+
+      <!-- Analysis scene -->
+      <section class="scene scene--anl scene--hidden" id="scene-anl" aria-label="Analysis mode">
+
+        <!-- Cohort panel -->
+        <div class="evid-panel evid-panel--cohort">
+          <h2 class="evid-panel__title">Cohort <span class="mono" id="cohort-total">—</span></h2>
+          <div class="funnel" id="funnel">
+            <div class="funnel__row"><span class="funnel__n">—</span><span class="funnel__k">input</span></div>
+          </div>
+          <div class="vowel-split">
+            <div class="vowel-ring" aria-label="Vowel split">
+              <svg viewBox="0 0 40 40">
+                <circle class="track" cx="20" cy="20" r="16"/>
+                <circle class="arc-a" id="arc-a" cx="20" cy="20" r="16"
+                  stroke-dasharray="100.53" stroke-dashoffset="0"/>
+                <circle class="arc-i" id="arc-i" cx="20" cy="20" r="16"
+                  stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+              </svg>
+            </div>
+            <div class="vowel-legend">
+              <div><span class="swatch swatch--a"></span>code <em>a</em> <span class="val" id="n-a">—</span></div>
+              <div><span class="swatch swatch--i"></span>code <em>i</em> <span class="val" id="n-i">—</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model + whales panel -->
+        <div class="evid-panel evid-panel--readout">
+          <h2 class="evid-panel__title">Mixed-effects model</h2>
+          <div class="beta-readout">
+            <span class="num" id="coef-value">—</span>
+            <span class="unit">β · <span id="coef-label">vowel code</span></span>
+          </div>
+          <dl class="readout-grid" id="model-stats">
+            <div class="readout-item"><dt>p-value</dt><dd class="mono" id="p-value">—</dd></div>
+            <div class="readout-item"><dt>t</dt><dd class="mono" id="t-value">—</dd></div>
+            <div class="readout-item"><dt>groups</dt><dd class="mono" id="m-groups">—</dd></div>
+            <div class="readout-item"><dt>obs</dt><dd class="mono" id="m-obs">—</dd></div>
+          </dl>
+          <p class="warn" id="model-warn" hidden style="font-size:0.65rem;color:oklch(0.84 0.11 85);font-style:italic;margin-top:0.4rem"></p>
+
+          <h2 class="evid-panel__title" style="margin-top:0.6rem">Per-whale a − i</h2>
+          <div class="whale-row" id="whales">
+            <p class="empty-text">Awaiting data…</p>
+          </div>
+        </div>
+
+        <!-- Hypothesis panel -->
+        <div class="hypo-panel">
+          <div class="hypo-panel__head">
+            <h2>GPT-5.6 Sol</h2>
+            <span class="badge badge--mock" id="hypo-badge">Preview</span>
+          </div>
+          <div class="hypo-pinned" id="hypo-pinned">
+            <p class="empty-text">Awaiting evidence…</p>
+          </div>
+          <div class="hypo-scroll" id="hypo-scroll"></div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="creed" aria-label="Instrument principles">
+      <span>Not a whale translator</span>
+      <span>Deterministic science first</span>
+      <span>No semantic claims</span>
+    </footer>
+  </main>
+
+<script>
+"use strict";
+const GATE_URL = "/artifacts/gates/spec-004-duration-gate.json";
+const SOL_URL = "/artifacts/demo/sol-hypothesis.json";
+const $ = (id) => document.getElementById(id);
+
+const fmt = {
+  int: (n) => Number(n).toLocaleString("en-US"),
+  fixed: (n, d) => Number(n).toFixed(d),
+  sci: (n) => {
+    const x = Number(n);
+    if (x === 0) return "0";
+    const exp = Math.floor(Math.log10(Math.abs(x)));
+    const mant = x / 10 ** exp;
+    return `${mant.toFixed(2)}×10${sup(exp)}`;
+  },
+};
+function sup(n) {
+  const map = {"-":"⁻",0:"⁰",1:"¹",2:"²",3:"³",4:"⁴",5:"⁵",6:"⁶",7:"⁷",8:"⁸",9:"⁹"};
+  return String(n).split("").map(c => map[c] ?? c).join("");
+}
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ── Mode toggle ── */
+document.querySelectorAll("[data-mode]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("[data-mode]").forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-checked", "false");
+    });
+    btn.classList.add("active");
+    btn.setAttribute("aria-checked", "true");
+    const acq = $("scene-acq"), anl = $("scene-anl");
+    if (btn.dataset.mode === "acq") {
+      acq.classList.remove("scene--hidden");
+      anl.classList.add("scene--hidden");
+    } else {
+      acq.classList.add("scene--hidden");
+      anl.classList.remove("scene--hidden");
+    }
+  });
+});
+
+/* ── Waveform canvas ── */
+function drawWaveform() {
+  const c = $("wave-canvas");
+  const rect = c.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  c.width = rect.width * dpr;
+  c.height = rect.height * dpr;
+  c.style.width = rect.width + "px";
+  c.style.height = rect.height + "px";
+  const ctx = c.getContext("2d");
+  ctx.scale(dpr, dpr);
+  const w = rect.width, h = rect.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const now = Date.now() / 1000;
+  ctx.strokeStyle = oklch_str(0.60, 0.06, 200, 0.35);
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  for (let x = 0; x < w; x++) {
+    const t = x / w + now * 0.08;
+    const y = h / 2 + Math.sin(t * 12) * 12 + Math.sin(t * 7) * 8 + Math.sin(t * 23) * 4;
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = oklch_str(0.76, 0.08, 200, 0.6);
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  for (let x = 0; x < w; x += 3) {
+    const t = x / w + now * 0.12;
+    const env = Math.max(0, Math.sin(t * 2) * 0.5 + 0.5);
+    const burst = Math.random() < 0.02 ? 1 : 0;
+    const y = h / 2 + (Math.sin(t * 18) * 16 + Math.sin(t * 11) * 10) * (0.3 + env * 0.7) * (1 + burst * 3);
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  requestAnimationFrame(drawWaveform);
+}
+function oklch_str(l, c, h, a) {
+  return `oklch(${l} ${c} ${h} / ${a})`;
+}
+
+/* ── Boot ── */
+async function boot() {
+  drawWaveform();
+
+  let gate;
+  try {
+    gate = await fetchJSON(GATE_URL);
+  } catch (err) {
+    return renderError(err);
+  }
+  renderGate(gate);
+
+  let sol = null;
+  try { sol = await fetchJSON(SOL_URL); } catch { sol = null; }
+  renderHypothesis(sol);
+
+  const lamp = $("lamp");
+  if (gate.state === "pass") {
+    lamp.dataset.state = "pass";
+    $("acq-label").innerHTML = `Array active · <span class="count">${fmt.int(gate.cohort_flow?.after_whale_filter || 0)}</span> observations`;
+  } else {
+    lamp.dataset.state = "fail";
+    $("acq-label").textContent = "Signal degraded";
+  }
+}
+
+async function fetchJSON(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${url}`);
+  return res.json();
+}
+
+function renderGate(g) {
+  const cf = g.cohort_flow || {};
+  const steps = [
+    ["input", cf.total_input],
+    ["hand-verified", cf.after_handv_filter],
+    ["coda-typed", cf.after_codatype_filter],
+    ["whale-resolved", cf.after_whale_filter],
+  ].filter(([, n]) => Number.isFinite(n));
+  const funnel = $("funnel");
+  funnel.innerHTML = steps.map(([k, n], i) =>
+    `<div class="funnel__row">
+       <span class="funnel__n">${fmt.int(n)}</span>
+       <span class="funnel__k">${esc(k)}</span>
+     </div>`
+  ).join("");
+
+  const total = Number.isFinite(cf.after_whale_filter) ? fmt.int(cf.after_whale_filter) + " obs" : "—";
+  $("cohort-total").textContent = total;
+
+  const nA = cf.n_a ?? 0, nI = cf.n_i ?? 0;
+  $("n-a").textContent = fmt.int(nA);
+  $("n-i").textContent = fmt.int(nI);
+
+  const circ = 2 * Math.PI * 16;
+  const sum = nA + nI || 1;
+  const offA = 0, offI = circ * (nA / sum);
+  $("arc-a").style.strokeDashoffset = String(offA);
+  $("arc-i").style.strokeDashoffset = String(offI);
+
+  const mm = g.mixed_model || {};
+  $("coef-value").textContent = Number.isFinite(mm.coefficient_value) ? fmt.fixed(mm.coefficient_value, 3) : "—";
+  if (mm.coefficient_label) $("coef-label").textContent = mm.coefficient_label;
+  const pv = $("p-value");
+  pv.textContent = Number.isFinite(mm.p_value) ? fmt.sci(mm.p_value) : "—";
+  if (Number.isFinite(mm.p_value) && mm.p_value < 0.05) pv.classList.add("sig");
+  $("t-value").textContent = Number.isFinite(mm.t_value) ? fmt.fixed(mm.t_value, 2) : "—";
+  $("m-groups").textContent = fmt.int(mm.n_groups ?? "—");
+  $("m-obs").textContent = fmt.int(mm.n_obs ?? "—");
+
+  const warnings = g.details?.model_warnings || [];
+  if (warnings.length) {
+    const w = $("model-warn"); w.hidden = false;
+    w.textContent = `Model note: ${warnings.join(" ")}`;
+  }
+
+  renderWhales(g.per_whale_effects || []);
+}
+
+function renderWhales(effects) {
+  const host = $("whales");
+  if (!effects.length) {
+    host.innerHTML = '<p class="empty-text">No whale effects in artifact.</p>';
+    return;
+  }
+  const maxZ = Math.max(...effects.map(e => Math.abs(e.z_diff_a_minus_i ?? 0)), 0.001);
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  host.innerHTML = effects.map((e, i) => {
+    const z = e.z_diff_a_minus_i ?? 0;
+    const pct = Math.max(5, (Math.abs(z) / maxZ) * 100);
+    const delay = reduce ? 0 : 0.12 * i + 0.15;
+    return `
+      <div class="whale-bar">
+        <div class="whale-bar__track">
+          <div class="whale-bar__fill" style="height:${pct.toFixed(1)}%;animation-delay:${delay}s">
+            <span class="val mono">+${fmt.fixed(z, 2)}</span>
+          </div>
+        </div>
+        <span class="whale-bar__id">${esc(e.whale_id ?? "?")}</span>
+        <span class="whale-bar__n">n=${fmt.int((e.n_a ?? 0) + (e.n_i ?? 0))}</span>
+      </div>`;
+  }).join("");
+}
+
+function renderHypothesis(sol) {
+  const pinned = $("hypo-pinned");
+  const scroll = $("hypo-scroll");
+  const badge = $("hypo-badge");
+
+  const isLive = sol && sol.hypothesis && typeof sol.hypothesis === "object";
+  const h = isLive ? sol.hypothesis : mockHypothesis();
+
+  if (isLive) {
+    badge.className = "badge badge--live";
+    badge.textContent = `Live · ${esc(sol.model || "gpt-5.6-sol")}`;
+  } else {
+    badge.className = "badge badge--mock";
+    badge.textContent = "Preview — illustrative";
+  }
+
+  const list = (items, cls) =>
+    `<ul class="hlist ${cls}">${(items || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+
+  const refs = (items) =>
+    `<ul class="refs">${(items || []).map(r => `<li><code>${esc(r)}</code></li>`).join("")}</ul>`;
+
+  const meta = isLive
+    ? `<div class="meta-row">
+         <span class="chip">model <strong>${esc(sol.model || "—")}</strong></span>
+         <span class="chip">effort <strong>${esc(sol.reasoning_effort || "—")}</strong></span>
+       </div>`
+    : `<div class="meta-row">
+         <span class="chip">status <strong>illustrative</strong></span>
+         <span class="chip">not a Sol output</span>
+       </div>`;
+
+  const note = isLive ? "" :
+    `<p class="preview-note"><strong>⚠ Preview.</strong> Run <code>uv run python -m scripts.run_sol_demo</code> for a live hypothesis. This is <strong>not</strong> a Sol output.</p>`;
+
+  pinned.innerHTML = `
+    ${note}
+    <div class="hypo-claim">
+      <h3 class="hypo-claim__title">${esc(h.title)}</h3>
+      <p class="hypo-claim__text">${esc(h.claim)}</p>
+    </div>
+  `;
+
+  scroll.innerHTML = `
+    <div class="hblock">
+      <p class="hblock__label">Evidence references</p>
+      ${refs(h.evidence_refs)}
+    </div>
+    <div class="hblock">
+      <p class="hblock__label">Uncertainty</p>
+      <div class="meta-row"><span class="chip">kind <strong>${esc(h.uncertainty_kind)}</strong></span></div>
+    </div>
+    <div class="hblock">
+      <p class="hblock__label">Alternatives</p>
+      ${list(h.alternatives, "hlist--alt")}
+    </div>
+    <div class="hblock">
+      <p class="hblock__label">Falsifiers</p>
+      ${list(h.falsifiers, "hlist--fals")}
+    </div>
+    <div class="hblock">
+      <p class="hblock__label">Limitations</p>
+      ${list(h.limitations, "hlist--limit")}
+    </div>
+    ${meta}
+  `;
+}
+
+function mockHypothesis() {
+  return {
+    title: "A stable within-whale a–i duration contrast",
+    claim: "Codas labelled code a show a longer normalized inter-click duration than those labelled code i, a contrast that holds within each of the four resolved whales after per-individual z-scoring (mixed-effects β = −0.132, p ≈ 3.7×10⁻¹¹).",
+    evidence_refs: ["/mixed_model/coefficient_value","/mixed_model/p_value","/mixed_model/n_obs","/cohort_flow/n_a","/cohort_flow/n_i","/per_whale_effects/0/z_diff_a_minus_i","/per_whale_effects/3/z_diff_a_minus_i"],
+    uncertainty_kind: "sampling",
+    alternatives: ["The pooled coefficient is driven by the two best-sampled whales (ATWOOD, FORK) rather than a shared effect.","An unmodelled covariate correlated with the a/i label (e.g. coda type or click count) produces the duration gap.","A recording or segmentation artifact systematically lengthens code-a intervals."],
+    falsifiers: ["The z-scored a−i difference is non-positive for any held-out whale on re-analysis.","The coefficient loses significance once coda type is added as a fixed effect.","The sign reverses under an independent re-labelling of a/i categories."],
+    limitations: ["Only four resolved whales; the model MLE sits on a variance boundary.","The a/i labels are analyst-assigned phonological categories, not semantic units.","Duration is one deterministic feature; no acoustic or contextual features are modelled."],
+  };
+}
+
+function renderError(err) {
+  $("lamp").dataset.state = "fail";
+  $("acq-label").textContent = "Signal lost";
+  $("hypo-pinned").innerHTML = `<p class="empty-text">Connection failed.</p>`;
+  $("hypo-scroll").innerHTML = `<div class="error-box">
+    <p style="margin:0 0 0.4rem"><strong>Could not load gate artifact.</strong></p>
+    <p style="margin:0"><code>python3 -m http.server 8000</code><br><code>http://localhost:8000/demo/</code></p>
+    <p style="margin:0.4rem 0 0;opacity:0.7">${esc(err.message)}</p></div>`;
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+else boot();
+</script>
+</body>
+</html>
