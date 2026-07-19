@@ -81,24 +81,24 @@ body::before {
   border-radius: 50%;
   background: oklch(0.76 0.08 200 / 0.35);
   box-shadow: 0 0 6px 2px oklch(0.76 0.08 200 / 0.15);
-  will-change: transform;
-  animation: drift linear infinite;
+  will-change: transform, opacity;
+  animation: drift ease-out infinite;
 }
-.particle:nth-child(1)  { left: 12%;  animation-duration: 22s; animation-delay: 0s;  bottom: -5%; }
+.particle:nth-child(1)  { left: 12%;  animation-duration: 24s; animation-delay: 0s;  bottom: -5%; }
 .particle:nth-child(2)  { left: 25%;  animation-duration: 28s; animation-delay: 2s;  bottom: -5%; }
-.particle:nth-child(3)  { left: 40%;  animation-duration: 19s; animation-delay: 5s;  bottom: -5%; }
-.particle:nth-child(4)  { left: 55%;  animation-duration: 31s; animation-delay: 1s;  bottom: -5%; }
+.particle:nth-child(3)  { left: 40%;  animation-duration: 22s; animation-delay: 5s;  bottom: -5%; }
+.particle:nth-child(4)  { left: 55%;  animation-duration: 26s; animation-delay: 1s;  bottom: -5%; }
 .particle:nth-child(5)  { left: 68%;  animation-duration: 24s; animation-delay: 7s;  bottom: -5%; }
 .particle:nth-child(6)  { left: 80%;  animation-duration: 27s; animation-delay: 3s;  bottom: -5%; }
-.particle:nth-child(7)  { left: 35%;  animation-duration: 20s; animation-delay: 9s;  bottom: -5%; }
+.particle:nth-child(7)  { left: 35%;  animation-duration: 21s; animation-delay: 9s;  bottom: -5%; }
 .particle:nth-child(8)  { left: 72%;  animation-duration: 26s; animation-delay: 4s;  bottom: -5%; }
-.particle:nth-child(9)  { left: 50%;  animation-duration: 30s; animation-delay: 6s;  bottom: -5%; }
+.particle:nth-child(9)  { left: 50%;  animation-duration: 25s; animation-delay: 6s;  bottom: -5%; }
 .particle:nth-child(10) { left: 90%;  animation-duration: 23s; animation-delay: 8s;  bottom: -5%; width: 2px; height: 2px; }
-.particle:nth-child(11) { left: 18%;  animation-duration: 25s; animation-delay: 11s; bottom: -5%; width: 4px; height: 4px; }
-.particle:nth-child(12) { left: 62%;  animation-duration: 29s; animation-delay: 10s; bottom: -5%; }
-.particle:nth-child(13) { left: 8%;   animation-duration: 21s; animation-delay: 13s; bottom: -5%; width: 2px; height: 2px; }
-.particle:nth-child(14) { left: 45%;  animation-duration: 32s; animation-delay: 12s; bottom: -5%; }
-.particle:nth-child(15) { left: 85%;  animation-duration: 18s; animation-delay: 15s; bottom: -5%; width: 2px; height: 2px; }
+.particle:nth-child(11) { left: 18%;  animation-duration: 20s; animation-delay: 11s; bottom: -5%; width: 4px; height: 4px; }
+.particle:nth-child(12) { left: 62%;  animation-duration: 28s; animation-delay: 10s; bottom: -5%; }
+.particle:nth-child(13) { left: 8%;   animation-duration: 22s; animation-delay: 13s; bottom: -5%; width: 2px; height: 2px; }
+.particle:nth-child(14) { left: 45%;  animation-duration: 27s; animation-delay: 12s; bottom: -5%; }
+.particle:nth-child(15) { left: 85%;  animation-duration: 21s; animation-delay: 15s; bottom: -5%; width: 2px; height: 2px; }
 
 @keyframes drift {
   0%   { transform: translateY(0) translateX(0); opacity: 0; }
@@ -162,9 +162,9 @@ body::before {
 .ident__mark .ct-line:nth-child(6) { animation-delay: 0.75s; }
 
 @keyframes clickTrain {
-  0%, 100% { opacity: 0.35; stroke-width: 1.2; }
-  25%      { opacity: 1;    stroke-width: 1.8; filter: drop-shadow(0 0 6px currentColor); }
-  50%      { opacity: 0.35; stroke-width: 1.2; }
+  0%, 100% { opacity: 0.35; }
+  25%      { opacity: 1; }
+  50%      { opacity: 0.35; }
 }
 
 .ident__text h1 {
@@ -201,6 +201,7 @@ body::before {
   border-radius: 50%;
   border: 1.5px solid transparent;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 .status__lamp-wrap[data-state="loading"]::before {
   border-color: oklch(0.76 0.08 200 / 0.3);
@@ -252,7 +253,7 @@ body::before {
   padding-left: 0.7rem; border-left: 1px solid var(--line);
 }
 
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 @keyframes blink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
 
 /* ══ Evidence column ══ */
@@ -319,7 +320,8 @@ body::before {
     transparent 0%,
     oklch(0.40 0.03 222 / 0.15) 50%,
     transparent 100%);
-  animation: skeletonShimmer 1.8s ease-in-out infinite;
+  will-change: transform;
+  animation: skeletonShimmer 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 @keyframes skeletonShimmer {
   0%   { transform: translateX(-100%); }
@@ -383,6 +385,7 @@ body::before {
   width: 100%; border-radius: 4px 4px 0 0;
   background: linear-gradient(var(--foam), oklch(0.68 0.085 180));
   transform-origin: bottom; transform: scaleY(0);
+  will-change: transform;
   animation: grow 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .whale__id { font-family: var(--mono); font-size: 0.78rem; color: var(--bone);
