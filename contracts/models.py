@@ -254,3 +254,54 @@ class ExtractionResult(BaseModel):
     gate_partition: list[CodaTiming] = Field(default_factory=list)
     qc: ExtractionQC
     input_hashes: dict[str, str] = Field(default_factory=dict)
+
+
+class PhonologyFeature(BaseModel):
+    coda_id: str
+    source: str = "metadata"
+    source_ref: SourceRef
+    click_count: int
+    click_rate_hz: float | None = None
+    mean_ici_s: float | None = None
+    ici_cv: float | None = None
+    npvi: float | None = None
+    ici_pattern: list[float] | None = None
+    initial_ici_ratio: float | None = None
+    terminal_ici_ratio: float | None = None
+    rubato_slope: float | None = None
+    drift_s: float | None = None
+    duration_z: float | None = None
+    spectral_quality: str = "not_observable"
+    formants: str = "not_observable"
+    edge_coarticulation: str = "not_observable"
+    whale_id_raw: str = ""
+    identity_status: IdentityStatus
+    coda_type: str = ""
+    vowel: str | None = None
+
+
+class FeatureContrast(BaseModel):
+    feature: str
+    n_whales: int
+    a_minus_i: float
+    ci95_low: float | None = None
+    ci95_high: float | None = None
+
+
+class WhaleFeatureMean(BaseModel):
+    whale_id_raw: str
+    vowel: str | None
+    n: int
+    means: dict[str, float | None] = Field(default_factory=dict)
+
+
+class FeatureSet(BaseModel):
+    schema_version: str = SchemaVersion.v0_1_0.value
+    code_version: str = "phonology-features-v1"
+    input_hashes: dict[str, str] = Field(default_factory=dict)
+    n_features: int
+    n_gate_partition: int
+    partition_features: list[PhonologyFeature] = Field(default_factory=list)
+    partition_contrasts: list[FeatureContrast] = Field(default_factory=list)
+    whale_feature_means: list[WhaleFeatureMean] = Field(default_factory=list)
+    details: dict[str, Any] = Field(default_factory=dict)
