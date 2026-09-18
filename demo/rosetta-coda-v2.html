@@ -578,7 +578,7 @@ body {
         <!-- Hypothesis panel -->
         <div class="hypo-panel">
           <div class="hypo-panel__head">
-            <h2>GPT-5.6 Sol</h2>
+            <h2>Structured hypothesis</h2>
             <span class="badge badge--mock" id="hypo-badge">Preview</span>
           </div>
           <div class="hypo-pinned" id="hypo-pinned">
@@ -600,7 +600,8 @@ body {
 <script>
 "use strict";
 const GATE_URL = "/artifacts/gates/spec-004-duration-gate.json";
-const SOL_URL = "/artifacts/demo/sol-hypothesis.json";
+const HYPOTHESIS_URL = "/artifacts/demo/hypothesis.json";
+const MANIFEST_URL = "/artifacts/demo/manifest.json";
 const $ = (id) => document.getElementById(id);
 
 const fmt = {
@@ -708,9 +709,16 @@ async function boot() {
     setTimeout(() => p.classList.add("evid-panel--visible"), 80 * i + 50);
   });
 
-  let sol = null;
-  try { sol = await fetchJSON(SOL_URL); } catch { sol = null; }
-  renderHypothesis(sol);
+  let hypo = null;
+  try {
+    const manifest = await fetchJSON(MANIFEST_URL);
+    if (manifest && manifest.hypothesis_available) {
+      hypo = await fetchJSON(HYPOTHESIS_URL);
+    }
+  } catch {
+    hypo = null;
+  }
+  renderHypothesis(hypo);
 
   const lamp = $("lamp");
   if (gate.state === "pass") {
@@ -802,17 +810,17 @@ function renderWhales(effects) {
   }).join("");
 }
 
-function renderHypothesis(sol) {
+function renderHypothesis(run) {
   const pinned = $("hypo-pinned");
   const scroll = $("hypo-scroll");
   const badge = $("hypo-badge");
 
-  const isLive = sol && sol.hypothesis && typeof sol.hypothesis === "object";
-  const h = isLive ? sol.hypothesis : mockHypothesis();
+  const isLive = run && run.hypothesis && typeof run.hypothesis === "object";
+  const h = isLive ? run.hypothesis : mockHypothesis();
 
   if (isLive) {
     badge.className = "badge badge--live";
-    badge.textContent = `Live · ${esc(sol.model || "gpt-5.6-sol")}`;
+    badge.textContent = `Live · ${esc(run.model || "model")}`;
   } else {
     badge.className = "badge badge--mock";
     badge.textContent = "Preview — illustrative";
@@ -826,16 +834,16 @@ function renderHypothesis(sol) {
 
   const meta = isLive
     ? `<div class="meta-row">
-         <span class="chip">model <strong>${esc(sol.model || "—")}</strong></span>
-         <span class="chip">effort <strong>${esc(sol.reasoning_effort || "—")}</strong></span>
+         <span class="chip">model <strong>${esc(run.model || "—")}</strong></span>
+         <span class="chip">effort <strong>${esc(run.reasoning_effort || "—")}</strong></span>
        </div>`
     : `<div class="meta-row">
          <span class="chip">status <strong>illustrative</strong></span>
-         <span class="chip">not a Sol output</span>
+         <span class="chip">not a model output</span>
        </div>`;
 
   const note = isLive ? "" :
-    `<p class="preview-note"><strong>⚠ Preview.</strong> Run <code>uv run python -m scripts.run_sol_demo</code> for a live hypothesis. This is <strong>not</strong> a Sol output.</p>`;
+    `<p class="preview-note"><strong>⚠ Preview.</strong> Run <code>uv run python -m scripts.run_hypothesis_demo</code> for a live hypothesis. This is <strong>not</strong> a model output.</p>`;
 
   pinned.innerHTML = `
     ${note}

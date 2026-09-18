@@ -1,16 +1,16 @@
 /* ══════════════════════════════════════════════════════════════════
    Rosetta Coda — duration-gate instrument
    Loads real evidence from the frozen SPEC-004 gate artifact and renders
-   it. The GPT-5.6 Sol panel shows a LIVE hypothesis only if the instrument
+   it. The hypothesis panel shows a LIVE hypothesis only if the instrument
    actually produced one; otherwise a clearly-labelled Preview mock. The
-   mock is never presented as coming from Sol.
+   mock is never presented as a model output.
    ════════════════════════════════════════════════════════════════════ */
 "use strict";
 
 const GATE_URL = "/artifacts/gates/spec-004-duration-gate.json";
-const SOL_URL = "/artifacts/demo/sol-hypothesis.json";
-// A tiny manifest declares whether a live Sol artifact exists. Consulting it
-// first means the demo never issues a request that 404s in the console when
+const HYPOTHESIS_URL = "/artifacts/demo/hypothesis.json";
+// A tiny manifest declares whether a live hypothesis artifact exists. Consulting
+// it first means the demo never issues a request that 404s in the console when
 // running offline in Preview mode; the live artifact is only fetched when the
 // manifest says it is there.
 const MANIFEST_URL = "/artifacts/demo/manifest.json";
@@ -47,19 +47,19 @@ async function boot() {
   }
   renderGate(gate);
 
-  // Sol panel: live artifact only if the manifest declares one. Otherwise a
-  // clearly-labelled Preview mock. We never request a URL that would 404 in
+  // Hypothesis panel: live artifact only if the manifest declares one. Otherwise
+  // a clearly-labelled Preview mock. We never request a URL that would 404 in
   // the console during the offline Preview path.
-  let sol = null;
+  let hypo = null;
   try {
     const manifest = await fetchJSON(MANIFEST_URL);
-    if (manifest && manifest.sol_hypothesis_available) {
-      sol = await fetchJSON(SOL_URL);
+    if (manifest && manifest.hypothesis_available) {
+      hypo = await fetchJSON(HYPOTHESIS_URL);
     }
   } catch {
-    sol = null; // no manifest / no live artifact — expected Preview path
+    hypo = null; // no manifest / no live artifact — expected Preview path
   }
-  renderHypothesis(sol, gate);
+  renderHypothesis(hypo, gate);
 }
 
 async function fetchJSON(url) {
@@ -175,19 +175,19 @@ function renderWhales(effects) {
 }
 
 /* ── Hypothesis panel ──────────────────────────────────────────────── */
-function renderHypothesis(sol, gate) {
+function renderHypothesis(run, gate) {
   const pinned = $("hypo-pinned");
   const detail = $("hypo-detail");
   const origin = $("hypo-origin");
   detail.setAttribute("aria-busy", "false");
 
-  const isLive = sol && sol.hypothesis && typeof sol.hypothesis === "object";
-  const h = isLive ? sol.hypothesis : mockHypothesis();
+  const isLive = run && run.hypothesis && typeof run.hypothesis === "object";
+  const h = isLive ? run.hypothesis : mockHypothesis();
 
   if (isLive) {
     origin.dataset.origin = "live";
-    origin.textContent = `Live · ${esc(sol.model || "gpt-5.6-sol")}`;
-    origin.title = "Schema-validated live GPT-5.6 Sol output";
+    origin.textContent = `Live · ${esc(run.model || "model")}`;
+    origin.title = "Schema-validated live model output";
   } else {
     origin.dataset.origin = "mock";
     origin.textContent = "Preview · illustrative";
@@ -208,9 +208,9 @@ function renderHypothesis(sol, gate) {
 
   const meta = isLive
     ? `<div class="meta-row">
-         <span class="chip">model <strong>${esc(sol.model || "—")}</strong></span>
-         <span class="chip">effort <strong>${esc(sol.reasoning_effort || "—")}</strong></span>
-         <span class="chip">source sha <strong class="mono">${esc((sol.source_artifact_sha256 || "").slice(0, 10))}…</strong></span>
+         <span class="chip">model <strong>${esc(run.model || "—")}</strong></span>
+         <span class="chip">effort <strong>${esc(run.reasoning_effort || "—")}</strong></span>
+         <span class="chip">source sha <strong class="mono">${esc((run.source_artifact_sha256 || "").slice(0, 10))}…</strong></span>
        </div>`
     : `<div class="meta-row">
          <span class="chip">status <strong>illustrative preview</strong></span>
@@ -221,7 +221,7 @@ function renderHypothesis(sol, gate) {
   // Compact one-line preview note (pinned, mock only).
   const previewNote = isLive
     ? ""
-    : `<p class="preview-note"><strong>Preview.</strong> Illustrative structure — <strong>not</strong> a Sol output. Run <code>uv&nbsp;run&nbsp;python&nbsp;-m&nbsp;scripts.run_sol_demo</code> for a live, schema-validated GPT-5.6&nbsp;Sol hypothesis.</p>`;
+    : `<p class="preview-note"><strong>Preview.</strong> Illustrative structure — <strong>not</strong> a model output. Run <code>uv&nbsp;run&nbsp;python&nbsp;-m&nbsp;scripts.run_hypothesis_demo</code> for a live, schema-validated hypothesis.</p>`;
 
   // Pinned (never scrolls): preview note, claim, top evidence, the single
   // strongest alternative and the single decisive falsifier.

@@ -55,26 +55,30 @@ Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
 A single-viewport instrument panel that visualises the frozen SPEC-004
 duration gate — gate status, cohort flow, the mixed-effects coefficient,
 per-whale a − i duration effects, and the frozen artifact hash — alongside a
-structured GPT-5.6 Sol hypothesis panel. Serve the repo root and open the demo:
+structured hypothesis panel. Serve the repo root and open the demo:
 
 ```bash
 python3 -m http.server 8000
 # then open http://localhost:8000/demo/
 ```
 
-The hypothesis panel renders a real, schema-validated Sol output when
-`artifacts/demo/sol-hypothesis.json` exists; otherwise it shows a clearly
-labelled **Preview** mock (never presented as a Sol call). No audio,
-waveform, or semantic data is invented.
+The hypothesis panel renders a real, schema-validated model output when
+`artifacts/demo/hypothesis.json` exists and the demo manifest flags it;
+otherwise it shows a clearly labelled **Preview** mock (never presented as a
+model call). No audio, waveform, or semantic data is invented.
 
-### GPT-5.6 Sol demo (optional)
+### Structured hypothesis demo (optional)
 
 After the deterministic reproduction gate passes, generate one structured,
-falsifiable hypothesis over that frozen evidence:
+falsifiable hypothesis over that frozen evidence via any OpenAI-compatible
+endpoint (default: DeepSeek — see [docs/model-provider-research.md](docs/model-provider-research.md)):
 
 ```bash
-export OPENAI_API_KEY="..."
-uv run python -m scripts.run_sol_demo
+export ROSETTA_API_KEY="..."          # or OPENAI_API_KEY
+export ROSETTA_BASE_URL="https://api.deepseek.com"   # optional; this is the default
+export ROSETTA_MODEL="deepseek-chat"                 # optional
+uv run python -m scripts.run_hypothesis_demo
+# then set artifacts/demo/manifest.json → hypothesis_available: true
 ```
 
 The model is never used for measurements and may not make translation or
@@ -124,13 +128,15 @@ uv run pytest
 
 Requiere Python 3.11+ y [uv](https://docs.astral.sh/uv/).
 
-### Demo con GPT-5.6 Sol (opcional)
+### Demo de hipótesis estructurada (opcional)
 
-Después de que pase la compuerta determinista de reproducción:
+Después de que pase la compuerta determinista de reproducción (endpoint
+OpenAI-compatible; por defecto DeepSeek — ver
+[docs/model-provider-research.md](docs/model-provider-research.md)):
 
 ```bash
-export OPENAI_API_KEY="..."
-uv run python -m scripts.run_sol_demo
+export ROSETTA_API_KEY="..."
+uv run python -m scripts.run_hypothesis_demo
 ```
 
 El modelo no realiza mediciones ni puede hacer afirmaciones semánticas o de

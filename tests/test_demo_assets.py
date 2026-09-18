@@ -50,16 +50,16 @@ def test_app_loads_real_gate_artifact() -> None:
     assert "/artifacts/gates/spec-004-duration-gate.json" in app
 
 
-def test_app_never_labels_the_mock_as_a_sol_output() -> None:
-    """The preview mock must be clearly labelled and never implied to be a Sol call."""
+def test_app_never_labels_the_mock_as_a_model_output() -> None:
+    """The preview mock must be clearly labelled and never implied to be a model call."""
     app = (DEMO / "app.js").read_text(encoding="utf-8")
     # The preview origin badge is unmistakably illustrative, not a live call.
     assert 'origin.textContent = "Preview · illustrative"' in app
     # The mock generator must exist and be explicitly illustrative.
     assert "mockHypothesis" in app
     assert "not produced by any model" in app
-    # The pinned preview note explicitly denies Sol authorship.
-    assert "not</strong> a Sol output" in app
+    # The pinned preview note explicitly denies model authorship.
+    assert "not</strong> a model output" in app
     # The live badge branch must be distinct from the mock branch.
     assert 'origin.dataset.origin = "live"' in app
 
@@ -102,16 +102,16 @@ def test_app_distinguishes_raw_coefficient_from_standardized_effect() -> None:
     assert "standardized" in index
 
 
-def test_no_live_sol_artifact_is_fetched_without_a_manifest_flag() -> None:
+def test_no_live_hypothesis_artifact_is_fetched_without_a_manifest_flag() -> None:
     """The offline Preview path consults the manifest and does not fetch the live
-    Sol artifact (which would 404 in the console) unless it is declared present."""
+    hypothesis artifact (which would 404 in the console) unless it is declared present."""
     app = (DEMO / "app.js").read_text(encoding="utf-8")
     assert "MANIFEST_URL" in app
-    assert "sol_hypothesis_available" in app
+    assert "hypothesis_available" in app
     manifest = REPO_ROOT / "artifacts" / "demo" / "manifest.json"
     assert manifest.is_file(), "demo manifest missing — Preview path would 404"
     data = json.loads(manifest.read_text(encoding="utf-8"))
-    assert data["sol_hypothesis_available"] is False
+    assert data["hypothesis_available"] is False
 
 
 def test_no_google_fonts_network_dependency() -> None:

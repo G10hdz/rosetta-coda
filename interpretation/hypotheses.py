@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from enum import Enum
 from typing import Any
@@ -9,8 +10,11 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from contracts.models import GateResult, GateState
 
-DEFAULT_MODEL = "gpt-5.6-sol"
-DEFAULT_REASONING_EFFORT = "medium"
+# OpenAI-compatible default (DeepSeek). Override with ROSETTA_MODEL / ROSETTA_BASE_URL.
+DEFAULT_MODEL = os.environ.get("ROSETTA_MODEL", "deepseek-chat")
+# Empty = provider default. deepseek-chat exposes no reasoning knob.
+DEFAULT_REASONING_EFFORT = os.environ.get("ROSETTA_REASONING_EFFORT", "")
+DEFAULT_BASE_URL = os.environ.get("ROSETTA_BASE_URL", "https://api.deepseek.com")
 
 INSTRUCTIONS = """You are the hypothesis stage of a scientific instrument.
 Propose exactly one falsifiable phonological hypothesis using only the supplied,
@@ -65,12 +69,19 @@ class HypothesisCandidate(BaseModel):
         return value
 
 
+_SCHEMA_INSTRUCTIONS = (
+    "Reply with a single JSON object that validates against this JSON Schema. "
+    "No prose, no markdown fences.\n"
+    + json.dumps(HypothesisCandidate.model_json_schema(), sort_keys=True)
+)
+
+
 class HypothesisRun(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     schema_version: str = "0.1.0"
     model: str
-    reasoning_effort: str
+    reasoning_effort: str = ""
     source_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     gate_state: GateState
     hypothesis: HypothesisCandidate
@@ -112,20 +123,29 @@ def generate_hypothesis(
     if client is None:
         from openai import OpenAI
 
-        api_client = OpenAI()
+        # ponytail: OpenAI SDK as generic OpenAI-compat client (DeepSeek/OR/Ollama).
+        api_key = os.environ.get("ROSETTA_API_KEY") or os.environ.get("OPENAI_API_KEY")
+        base_url = os.environ.get("ROSETTA_BASE_URL", DEFAULT_BASE_URL)
+        api_client = OpenAI(api_key=api_key, base_url=base_url or None)
     else:
         api_client = client
-    response = api_client.responses.parse(
+    # DeepSeek and most OpenAI-compatible servers only serve /chat/completions
+    # with json_object mode, so the schema travels in the prompt and Pydantic
+    # does the enforcing.
+    response = api_client.chat.completions.create(
         model=model,
-        reasoning={"effort": reasoning_effort},
-        instructions=INSTRUCTIONS,
-        input=json.dumps(artifact, indent=2, sort_keys=True),
-        text_format=HypothesisCandidate,
+        messages=[
+            {"role": "system", "content": f"{INSTRUCTIONS}\n\n{_SCHEMA_INSTRUCTIONS}"},
+            {"role": "user", "content": json.dumps(artifact, indent=2, sort_keys=True)},
+        ],
+        response_format={"type": "json_object"},
+        **({"reasoning_effort": reasoning_effort} if reasoning_effort else {}),
     )
-    if response.output_parsed is None:
-        raise RuntimeError("GPT-5.6 Sol returned no structured hypothesis")
+    content = response.choices[0].message.content
+    if not content:
+        raise RuntimeError("model returned no structured hypothesis")
 
-    candidate = HypothesisCandidate.model_validate(response.output_parsed)
+    candidate = HypothesisCandidate.model_validate_json(content)
     _validate_evidence_refs(candidate, artifact)
     return HypothesisRun(
         model=model,
