@@ -55,10 +55,16 @@ Excluded:
 `ExtractionResult` artifact: timings, QC report (counts, flagged residuals,
 join mismatches), input hashes. Known corpus expectations:
 
-- 8,714 timings from the Dominica load; 10 rows with
-  `duration_consistent = false` (max residual ~0.225 s), all flagged.
-- 1,375 timings through the codamd join; 4 cross-file duration mismatches
-  flagged.
+- 8,714 timings from the Dominica load; 7 rows with
+  `duration_consistent = false` (max residual ~0.0096 s). Ten raw duration
+  mismatches exist in the file, but 3 sit inside rows quarantined by the
+  loader for ICI-layout inconsistency (including the ~0.225 s outlier) and
+  never reach extraction.
+- 1,374 timings through the codamd join; 4 cross-file duration mismatches
+  flagged. Codanum 5092 is a member of the published 628-coda gate
+  partition whose Dominica row was quarantined by SPEC-002 QC, so it is
+  reported as unjoined rather than reconstructed — the feature partition
+  therefore covers 627/628 gate codas.
 
 ## Invariants
 
