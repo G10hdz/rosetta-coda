@@ -29,14 +29,15 @@ All stages produce immutable JSON/JSONL artifacts with content-hash manifests fo
 rosetta-coda/
   contracts/       # Pydantic models and exported JSON Schema
   data/            # Metadata loaders, validation, provenance
-  analysis/        # Normalization and statistical gates
+  analysis/        # Normalization, statistical gates, held-out calibration
   detector/        # Optional WAV click/coda detection
-  phonology/       # Deterministic rhythm/tempo/ornament/rubato features
-  interpretation/  # Ranked, falsifiable hypotheses
-  storage/         # Manifests, hashes, atomic artifact writes
-  orchestration/   # LangGraph state and stage transitions
-  api/             # Versioned local HTTP/SSE API
-  web/             # Waveform, time-time plot, evidence trace
+  phonology/       # Timing extraction + deterministic feature engine
+  interpretation/  # Analyst adapter + ranked, falsifiable hypotheses
+  reporting/       # Citable report.json / report.md assembly
+  api/             # Local read-only artifact API (FastAPI)
+  demo/            # SPEC-004 gate demo (static)
+  research/        # Research console over the sealed release (static)
+  artifacts/       # gates/, demo/, release/ (content-addressed)
   specs/           # Accepted implementation contracts
   tests/           # Unit, integration, golden, and fixture tests
 ```
@@ -49,6 +50,50 @@ uv run pytest
 ```
 
 Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
+
+### Full pipeline
+
+```bash
+export ROSETTA_API_KEY="..."   # DeepSeek-compatible key; omit for --no-model
+uv run python -m scripts.run_pipeline            # all stages into artifacts/runs/
+uv run python -m scripts.run_pipeline --no-model # deterministic stages only
+```
+
+The run id is derived from input hashes (`pipeline-<dataset>-<codamd>`), so
+identical inputs always reproduce the same run directory.
+
+### Sealed release and replay
+
+`artifacts/release/` is the golden run, pinned by sha256 in
+`artifacts/release/manifest.json`. Verify it end-to-end:
+
+```bash
+uv run python -m scripts.replay_release
+# verified: 7/7 deterministic replayed, 6/6 sealed verified
+```
+
+See [REPRODUCE.md](REPRODUCE.md) for what is replayed vs. sealed.
+
+### Local research API
+
+```bash
+uv run uvicorn api.app:app --port 8787
+# GET /v1/runs, /v1/runs/{id}/codas, /v1/runs/{id}/artifacts/{name}, SSE events
+```
+
+The API is read-only over `artifacts/runs/` — local use only; the public
+deployment serves static artifacts instead of a live endpoint.
+
+### Deployed site
+
+The static site is deployed on Vercel: <https://rosetta-coda.vercel.app>
+
+- `/demo/` — SPEC-004 gate instrument panel (live hypothesis artifact included)
+- `/research/` — research console over `artifacts/release/`
+- `/artifacts/` — immutable JSON artifacts, served with immutable caching
+
+Deploy: `vercel --prod` from the repo root (`.vercelignore` keeps the Python
+pipeline and source CSVs out of the upload).
 
 ### Demo site (local preview)
 
@@ -78,7 +123,7 @@ export ROSETTA_API_KEY="..."          # or OPENAI_API_KEY
 export ROSETTA_BASE_URL="https://api.deepseek.com"   # optional; this is the default
 export ROSETTA_MODEL="deepseek-chat"                 # optional
 uv run python -m scripts.run_hypothesis_demo
-# then set artifacts/demo/manifest.json → hypothesis_available: true
+# writes artifacts/demo/hypothesis.json; the manifest flag ships set
 ```
 
 The model is never used for measurements and may not make translation or
@@ -95,7 +140,12 @@ alternatives, falsifiers, uncertainty, and limitations.
 
 ## Status
 
-Early-stage, spec-driven development. See the [roadmap](docs/roadmap.md) and [architecture](docs/architecture.md).
+Spec-driven: SPECs 000–013 implemented. The deterministic pipeline
+(load → normalize → gate → extract → features) is verified reproducible;
+the model stage (analyst → rank → calibrate → report) ran once against the
+frozen evidence and is hash-sealed in `artifacts/release/`. Deployed at
+<https://rosetta-coda.vercel.app>. See the [roadmap](docs/roadmap.md) and
+[architecture](docs/architecture.md).
 
 ---
 
@@ -153,4 +203,9 @@ falseadores, incertidumbre y limitaciones.
 
 ### Estado
 
-Etapa temprana, desarrollo guiado por especificaciones. Ver [roadmap](docs/roadmap.md) y [arquitectura](docs/architecture.md).
+Desarrollo guiado por especificaciones: SPECs 000–013 implementados. El
+pipeline determinista (carga → normalización → compuerta → extracción →
+características) es reproducible verificado; la etapa de modelo corrió una
+vez sobre la evidencia congelada y está sellada por hash en
+`artifacts/release/`. Desplegado en <https://rosetta-coda.vercel.app>.
+Ver [roadmap](docs/roadmap.md) y [arquitectura](docs/architecture.md).

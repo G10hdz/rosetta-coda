@@ -102,16 +102,22 @@ def test_app_distinguishes_raw_coefficient_from_standardized_effect() -> None:
     assert "standardized" in index
 
 
-def test_no_live_hypothesis_artifact_is_fetched_without_a_manifest_flag() -> None:
-    """The offline Preview path consults the manifest and does not fetch the live
-    hypothesis artifact (which would 404 in the console) unless it is declared present."""
+def test_hypothesis_manifest_flag_matches_artifact_presence() -> None:
+    """The demo only fetches the live hypothesis when the manifest flags it; the
+    flag must never claim an artifact that is absent (would 404), and a shipped
+    artifact must be flagged so the Preview mock is not shown over real output."""
     app = (DEMO / "app.js").read_text(encoding="utf-8")
     assert "MANIFEST_URL" in app
     assert "hypothesis_available" in app
     manifest = REPO_ROOT / "artifacts" / "demo" / "manifest.json"
     assert manifest.is_file(), "demo manifest missing — Preview path would 404"
     data = json.loads(manifest.read_text(encoding="utf-8"))
-    assert data["hypothesis_available"] is False
+    artifact = REPO_ROOT / "artifacts" / "demo" / "hypothesis.json"
+    assert data["hypothesis_available"] == artifact.is_file()
+    if data["hypothesis_available"]:
+        live = json.loads(artifact.read_text(encoding="utf-8"))
+        assert live["hypothesis"]["evidence_refs"]
+        assert live["model"]
 
 
 def test_no_google_fonts_network_dependency() -> None:
