@@ -1,0 +1,34 @@
+{
+  "model": "deepseek-chat",
+  "reasoning_effort": "\u2014",
+  "source_artifact_sha256": "e6800a307d5741a592cc9175914842b4755bea17eaa900a7d025d25bb823aebc",
+  "hypothesis": {
+    "title": "Within-whale monotone a>i effect across all four whales drives the pooled vowel contrast",
+    "claim": "For every whale in the frozen cohort, the within-whale raw difference a_minus_i is positive (ATWOOD 0.148, FORK 0.159, PINCHY 0.072, TBB 0.168) and the normalized z_diff is positive, matching the pooled negative vowel_code coefficient (-0.1318, p ~ 3.7e-11); this supports a consistent, same-direction vowel-associated effect across whales rather than a single-whale driver.",
+    "evidence_refs": [
+      "/gate/per_whale_effects/0/raw_diff_a_minus_i",
+      "/gate/per_whale_effects/1/raw_diff_a_minus_i",
+      "/gate/per_whale_effects/2/raw_diff_a_minus_i",
+      "/gate/per_whale_effects/3/raw_diff_a_minus_i",
+      "/gate/mixed_model/n_groups",
+      "/gate/mixed_model/n_obs",
+      "/gate/state",
+      "/gate/summary"
+    ],
+    "alternatives": [
+      "The consistent sign across four whales could still arise from a shared recording or preprocessing pipeline rather than a biologically general pattern.",
+      "The mixed-model fit may be influenced by the MLE boundary warning, so the estimated coefficient could be biased or inflated."
+    ],
+    "falsifiers": [
+      "Adding more whales produces at least one whale with a negative raw_diff_a_minus_i exceeding the positive ones in magnitude.",
+      "Re-fitting without the boundary condition yields a coefficient whose sign or significance no longer matches the per-whale direction.",
+      "The per-whale effects are shown to be an artifact of unequal n_a vs n_i sampling within whales."
+    ],
+    "limitations": [
+      "n_groups = 4 is a very small number of random-effect levels for a mixed model.",
+      "The MLE boundary warning indicates the estimate may lie near the edge of the parameter space, limiting inferential strength.",
+      "The gate artifact is a reproduction check with frozen thresholds and does not by itself establish generalization beyond this cohort."
+    ],
+    "uncertainty_kind": "model"
+  }
+}

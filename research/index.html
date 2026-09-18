@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rosetta Coda — Research Console</title>
+  <meta name="description" content="Static research console rendering the frozen Rosetta Coda release artifacts. Not a whale translator." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%235fd0c4' stroke-width='2.4' stroke-linecap='round'%3E%3Cline x1='7' y1='9' x2='7' y2='31'/%3E%3Cline x1='15' y1='6' x2='15' y2='34'/%3E%3Cline x1='23' y1='14' x2='23' y2='26'/%3E%3Cline x1='31' y1='10' x2='31' y2='30'/%3E%3C/g%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="research.css" />
+</head>
+<body>
+  <div class="particles" aria-hidden="true">
+    <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+    <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+  </div>
+  <div class="whale-bg" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="console">
+    <!-- ══ a) Header ══ -->
+    <header class="masthead">
+      <div class="ident">
+        <span class="ident__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <line class="ct-line" x1="6"  y1="8" x2="6"  y2="32" />
+              <line class="ct-line" x1="12" y1="13" x2="12" y2="27" />
+              <line class="ct-line" x1="18" y1="6" x2="18" y2="34" />
+              <line class="ct-line" x1="24" y1="15" x2="24" y2="25" />
+              <line class="ct-line" x1="30" y1="10" x2="30" y2="30" />
+              <line class="ct-line" x1="34" y1="17" x2="34" y2="23" />
+            </g>
+          </svg>
+        </span>
+        <div class="ident__text">
+          <h1>Rosetta&nbsp;Coda</h1>
+          <p class="ident__sub">
+            <span class="ident__tag">Not a whale translator</span><span class="ident__sep" aria-hidden="true">·</span>Research console
+            <span class="ident__sep" aria-hidden="true">·</span>run <span class="mono" id="run-id">—</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="status" role="status" aria-live="polite">
+        <span class="badge" data-state="loading" id="verdict-badge" aria-label="gate verdict: loading">…</span>
+        <span class="status__hash mono" id="manifest-sha" title="Manifest SHA-256">—</span>
+      </div>
+    </header>
+
+    <main id="main" aria-label="Research console sections">
+
+      <!-- ══ b) Gate card ══ -->
+      <section class="panel" id="sec-gate" aria-labelledby="sec-gate-title">
+        <h2 class="panel__title" id="sec-gate-title">
+          Duration gate <span class="panel__meta mono">spec-004</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading gate artifact…</p>
+        </div>
+      </section>
+
+      <!-- ══ c) Feature contrasts ══ -->
+      <section class="panel" id="sec-contrasts" aria-labelledby="sec-contrasts-title">
+        <h2 class="panel__title" id="sec-contrasts-title">
+          Feature contrasts <span class="panel__meta mono">spec-007 · a − i · bootstrap 95% CI</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading featureset artifact…</p>
+        </div>
+      </section>
+
+      <!-- ══ d) Ranked hypotheses ══ -->
+      <section class="panel" id="sec-hypotheses" aria-labelledby="sec-hypotheses-title">
+        <h2 class="panel__title" id="sec-hypotheses-title">
+          Model-generated hypotheses — not findings
+          <span class="panel__meta mono">spec-009</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading ranked hypotheses…</p>
+        </div>
+      </section>
+
+      <!-- ══ e) Calibration ══ -->
+      <section class="panel" id="sec-calibration" aria-labelledby="sec-calibration-title">
+        <h2 class="panel__title" id="sec-calibration-title">
+          Calibration <span class="panel__meta mono">spec-012</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading calibration artifact…</p>
+        </div>
+      </section>
+
+      <!-- ══ f) Report ══ -->
+      <section class="panel" id="sec-report" aria-labelledby="sec-report-title">
+        <h2 class="panel__title" id="sec-report-title">
+          Citable report <span class="panel__meta mono">spec-010-report.md</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading report…</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══ g) Footer ══ -->
+    <footer class="foot" aria-label="Artifact manifest and navigation">
+      <section class="panel" id="sec-manifest" aria-labelledby="sec-manifest-title">
+        <h2 class="panel__title" id="sec-manifest-title">
+          Artifact manifest <span class="panel__meta mono">sha256 truncated to 12</span>
+        </h2>
+        <div class="section-body" aria-busy="true">
+          <p class="loading">Loading manifest…</p>
+        </div>
+      </section>
+      <nav class="foot__nav" aria-label="Site navigation">
+        <a href="../index.html">← Project home</a>
+        <a href="../demo/">Demo instrument</a>
+      </nav>
+      <p class="creed" aria-label="Instrument principles">
+        <span>Not a whale translator.</span>
+        <span>Deterministic science first.</span>
+        <span>No semantic claims.</span>
+      </p>
+    </footer>
+  </div>
+
+  <script src="research.js" defer></script>
+</body>
+</html>

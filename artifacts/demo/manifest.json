@@ -1,5 +1,5 @@
 {
   "schema_version": "0.1.0",
-  "hypothesis_available": false,
+  "hypothesis_available": true,
   "note": "Set hypothesis_available to true only after scripts.run_hypothesis_demo writes a schema-validated hypothesis.json alongside this file. While false, the demo shows a clearly-labelled illustrative Preview and issues no request for the live artifact."
 }
