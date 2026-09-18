@@ -378,3 +378,34 @@ class RankedHypotheses(BaseModel):
     evidence_manifest: dict[str, str] = Field(default_factory=dict)
     state: str = "ok"
     ranked: list[RankedHypothesis] = Field(default_factory=list)
+
+
+class ClaimCalibration(BaseModel):
+    claim_ref: str
+    claim_title: str
+    evaluated_contrasts: list[dict[str, Any]] = Field(default_factory=list)
+    replicated: bool | None = None
+    detail: str = ""
+
+
+class CalibrationReport(BaseModel):
+    schema_version: str = SchemaVersion.v0_1_0.value
+    calibration_version: str = "calibration-v1"
+    split_rule: str = "sha256(whale_id + seed) mod 2"
+    split_seed: str = "calibration-v1"
+    groups: dict[str, list[str]] = Field(default_factory=dict)
+    claims: list[ClaimCalibration] = Field(default_factory=list)
+    corpus_replication_rate: float | None = None
+    state: str = "ok"
+    caveats: list[str] = Field(default_factory=list)
+
+
+class ReportContract(BaseModel):
+    schema_version: str = SchemaVersion.v0_1_0.value
+    run_id: str
+    generated_by: str = "report-generator-v1"
+    sections: dict[str, Any] = Field(default_factory=dict)
+    citations: dict[str, Any] = Field(default_factory=dict)
+    limitations: list[str] = Field(min_length=1)
+    cannot_conclude: list[str] = Field(min_length=1)
+    manifest_sha256: str | None = None
