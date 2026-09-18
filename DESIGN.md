@@ -13,7 +13,7 @@ model, per-whale effects — in a single viewport.
   is an instrument, not a dashboard. Calm, patient, oceanic — like a hydrophone
   array waiting for the next click train.
 - **Wow factor of technology.** The tech is real: frozen SHA-256 gates, schema-
-  validated Sol hypotheses, mixed-effects models. The UI surfaces this with
+  validated structured hypotheses, mixed-effects models. The UI surfaces this with
   precision — cyan data ink, tabular numerics, ambient sonar pulses — not with
   decorative gradients or animation.
 - **Ridiculously simple.** One viewport. Two columns. No tabs, no settings, no

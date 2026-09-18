@@ -4,14 +4,14 @@ import argparse
 from pathlib import Path
 
 from contracts.models import GateResult
-from interpretation.sol_hypotheses import generate_hypothesis
+from interpretation.hypotheses import generate_hypothesis
 from storage.io import sha256_file, write_json_atomic
 
 DEFAULT_GATE = Path("artifacts/gates/spec-004-duration-gate.json")
-DEFAULT_OUTPUT = Path("artifacts/demo/sol-hypothesis.json")
+DEFAULT_OUTPUT = Path("artifacts/demo/hypothesis.json")
 
 
-def run_sol_demo(
+def run_hypothesis_demo(
     gate_path: Path = DEFAULT_GATE,
     output_path: Path = DEFAULT_OUTPUT,
 ) -> int:
@@ -22,7 +22,8 @@ def run_sol_demo(
     gate_fp = source_hash[:12]
     out_fp = sha256_file(written)[:12]
     h = result.hypothesis
-    print(f"Sol hypothesis written to {written}")
+    print(f"Hypothesis written to {written}")
+    print(f"  model    {result.model}")
     print(f"  gate     {gate_fp}")
     print(f"  output   {out_fp}")
     print(f"  title    {h.title}")
@@ -37,7 +38,7 @@ def run_sol_demo(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Generate a GPT-5.6 Sol phonological hypothesis from a gate artifact."
+        description="Generate a structured phonological hypothesis from a gate artifact."
     )
     parser.add_argument(
         "--gate",
@@ -52,7 +53,7 @@ def main() -> int:
         help=f"Output path (default: {DEFAULT_OUTPUT})",
     )
     args = parser.parse_args()
-    return run_sol_demo(args.gate, args.output)
+    return run_hypothesis_demo(args.gate, args.output)
 
 
 if __name__ == "__main__":

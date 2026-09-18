@@ -1,6 +1,6 @@
 """Evidence-grounded hypothesis generation."""
 
-from interpretation.sol_hypotheses import (
+from interpretation.hypotheses import (
     HypothesisCandidate,
     HypothesisRun,
     UncertaintyKind,
