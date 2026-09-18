@@ -65,7 +65,7 @@ cohort-level contrasts `a − i` for each feature with a whale-cluster bootstrap
   "code_version": "phonology-features-v1",
   "input_hashes": {"extraction": "...", "normalization": "..."},
   "n_features": 8714,
-  "n_gate_partition": 628,
+  "n_gate_partition": 627,
   "partition_contrasts": [{"feature": "ici_cv", "a_minus_i": ..., "ci95": [...]}]
 }
 ```

@@ -181,3 +181,76 @@ class GateResult(BaseModel):
     mixed_model: MixedModelResult | None = None
     schema_version: str = SchemaVersion.v0_1_0.value
     details: dict[str, Any] = Field(default_factory=dict)
+
+
+class CodaTiming(BaseModel):
+    coda_id: str
+    source: str = "metadata"
+    source_ref: SourceRef
+    click_count: int
+    click_times_s: list[float]
+    icis_s: list[float]
+    duration_s_reported: float
+    duration_residual_s: float
+    duration_consistent: bool
+    whale_id_raw: str = ""
+    identity_status: IdentityStatus
+    coda_type: str = ""
+    vowel: str | None = None
+    focal: bool | None = None
+
+    @model_validator(mode="after")
+    def _timing_is_canonical(self) -> "CodaTiming":
+        if len(self.icis_s) != self.click_count - 1:
+            raise ValueError(
+                f"ICI count {len(self.icis_s)} != click_count - 1 "
+                f"({self.click_count - 1}) for coda {self.coda_id}"
+            )
+        if len(self.click_times_s) != self.click_count:
+            raise ValueError(
+                f"click_times count {len(self.click_times_s)} != click_count "
+                f"({self.click_count}) for coda {self.coda_id}"
+            )
+        if self.click_times_s and self.click_times_s[0] != 0.0:
+            raise ValueError("click_times_s must start at 0.0")
+        return self
+
+
+class DurationMismatch(BaseModel):
+    coda_id: str
+    residual_s: float
+
+
+class JoinMismatch(BaseModel):
+    codanum: int
+    coda_id: str
+    duration_codamd_s: float
+    duration_dominica_s: float
+    residual_s: float
+
+
+class JoinQC(BaseModel):
+    n_codamd_rows: int
+    n_joined: int
+    n_unjoined: int
+    unjoined_codanums: list[int] = Field(default_factory=list)
+    n_duration_mismatch: int
+    duration_mismatches: list[JoinMismatch] = Field(default_factory=list)
+
+
+class ExtractionQC(BaseModel):
+    n_input: int
+    n_timings: int
+    n_duration_inconsistent: int
+    max_abs_residual_s: float
+    duration_mismatches: list[DurationMismatch] = Field(default_factory=list)
+    join: JoinQC | None = None
+
+
+class ExtractionResult(BaseModel):
+    schema_version: str = SchemaVersion.v0_1_0.value
+    code_version: str = "coda-extractor-v1"
+    timings: list[CodaTiming]
+    gate_partition: list[CodaTiming] = Field(default_factory=list)
+    qc: ExtractionQC
+    input_hashes: dict[str, str] = Field(default_factory=dict)
