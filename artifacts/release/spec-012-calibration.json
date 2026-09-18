@@ -1,0 +1,22 @@
+{
+  "calibration_version": "calibration-v1",
+  "caveats": [
+    "4 resolved whales; split is illustrative, not a powered evaluation",
+    "degenerate split (empty fit or hold-out group); evaluating claims on the same whales they were derived from would be circular, so no held-out evaluation is reported"
+  ],
+  "claims": [],
+  "corpus_replication_rate": null,
+  "groups": {
+    "fit": [],
+    "holdout": [
+      "ATWOOD",
+      "FORK",
+      "PINCHY",
+      "TBB"
+    ]
+  },
+  "schema_version": "0.1.0",
+  "split_rule": "sha256(whale_id + seed) mod 2",
+  "split_seed": "calibration-v1",
+  "state": "indeterminate"
+}

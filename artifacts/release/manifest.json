@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "calibration": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-012-calibration.json",
+      "sha256": "a3bb0a3549ba85b72487e9d4163393811cbf41bb2697db107dab83a46485c158"
+    },
+    "events": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/events.jsonl",
+      "sha256": "df5a126cef20c1f2fe9f1cddaf2ea1efddd6a0d7227aa5e7f9abba8d5b4920e0"
+    },
+    "evidence": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-008-analyst-evidence.json",
+      "sha256": "e6800a307d5741a592cc9175914842b4755bea17eaa900a7d025d25bb823aebc"
+    },
+    "extraction": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-005-extraction.json",
+      "sha256": "c3e58525c709ee5c61abbd2224be33cbc0eff23d2a9bc5194702a27298cb9523"
+    },
+    "featureset": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-007-featureset.json",
+      "sha256": "90cbe752c08daf6947b0f3dcdfbc2c48c1f52a6f64f475c73e1af0dc2052ef98"
+    },
+    "gate": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-004-duration-gate.json",
+      "sha256": "9b5dc4f1db94488cf5a20e67fc989303d5110da77066080d16afebdbb175a2b7"
+    },
+    "load": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-002-load.json",
+      "sha256": "63aee76d2e5ac013e74c437d26bb274b28f7459fb339f9c83e01f98417ad08f1"
+    },
+    "model_calls": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-008-model-calls.jsonl",
+      "sha256": "eac32a479ff68a8a770bd53e056e243251831faa2b9a6e9d9106b3f141927dfb"
+    },
+    "normalization": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-003-normalization.json",
+      "sha256": "560f3bfaf19ac21caab3dac98352924b71047839ea2e52d3af9aca3fe7424279"
+    },
+    "phonology": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-007-phonology.jsonl",
+      "sha256": "bd3c2c30587dcccfff175fa55c7811cc7dc062573877738477f5dccb338cd5ef"
+    },
+    "ranked": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-009-ranked-hypotheses.jsonl",
+      "sha256": "74bc127af45730fb2e97eb4c8d28ae43266f798c6eeb1482209f5d5202ffe815"
+    },
+    "ranked_doc": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-009-ranked-hypotheses.json",
+      "sha256": "c4979999a897b955da68944f6ca33efd1aadec413a009cf6ecf16948e0868cc6"
+    },
+    "report_json": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-010-report.json",
+      "sha256": "8955230c0a70c20b89d7e77e40a668e318677f2f52ef207019014c4e2ec8364a"
+    },
+    "report_md": {
+      "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-010-report.md",
+      "sha256": "397b0f5b2ebcb1d5aa8cd14aec56ab7e9cb7332635844704beab0204d3879b94"
+    }
+  },
+  "evidence_manifest_sha256": "e98773ecf18f33d916d1ac861a0802cfa678428eb7c0a25c923356d8978f59db",
+  "gate_state": "pass",
+  "inputs": {
+    "external/phonology-osf-9t6qu/codamd.csv": "e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899",
+    "external/sw-combinatoriality/data/DominicaCodas.csv": "53dd44fbfb0040da93656aa44883954f3abe18dd6539e90c625af86a96db6b45"
+  },
+  "manifest_sha256": "c04bb1ee44c5093e063298a8872e509369e4bd3eaa360e393f3dccfd688e2c3c",
+  "model_stage": "generated",
+  "run_id": "pipeline-53dd44fbfb00-e3fc6b402eea",
+  "schema_version": "0.1.0"
+}
