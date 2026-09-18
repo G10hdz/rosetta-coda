@@ -39,3 +39,31 @@ def write_json_atomic(value: BaseModel | dict[str, Any], output: str | Path) -> 
             pass
         raise
     return target
+
+
+def write_jsonl_atomic(records: list[BaseModel | dict[str, Any]], output: str | Path) -> Path:
+    target = Path(output)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    lines = []
+    for record in records:
+        data = (
+            record.model_dump(mode="json") if isinstance(record, BaseModel) else record
+        )
+        lines.append(json.dumps(data, sort_keys=True))
+    payload = "\n".join(lines) + ("\n" if lines else "")
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{target.name}.", dir=target.parent
+    )
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary_name, target)
+    except Exception:
+        try:
+            os.unlink(temporary_name)
+        except FileNotFoundError:
+            pass
+        raise
+    return target
