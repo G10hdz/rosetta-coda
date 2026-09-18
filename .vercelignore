@@ -1,0 +1,39 @@
+# Python pipeline / dev-only files — the deployed site is fully static
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Source data stays in the repo, not on the public site
+external/
+
+# Pipeline internals; only sealed release + demo/gate artifacts ship
+artifacts/runs/
+artifacts/.DS_Store
+
+# Dev scaffolding
+analysis/
+api/
+contracts/
+data/
+detector/
+interpretation/
+phonology/
+reporting/
+scripts/
+storage/
+tests/
+specs/
+docs/
+.claude/
+.playwright-mcp/
+uv.lock
+pyproject.toml
+*.md
+!README.md
+.git/
+.gitignore
+.DS_Store
