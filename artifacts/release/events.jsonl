@@ -1,0 +1,5 @@
+{"seq": 0, "stage": "foundation", "state": "pass"}
+{"n_partition": 627, "seq": 1, "stage": "features", "state": "ok"}
+{"seq": 2, "stage": "analyst", "state": "generated"}
+{"seq": 3, "stage": "interpretation", "state": "ok"}
+{"seq": 4, "stage": "report", "state": "ok"}

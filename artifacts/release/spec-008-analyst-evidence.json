@@ -1,0 +1,2134 @@
+{
+  "evidence_manifest": {
+    "extraction": "c3e58525c709ee5c61abbd2224be33cbc0eff23d2a9bc5194702a27298cb9523",
+    "featureset": "90cbe752c08daf6947b0f3dcdfbc2c48c1f52a6f64f475c73e1af0dc2052ef98",
+    "gate": "9b5dc4f1db94488cf5a20e67fc989303d5110da77066080d16afebdbb175a2b7",
+    "load": "63aee76d2e5ac013e74c437d26bb274b28f7459fb339f9c83e01f98417ad08f1",
+    "normalization": "560f3bfaf19ac21caab3dac98352924b71047839ea2e52d3af9aca3fe7424279",
+    "phonology": "bd3c2c30587dcccfff175fa55c7811cc7dc062573877738477f5dccb338cd5ef"
+  },
+  "feature_records_sample": [
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.566379070414695,
+      "coda_id": "dominica:4933",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1376333,
+      "duration_z": -0.13948343105704009,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3116666937716804,
+      "ici_pattern": [
+        1.228388533259115,
+        1.277075647091567,
+        0.8790425827998887,
+        0.6154932368494295
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3296111825192802,
+      "mean_ici_s": 0.2245625,
+      "npvi": 25.358709237224605,
+      "rubato_slope": -0.22367189535207366,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 2
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5455683323349122,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.776506946249603,
+      "coda_id": "dominica:4934",
+      "coda_type": "1+1+3",
+      "drift_s": -0.11919159999999998,
+      "duration_z": -0.24252913810903723,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.29507613411360856,
+      "ici_pattern": [
+        1.2120266874620915,
+        1.27953464460041,
+        0.8472208647430899,
+        0.6612178031944084
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3042018896071608,
+      "mean_ici_s": 0.21639375,
+      "npvi": 23.578455020313942,
+      "rubato_slope": -0.20847404326603713,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 3
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5941248313475201,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.825356284615723,
+      "coda_id": "dominica:4935",
+      "coda_type": "1+1+3",
+      "drift_s": -0.12271669999999998,
+      "duration_z": -0.26541963420899795,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.2949436518360342,
+      "ici_pattern": [
+        1.2427815097599184,
+        1.2552864525747258,
+        0.8310453275632792,
+        0.6708867101020766
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.352212217666912,
+      "mean_ici_s": 0.21457915,
+      "npvi": 20.99893241959032,
+      "rubato_slope": -0.21399255239849735,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 4
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6045634242648262,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.800857041822788,
+      "coda_id": "dominica:4936",
+      "coda_type": "1+1+3",
+      "drift_s": -0.13892500000000002,
+      "duration_z": -0.2539876315138644,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3431963143958764,
+      "ici_pattern": [
+        1.2467587131193112,
+        1.3232529906898565,
+        0.8279368346997059,
+        0.6020514614911265
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3584992195128365,
+      "mean_ici_s": 0.2154854,
+      "npvi": 27.86529675435826,
+      "rubato_slope": -0.24294379108747066,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 5
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5315425951877355,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.960718862694841,
+      "coda_id": "dominica:4937",
+      "coda_type": "1+1+3",
+      "drift_s": -0.10152510000000001,
+      "duration_z": -0.32688943385933306,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.24466283444204123,
+      "ici_pattern": [
+        1.2029527016958246,
+        1.2068467201144457,
+        0.871377939379489,
+        0.7188226388102404
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2902384980316535,
+      "mean_ici_s": 0.20970625,
+      "npvi": 17.264758839775386,
+      "rubato_slope": -0.17878589693917116,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 6
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.657223819089372,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.919027934615576,
+      "coda_id": "dominica:4938",
+      "coda_type": "1+1+3",
+      "drift_s": -0.12079999999999999,
+      "duration_z": -0.3082566886114276,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3123078412102121,
+      "ici_pattern": [
+        1.22373913754791,
+        1.3004895154482488,
+        0.8240470690571807,
+        0.6517242779466608
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.322360395701859,
+      "mean_ici_s": 0.21118332499999998,
+      "npvi": 24.762036046421798,
+      "rubato_slope": -0.21924870251948173,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 7
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5839342384386932,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.0419915999399185,
+      "coda_id": "dominica:4939",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1265833,
+      "duration_z": -0.3624730796551953,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3343492565427883,
+      "ici_pattern": [
+        1.2412266354674333,
+        1.3210611622350874,
+        0.8083377550641858,
+        0.6293744472332935
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3497592641261498,
+      "mean_ici_s": 0.206885425,
+      "npvi": 26.427901304660892,
+      "rubato_slope": -0.23482799718733233,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 8
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5601700076563101,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.904349072674743,
+      "coda_id": "dominica:4940",
+      "coda_type": "1+1+3",
+      "drift_s": -0.14239169999999998,
+      "duration_z": -0.3016336958224485,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3687415218014968,
+      "ici_pattern": [
+        1.26679793215525,
+        1.354457677271586,
+        0.7845306998991773,
+        0.5942136906739861
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3904547494589483,
+      "mean_ici_s": 0.21170835000000002,
+      "npvi": 29.195022279228994,
+      "rubato_slope": -0.25876797018162023,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 9
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5234154201455855,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.769134315323525,
+      "coda_id": "dominica:4941",
+      "coda_type": "1+1+3",
+      "drift_s": -0.19989159999999997,
+      "duration_z": 0.3340641800592842,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.42851346905064003,
+      "ici_pattern": [
+        1.3663886483920435,
+        1.3749097560559183,
+        0.6549608582839339,
+        0.6037407372681045
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.5564809677302525,
+      "mean_ici_s": 0.262102075,
+      "npvi": 26.565231904839518,
+      "rubato_slope": -0.3007892631143803,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 10
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5332991599550018,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.021929258493062,
+      "coda_id": "dominica:4942",
+      "coda_type": "1+1+3",
+      "drift_s": -0.193825,
+      "duration_z": 0.16762998909771912,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.41298136764648874,
+      "ici_pattern": [
+        1.3754393309263562,
+        1.336168245879281,
+        0.6916534430899408,
+        0.5967389801044221
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.572193792813134,
+      "mean_ici_s": 0.24890832499999999,
+      "npvi": 27.06583506862583,
+      "rubato_slope": -0.2980615855255144,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 11
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5260298666037068,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.100435740426176,
+      "coda_id": "dominica:4943",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1947082,
+      "duration_z": 0.11930052755215953,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4283685657830302,
+      "ici_pattern": [
+        1.4055099395251536,
+        1.3342401228021712,
+        0.6492173279347602,
+        0.6110326097379152
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6251863450206268,
+      "mean_ici_s": 0.2450771,
+      "npvi": 26.77870718641932,
+      "rubato_slope": -0.3068454784229127,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 12
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5409015839104853,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.249114579352755,
+      "coda_id": "dominica:4944",
+      "coda_type": "1+1+3",
+      "drift_s": -0.214225,
+      "duration_z": 0.03173359446657754,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.48751438840747385,
+      "ici_pattern": [
+        1.4732164978411442,
+        1.3678491312085477,
+        0.585311129718639,
+        0.5736232412316691
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7491207654899332,
+      "mean_ici_s": 0.2381354,
+      "npvi": 29.854968236700245,
+      "rubato_slope": -0.34813177713183374,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 13
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.502241827111156,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.7176113337404315,
+      "coda_id": "dominica:4945",
+      "coda_type": "1+1+3",
+      "drift_s": -0.23006669999999999,
+      "duration_z": 0.3701738556619184,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.48798999567351803,
+      "ici_pattern": [
+        1.4453504354921374,
+        1.3992435215874122,
+        0.5783478245773209,
+        0.5770582183431296
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6973174586126551,
+      "mean_ici_s": 0.2649646,
+      "npvi": 28.828234024328367,
+      "rubato_slope": -0.3425772348457115,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 14
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5057563830932047,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.686621112084574,
+      "coda_id": "dominica:4946",
+      "coda_type": "1+1+3",
+      "drift_s": -0.23580829999999997,
+      "duration_z": 0.392275622417313,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.45573284130637015,
+      "ici_pattern": [
+        1.458413876822662,
+        1.3236270285687985,
+        0.6436605435336954,
+        0.5742985510748437
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.721461094931665,
+      "mean_ici_s": 0.266716675,
+      "npvi": 30.0689879106189,
+      "rubato_slope": -0.333231246227856,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 15
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5029322253884981,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.676757925491202,
+      "coda_id": "dominica:4947",
+      "coda_type": "1+1+3",
+      "drift_s": -0.242425,
+      "duration_z": 0.3993713482280852,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4880446118557471,
+      "ici_pattern": [
+        1.4520398007065085,
+        1.3908367533684585,
+        0.6120940772882886,
+        0.5450293686367448
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7096497046254517,
+      "mean_ici_s": 0.267279175,
+      "npvi": 31.219218216129374,
+      "rubato_slope": -0.34997739722894644,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 16
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.47325673077141744,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.8158343091016285,
+      "coda_id": "dominica:4948",
+      "coda_type": "1+1+3",
+      "drift_s": -0.23889999999999997,
+      "duration_z": 0.30200222182470615,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.49923387403547725,
+      "ici_pattern": [
+        1.4857492239042218,
+        1.375402278679425,
+        0.5735015266676343,
+        0.5653469707487188
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7727935948513638,
+      "mean_ici_s": 0.259560425,
+      "npvi": 30.479342044003214,
+      "rubato_slope": -0.3563107511478301,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 17
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.49380269209197986,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.126714963055867,
+      "coda_id": "dominica:4949",
+      "coda_type": "1+1+3",
+      "drift_s": -0.19070840000000003,
+      "duration_z": 0.10345340657476763,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4099132301561816,
+      "ici_pattern": [
+        1.3913223581986527,
+        1.3145577993022333,
+        0.6849635705888154,
+        0.609156271910298
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6000317585095514,
+      "mean_ici_s": 0.24382085000000003,
+      "npvi": 26.788017985128956,
+      "rubato_slope": -0.2976092487578484,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 18
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5389422109288516,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.702500763279727,
+      "coda_id": "dominica:4958",
+      "coda_type": "1+1+3",
+      "drift_s": -0.13063340000000004,
+      "duration_z": -0.20710317510896992,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.33014318725878344,
+      "ici_pattern": [
+        1.1968408601971492,
+        1.3340430285616593,
+        0.8682249016119031,
+        0.6008912096292883
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.280884317129413,
+      "mean_ici_s": 0.219202075,
+      "npvi": 29.846513335641646,
+      "rubato_slope": -0.22536670786533428,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 19
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5303371383683377,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.625299265920947,
+      "coda_id": "dominica:4959",
+      "coda_type": "1+1+3",
+      "drift_s": -0.12395830000000002,
+      "duration_z": -0.1691542873761834,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.27951565384473614,
+      "ici_pattern": [
+        1.2387282503429182,
+        1.2303654554422294,
+        0.8500200710677808,
+        0.6808862231470714
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3458236232961363,
+      "mean_ici_s": 0.2222104,
+      "npvi": 19.779401155752833,
+      "rubato_slope": -0.20538714659619908,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 20
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6154229130939868,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.845548152634766,
+      "coda_id": "dominica:5019",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2306001,
+      "duration_z": 0.281923840704953,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4968046604729758,
+      "ici_pattern": [
+        1.4534384494245909,
+        1.406274984857662,
+        0.5807552271350696,
+        0.559531338582677
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.712236386859975,
+      "mean_ici_s": 0.25796875,
+      "npvi": 30.037279739118656,
+      "rubato_slope": -0.3507241090248335,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 42
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.4878969061896712,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.360205831903945,
+      "coda_id": "dominica:5020",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1886917,
+      "duration_z": -0.030524619162732605,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3999842824608738,
+      "ici_pattern": [
+        1.4069112349914237,
+        1.273870926243568,
+        0.7214476843910806,
+        0.597770154373928
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.627685778415808,
+      "mean_ici_s": 0.2332,
+      "npvi": 28.0158491603236,
+      "rubato_slope": -0.29798464837049776,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 43
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.527098563145954,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.412182628257633,
+      "coda_id": "dominica:5021",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1737917,
+      "duration_z": -0.05877601495412979,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4015056812185055,
+      "ici_pattern": [
+        1.3595043393256658,
+        1.3324793630770295,
+        0.7009858940119287,
+        0.6070304035853761
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.5446012954005082,
+      "mean_ici_s": 0.230960425,
+      "npvi": 26.161332399144953,
+      "rubato_slope": -0.28889152762859727,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 44
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5367248833235904,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.0658130163836494,
+      "coda_id": "dominica:5022",
+      "coda_type": "1+1+3",
+      "drift_s": -0.20001669999999996,
+      "duration_z": 0.1404300221886824,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4250138073568464,
+      "ici_pattern": [
+        1.4219400767004615,
+        1.3091410366922918,
+        0.6575765717900678,
+        0.6113423148171789
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6546629469503413,
+      "mean_ici_s": 0.2467521,
+      "npvi": 27.268886730895236,
+      "rubato_slope": -0.30833577505520743,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 45
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5412252032629226,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.057699756127834,
+      "coda_id": "dominica:5023",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2115666,
+      "duration_z": 0.145423205600325,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4708524992393226,
+      "ici_pattern": [
+        1.485581155496248,
+        1.320228361213229,
+        0.5646416007741113,
+        0.6295488825164121
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7724745724964253,
+      "mean_ici_s": 0.247147925,
+      "npvi": 34.276951230033326,
+      "rubato_slope": -0.3323683579378627,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 46
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5603542617046818,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.051312750311489,
+      "coda_id": "dominica:5024",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2142417,
+      "duration_z": 0.14936527549519893,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.46595492536863126,
+      "ici_pattern": [
+        1.4606375948800703,
+        1.3420327715027565,
+        0.6024535034238303,
+        0.5948761301933431
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7255956754361967,
+      "mean_ici_s": 0.24746042499999998,
+      "npvi": 28.59959578194605,
+      "rubato_slope": -0.3336863662139112,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 47
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5241008723366531,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.392386658635041,
+      "coda_id": "dominica:5026",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2119833,
+      "duration_z": 0.6176566882964943,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4586604178151133,
+      "ici_pattern": [
+        1.4031623251292042,
+        1.3875549454628096,
+        0.5510104992975255,
+        0.6582722301104607
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6210050463000363,
+      "mean_ici_s": 0.284583325,
+      "npvi": 35.05458788841565,
+      "rubato_slope": -0.30712147312215166,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 49
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5909567823343849,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.39734400422145,
+      "coda_id": "dominica:5027",
+      "coda_type": "1+1+3",
+      "drift_s": -0.22382490000000002,
+      "duration_z": 0.613609601659621,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4635677021618102,
+      "ici_pattern": [
+        1.4257360714128668,
+        1.374521788839541,
+        0.5613941339430985,
+        0.6383480058044941
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.661526686032584,
+      "mean_ici_s": 0.2842625,
+      "npvi": 33.496889023319554,
+      "rubato_slope": -0.3175291851721563,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 50
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.569673488130285,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.486988675109803,
+      "coda_id": "dominica:5028",
+      "coda_type": "1+1+3",
+      "drift_s": -0.23617480000000002,
+      "duration_z": 0.5419683155837375,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4511119236523288,
+      "ici_pattern": [
+        1.4543518450632043,
+        1.3212688378367294,
+        0.6177983943939204,
+        0.6065809227061459
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7139271688934323,
+      "mean_ici_s": 0.278583275,
+      "npvi": 27.993129336633302,
+      "rubato_slope": -0.32467832105139866,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 51
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5362564206392173,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.69807051183693,
+      "coda_id": "dominica:5029",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2226166,
+      "duration_z": 0.38407611703597533,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.45742535041505783,
+      "ici_pattern": [
+        1.441461994441807,
+        1.3480643526664888,
+        0.6057064455742156,
+        0.6047672073174892
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6901785214568168,
+      "mean_ici_s": 0.266066675,
+      "npvi": 27.614605480671248,
+      "rubato_slope": -0.3252442268465226,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 52
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5343673711748705,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.739523827624277,
+      "coda_id": "dominica:5030",
+      "coda_type": "1+1+3",
+      "drift_s": -0.20885829999999997,
+      "duration_z": 0.3547206263084222,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.449615856593026,
+      "ici_pattern": [
+        1.3831193138155318,
+        1.3950943842993604,
+        0.6305780996272554,
+        0.5912082022578523
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.5856121998043973,
+      "mean_ici_s": 0.263739575,
+      "npvi": 27.596476425747053,
+      "rubato_slope": -0.31402496193451457,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 53
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5203088695379804,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.506911173522771,
+      "coda_id": "dominica:5036",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1517751,
+      "duration_z": -0.10889296867282046,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3199787831866906,
+      "ici_pattern": [
+        1.2840284156616553,
+        1.2419917396332398,
+        0.8586010242854782,
+        0.6153788204196267
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.418308375977872,
+      "mean_ici_s": 0.2269875,
+      "npvi": 24.277832646221608,
+      "rubato_slope": -0.2389339501073849,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 55
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5454484751193824,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.623559384674631,
+      "coda_id": "dominica:5037",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1243834,
+      "duration_z": -0.16828703199931114,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.29790150414765926,
+      "ici_pattern": [
+        1.238420247693047,
+        1.2681126412441293,
+        0.8146288124639671,
+        0.6788382985988564
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.3453389278276349,
+      "mean_ici_s": 0.22227915,
+      "npvi": 21.366873401591103,
+      "rubato_slope": -0.2132229676062736,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 56
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6131935385553184,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.851318237634438,
+      "coda_id": "dominica:5038",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1163584,
+      "duration_z": -0.27742970203351575,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3136265846116497,
+      "ici_pattern": [
+        1.2058396624117051,
+        1.32052549986934,
+        0.8124751977248201,
+        0.6611596399941346
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.294671225044115,
+      "mean_ici_s": 0.213627075,
+      "npvi": 25.75087748182511,
+      "rubato_slope": -0.2142090369397233,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 57
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5940622210457883,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.6786994142875855,
+      "coda_id": "dominica:5039",
+      "coda_type": "1+1+3",
+      "drift_s": -0.14724999999999996,
+      "duration_z": -0.19551348961804146,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.34629625169230405,
+      "ici_pattern": [
+        1.2863766978885345,
+        1.2998542959304282,
+        0.79634309929558,
+        0.6174259068854572
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.4221318377767547,
+      "mean_ici_s": 0.220120825,
+      "npvi": 24.797787817452605,
+      "rubato_slope": -0.25103635696440835,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 58
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5475941308800323,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.653603488137666,
+      "coda_id": "dominica:5040",
+      "coda_type": "1+1+3",
+      "drift_s": -0.14982499999999999,
+      "duration_z": -0.183187740836342,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.33888378754130977,
+      "ici_pattern": [
+        1.306171009972165,
+        1.267877118249753,
+        0.7974217758940977,
+        0.6285300958839846
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.4546257555406312,
+      "mean_ici_s": 0.22109792499999997,
+      "npvi": 24.073914243265275,
+      "rubato_slope": -0.25033780846202,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 59
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5592783982291981,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.571030640668524,
+      "coda_id": "dominica:5089",
+      "coda_type": "1+1+3",
+      "drift_s": -0.09489999999999998,
+      "duration_z": -0.14184867299396436,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.23765673206769847,
+      "ici_pattern": [
+        1.2028969359331476,
+        1.2082081337047355,
+        0.8089506406685237,
+        0.7799442896935933
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2901529636711282,
+      "mean_ici_s": 0.224375,
+      "npvi": 14.559273697343675,
+      "rubato_slope": -0.1668115431754876,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 76
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.726643598615917,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.449640579854837,
+      "coda_id": "dominica:5090",
+      "coda_type": "1+1+3",
+      "drift_s": -0.14232500000000003,
+      "duration_z": -0.0788017300200878,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3552236426110246,
+      "ici_pattern": [
+        1.2728908610290426,
+        1.337741583929315,
+        0.7369727704348714,
+        0.6523947846067708
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.400263938291835,
+      "mean_ici_s": 0.229372925,
+      "npvi": 25.018878112000397,
+      "rubato_slope": -0.24622570427612606,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 77
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5846520804844696,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 5.152027575300232,
+      "coda_id": "dominica:5091",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1638167,
+      "duration_z": 0.0883420335225546,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.35503193660062543,
+      "ici_pattern": [
+        1.3643257330279075,
+        1.2446952405672302,
+        0.7018438179327037,
+        0.689135208472159
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.5529146565542045,
+      "mean_ici_s": 0.242622925,
+      "npvi": 22.25796000493229,
+      "rubato_slope": -0.25684229963017746,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 78
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6244307018235093,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.420414677332714,
+      "coda_id": "dominica:5093",
+      "coda_type": "1+1+3",
+      "drift_s": -0.17750259999999998,
+      "duration_z": 0.5948945459923107,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3746809979476737,
+      "ici_pattern": [
+        1.3669120998773245,
+        1.2731996623510453,
+        0.6206842165380797,
+        0.7392040212335503
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.5573867850902057,
+      "mean_ici_s": 0.2827789,
+      "npvi": 31.14586430659239,
+      "rubato_slope": -0.2535639681744291,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 80
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6800830466368422,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.369240685390553,
+      "coda_id": "dominica:5094",
+      "coda_type": "1+1+3",
+      "drift_s": -0.22505460000000002,
+      "duration_z": 0.6366741795661394,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.39752411204046867,
+      "ici_pattern": [
+        1.4110791360368329,
+        1.2680829764246258,
+        0.6964129233051453,
+        0.6244249642333957
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6351358850073856,
+      "mean_ici_s": 0.28609090000000004,
+      "npvi": 26.591739250513083,
+      "rubato_slope": -0.29316325685297934,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 81
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5549498597576753,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.093838977031516,
+      "coda_id": "dominica:5095",
+      "coda_type": "1+1+3",
+      "drift_s": -0.24440679999999998,
+      "duration_z": 0.8794549112301103,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.39472196282822664,
+      "ici_pattern": [
+        1.407969476336587,
+        1.2631949547528447,
+        0.721315759847218,
+        0.6075198090633501
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6295751112683485,
+      "mean_ici_s": 0.305336875,
+      "npvi": 27.525945074640244,
+      "rubato_slope": -0.29432281967253404,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 82
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5372350978081464,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 7,
+      "click_rate_hz": 5.6558353111250765,
+      "coda_id": "dominica:5096",
+      "coda_type": "1+1+3",
+      "drift_s": -0.24329309999999998,
+      "duration_z": 0.9308982926270285,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.8794629546221293,
+      "ici_pattern": [
+        2.07455344352301,
+        2.017385068174631,
+        0.1340326315842205,
+        0.819088896641872,
+        0.059837121638757276,
+        0.8951028384375093
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 2.642442603249808,
+      "mean_ici_s": 0.20627663333333332,
+      "npvi": 133.86563755228116,
+      "rubato_slope": -0.3167097314279276,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 83
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.8767099611498727,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.00931347482949,
+      "coda_id": "dominica:5119",
+      "coda_type": "1+1+3",
+      "drift_s": -0.30577960000000004,
+      "duration_z": 0.9606577666774081,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4853558664990985,
+      "ici_pattern": [
+        1.592433880206364,
+        1.2013487651274402,
+        0.5945564909462083,
+        0.611660863719987
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.984286787117846,
+      "mean_ici_s": 0.31177407500000004,
+      "npvi": 32.8026466662756,
+      "rubato_slope": -0.35491113236403654,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 84
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5415581254875657,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.024580528033014,
+      "coda_id": "dominica:5120",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2776906,
+      "duration_z": 0.9457384512704737,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.5414205015739639,
+      "ici_pattern": [
+        1.5410350657676828,
+        1.3773724399140188,
+        0.4346279738128594,
+        0.646964520505439
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.8801021246552954,
+      "mean_ici_s": 0.310591375,
+      "npvi": 51.51174324937586,
+      "rubato_slope": -0.3624956101887893,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 85
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5788467116992417,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.8940558250285453,
+      "coda_id": "dominica:5121",
+      "coda_type": "1+1+3",
+      "drift_s": -0.23630839999999997,
+      "duration_z": 1.077065513845069,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4905635907618885,
+      "ici_pattern": [
+        1.4294300122514785,
+        1.4055205094858032,
+        0.4717779472297804,
+        0.693271531032938
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6682253574859514,
+      "mean_ici_s": 0.321002075,
+      "npvi": 46.39568821388025,
+      "rubato_slope": -0.3142218005911645,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 86
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.6289644319506208,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.0076090067646035,
+      "coda_id": "dominica:5122",
+      "coda_type": "1+1+3",
+      "drift_s": -0.3052517,
+      "duration_z": 0.9623304657752014,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.5183664214750692,
+      "ici_pattern": [
+        1.5541562231715624,
+        1.3291369926597434,
+        0.541214130797297,
+        0.575492653371397
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.9062822873996397,
+      "mean_ici_s": 0.311906675,
+      "npvi": 35.333902843063925,
+      "rubato_slope": -0.3723913571262943,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 87
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5041536739040415,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 4.15092773234818,
+      "coda_id": "dominica:5123",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2857083,
+      "duration_z": 0.8264813759827982,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.523622616002338,
+      "ici_pattern": [
+        1.4732748329251588,
+        1.4326511975426508,
+        0.5695627412726744,
+        0.524511228259516
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7492304095313433,
+      "mean_ici_s": 0.3011375,
+      "npvi": 32.41495942672051,
+      "rubato_slope": -0.3709379270266908,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 88
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.4527517676285114,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.703978072449811,
+      "coda_id": "dominica:5124",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2855082,
+      "duration_z": 1.284865263358706,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4364980853518029,
+      "ici_pattern": [
+        1.4898632491295654,
+        1.2460677087191645,
+        0.6202186828653975,
+        0.6438503592858731
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7806160345004252,
+      "mean_ici_s": 0.33747499999999997,
+      "npvi": 29.54322073515584,
+      "rubato_slope": -0.3163887695384846,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 89
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5755259105331848,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.522098065917333,
+      "coda_id": "dominica:5125",
+      "coda_type": "1+1+3",
+      "drift_s": -0.30211659999999996,
+      "duration_z": 1.504701571406554,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4567898542732011,
+      "ici_pattern": [
+        1.4246886676635613,
+        1.3640147522373072,
+        0.6378753464687867,
+        0.5734212336303448
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6596307985462317,
+      "mean_ici_s": 0.3549021,
+      "npvi": 29.179652382106507,
+      "rubato_slope": -0.3279941707868172,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 90
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5020353589342982,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.737613828094731,
+      "coda_id": "dominica:5126",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2889519,
+      "duration_z": 1.2465543359267741,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4875891102190577,
+      "ici_pattern": [
+        1.4554824403538504,
+        1.3874770052653262,
+        0.5655506077023699,
+        0.5914899466784537
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7160216892622921,
+      "mean_ici_s": 0.334437975,
+      "npvi": 31.145776243971813,
+      "rubato_slope": -0.3413903878589148,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 91
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5205998551496612,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.518692350314527,
+      "coda_id": "dominica:5163",
+      "coda_type": "1+1+3",
+      "drift_s": -0.10094160000000002,
+      "duration_z": -0.5533219286208756,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.2620071506190525,
+      "ici_pattern": [
+        1.1880530621557317,
+        1.2248190085068937,
+        0.9254806557804505,
+        0.6616472735569244
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2675058474608332,
+      "mean_ici_s": 0.19175625,
+      "npvi": 21.37855841126154,
+      "rubato_slope": -0.18785557185228652,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 99
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5945872061235647,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.5375141520837605,
+      "coda_id": "dominica:5164",
+      "coda_type": "1+1+3",
+      "drift_s": -0.09972489999999998,
+      "duration_z": -0.5602861469799549,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.2792768149811116,
+      "ici_pattern": [
+        1.1809799655263804,
+        1.270195590655905,
+        0.8894068343434447,
+        0.6594176094742703
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2567984098207006,
+      "mean_ici_s": 0.19120417499999998,
+      "npvi": 24.080892517346786,
+      "rubato_slope": -0.1945475824468793,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 100
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5921880071071918,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.486346241162353,
+      "coda_id": "dominica:5165",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1056416,
+      "duration_z": -0.541259194742562,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.29196562215723315,
+      "ici_pattern": [
+        1.1969036777583189,
+        1.2792372056820394,
+        0.8751378348576248,
+        0.6487212817020174
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2809802520105364,
+      "mean_ici_s": 0.19271249999999998,
+      "npvi": 24.62688519463339,
+      "rubato_slope": -0.20486465589933214,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 101
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5807227654566589,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.387735547748323,
+      "coda_id": "dominica:5166",
+      "coda_type": "1+1+3",
+      "drift_s": -0.1051666,
+      "duration_z": -0.5037306893433652,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.3128963156255441,
+      "ici_pattern": [
+        1.189438773554775,
+        1.3284358990737783,
+        0.830107697221335,
+        0.6520176301501118
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2696098868401104,
+      "mean_ici_s": 0.1956875,
+      "npvi": 27.08172569991126,
+      "rubato_slope": -0.21105916320664364,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 102
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5842482648849904,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.6266127684490534,
+      "coda_id": "dominica:5167",
+      "coda_type": "1+1+3",
+      "drift_s": -0.0870666,
+      "duration_z": -0.5927164522255101,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.28599956832336115,
+      "ici_pattern": [
+        1.1295278816720216,
+        1.322451374909497,
+        0.8800581763588168,
+        0.6679625670596646
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.1804969723899918,
+      "mean_ici_s": 0.188633325,
+      "npvi": 27.770016565407868,
+      "rubato_slope": -0.1827089142387754,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 103
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.601400116747991,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 6.792324673119375,
+      "coda_id": "dominica:5168",
+      "coda_type": "1+1+3",
+      "drift_s": -0.09205830000000001,
+      "duration_z": -0.6507698964221519,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.2696446767537909,
+      "ici_pattern": [
+        1.166377992868059,
+        1.2639608762098826,
+        0.9035150280183393,
+        0.6661461029037188
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.2348626492161656,
+      "mean_ici_s": 0.18403125,
+      "npvi": 23.84483434156616,
+      "rubato_slope": -0.1861141518084567,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 104
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5994378789219753,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.6417712031020897,
+      "coda_id": "dominica:5196",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2900833,
+      "duration_z": 1.357583207564278,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4717311723853819,
+      "ici_pattern": [
+        1.40955948917021,
+        1.4065735281253624,
+        0.6194411002868768,
+        0.5644258824175504
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6324167452724352,
+      "mean_ici_s": 0.343239575,
+      "npvi": 29.06958592596382,
+      "rubato_slope": -0.3322533248096466,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 118
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.4928659924950709,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.5650743357214814,
+      "coda_id": "dominica:5197",
+      "coda_type": "1+1+3",
+      "drift_s": -0.281888,
+      "duration_z": 1.450732742352184,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.47063382464285025,
+      "ici_pattern": [
+        1.4546929319477933,
+        1.3536110958803214,
+        0.5409643797023777,
+        0.6507315924695077
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.7145588642799734,
+      "mean_ici_s": 0.350623825,
+      "npvi": 37.135826487989085,
+      "rubato_slope": -0.3224530734612802,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 119
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5828720006492194,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.6662939267841104,
+      "coda_id": "dominica:5198",
+      "coda_type": "1+1+3",
+      "drift_s": -0.2815666,
+      "duration_z": 1.3286222391918032,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.45768648279918556,
+      "ici_pattern": [
+        1.4365516305842239,
+        1.3539866913530458,
+        0.5987547799307071,
+        0.6107068981320233
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6811943408615893,
+      "mean_ici_s": 0.34094375,
+      "npvi": 28.414954928388905,
+      "rubato_slope": -0.32327661087789433,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 120
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5405613027053676,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "click_count": 5,
+      "click_rate_hz": 3.6860698187330936,
+      "coda_id": "dominica:5199",
+      "coda_type": "1+1+3",
+      "drift_s": -0.268025,
+      "duration_z": 1.3055478849519453,
+      "edge_coarticulation": "not_observable",
+      "formants": "not_observable",
+      "ici_cv": 0.4480609678221708,
+      "ici_pattern": [
+        1.4257225599931824,
+        1.347750093017972,
+        0.5911718775284135,
+        0.6353554694604324
+      ],
+      "identity_status": "resolved",
+      "initial_ici_ratio": 1.6615022194220912,
+      "mean_ici_s": 0.339114575,
+      "npvi": 30.289505749225565,
+      "rubato_slope": -0.31276794870878116,
+      "source": "metadata",
+      "source_ref": {
+        "dataset": "codamd.csv",
+        "row": 121
+      },
+      "spectral_quality": "not_observable",
+      "terminal_ici_ratio": 0.5664985977212971,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    }
+  ],
+  "gate": {
+    "codamd_hash": "e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899",
+    "cohort_flow": {
+      "after_codatype_filter": 709,
+      "after_handv_filter": 1142,
+      "after_whale_filter": 628,
+      "n_a": 338,
+      "n_i": 290,
+      "total_input": 1375
+    },
+    "details": {
+      "model_warnings": [
+        "The MLE may be on the boundary of the parameter space."
+      ]
+    },
+    "mixed_model": {
+      "coefficient_label": "vowel_code (i=1, a=0)",
+      "coefficient_value": -0.13184424421622426,
+      "converged": true,
+      "n_groups": 4,
+      "n_obs": 628,
+      "p_value": 3.73767095625381e-11,
+      "t_value": -6.614120539495718
+    },
+    "per_whale_effects": [
+      {
+        "n_a": 132,
+        "n_i": 128,
+        "raw_diff_a_minus_i": 0.14823545672348482,
+        "raw_mean_a": 1.1012553348484848,
+        "raw_mean_i": 0.953019878125,
+        "whale_id": "ATWOOD",
+        "z_diff_a_minus_i": 0.8955945101984027,
+        "z_mean_a": 0.440908066559214,
+        "z_mean_i": -0.45468644363918875
+      },
+      {
+        "n_a": 120,
+        "n_i": 92,
+        "raw_diff_a_minus_i": 0.1586021961594204,
+        "raw_mean_a": 1.2140847483333335,
+        "raw_mean_i": 1.055482552173913,
+        "whale_id": "FORK",
+        "z_diff_a_minus_i": 0.8399289361806783,
+        "z_mean_a": 0.36449746287086077,
+        "z_mean_i": -0.47543147330981755
+      },
+      {
+        "n_a": 51,
+        "n_i": 55,
+        "raw_diff_a_minus_i": 0.07166612973262065,
+        "raw_mean_a": 1.2659689588235294,
+        "raw_mean_i": 1.1943028290909088,
+        "whale_id": "PINCHY",
+        "z_diff_a_minus_i": 0.8121672775867024,
+        "z_mean_a": 0.42140754969121347,
+        "z_mean_i": -0.39075972789548885
+      },
+      {
+        "n_a": 35,
+        "n_i": 15,
+        "raw_diff_a_minus_i": 0.1678444819047622,
+        "raw_mean_a": 1.291737028571429,
+        "raw_mean_i": 1.1238925466666667,
+        "whale_id": "TBB",
+        "z_diff_a_minus_i": 0.860871988925301,
+        "z_mean_a": 0.25826159667758974,
+        "z_mean_i": -0.6026103922477113
+      }
+    ],
+    "schema_version": "0.1.0",
+    "state": "pass",
+    "summary": "All criteria met: hash match, sample counts match, i coefficient negative and within tolerance, all four within-whale raw and normalized a-i effects positive"
+  },
+  "notes": [
+    "spectral_quality: not_observable (no WAV input in this run)",
+    "formants: not_observable (no WAV input in this run)",
+    "edge_coarticulation: not_observable (no WAV input in this run)"
+  ],
+  "partition_contrasts": [
+    {
+      "a_minus_i": -0.5422920885171812,
+      "ci95_high": -0.3588349531666134,
+      "ci95_low": -0.6916833109004767,
+      "feature": "click_rate_hz",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": 0.033726418730745875,
+      "ci95_high": 0.04057966010855439,
+      "ci95_low": 0.02308556399843295,
+      "feature": "mean_ici_s",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": 0.030986974501803558,
+      "ci95_high": 0.054409201361146214,
+      "ci95_low": 0.007417759112233038,
+      "feature": "ici_cv",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": 2.1368722013143895,
+      "ci95_high": 4.017444753875216,
+      "ci95_low": 0.25629964875356315,
+      "feature": "npvi",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": 0.05048225362783321,
+      "ci95_high": 0.11079969178053806,
+      "ci95_low": -0.009835184524871643,
+      "feature": "initial_ici_ratio",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": -0.012856453640974264,
+      "ci95_high": -0.004137877726691386,
+      "ci95_low": -0.02125012842787144,
+      "feature": "terminal_ici_ratio",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": -0.018712054967723803,
+      "ci95_high": -0.00223332508786947,
+      "ci95_low": -0.035190784847578135,
+      "feature": "rubato_slope",
+      "n_whales": 4
+    },
+    {
+      "a_minus_i": -0.03437423083900943,
+      "ci95_high": -0.016504843529960338,
+      "ci95_low": -0.047786893310308096,
+      "feature": "drift_s",
+      "n_whales": 4
+    }
+  ],
+  "schema_version": "0.1.0",
+  "whale_feature_means": [
+    {
+      "means": {
+        "click_rate_hz": 4.669252433658422,
+        "drift_s": -0.2266157358778626,
+        "ici_cv": 0.44700142522891745,
+        "initial_ici_ratio": 1.6591644335070272,
+        "mean_ici_s": 0.2746902485368958,
+        "npvi": 31.230985644429627,
+        "rubato_slope": -0.314988160161429,
+        "terminal_ici_ratio": 0.5349464668579228
+      },
+      "n": 131,
+      "vowel": "a",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "means": {
+        "click_rate_hz": 5.329811269166648,
+        "drift_s": -0.17889090624999998,
+        "ici_cv": 0.3985759854845351,
+        "initial_ici_ratio": 1.5468959376992484,
+        "mean_ici_s": 0.23825496953125003,
+        "npvi": 27.4563687326585,
+        "rubato_slope": -0.28276638389088027,
+        "terminal_ici_ratio": 0.551692062036946
+      },
+      "n": 128,
+      "vowel": "i",
+      "whale_id_raw": "ATWOOD"
+    },
+    {
+      "means": {
+        "click_rate_hz": 4.205074143557812,
+        "drift_s": -0.22266933416666665,
+        "ici_cv": 0.4115790964936531,
+        "initial_ici_ratio": 1.5820493757277032,
+        "mean_ici_s": 0.30246342320833314,
+        "npvi": 27.74211519788859,
+        "rubato_slope": -0.2865528656457475,
+        "terminal_ici_ratio": 0.583997011686127
+      },
+      "n": 120,
+      "vowel": "a",
+      "whale_id_raw": "FORK"
+    },
+    {
+      "means": {
+        "click_rate_hz": 4.927881929850539,
+        "drift_s": -0.17482037717391308,
+        "ici_cv": 0.351186133515743,
+        "initial_ici_ratio": 1.472718487974406,
+        "mean_ici_s": 0.2638706380434783,
+        "npvi": 23.481842601909285,
+        "rubato_slope": -0.24839307222113996,
+        "terminal_ici_ratio": 0.6091248114707234
+      },
+      "n": 92,
+      "vowel": "i",
+      "whale_id_raw": "FORK"
+    },
+    {
+      "means": {
+        "click_rate_hz": 3.958439555670394,
+        "drift_s": -0.23883887058823533,
+        "ici_cv": 0.42761444486608663,
+        "initial_ici_ratio": 1.5926528866622267,
+        "mean_ici_s": 0.3164921975490196,
+        "npvi": 27.903473345977094,
+        "rubato_slope": -0.2984840532458324,
+        "terminal_ici_ratio": 0.5621637717549679
+      },
+      "n": 51,
+      "vowel": "a",
+      "whale_id_raw": "PINCHY"
+    },
+    {
+      "means": {
+        "click_rate_hz": 4.216699881389803,
+        "drift_s": -0.2327406890909091,
+        "ici_cv": 0.4338659126312367,
+        "initial_ici_ratio": 1.6314796260526536,
+        "mean_ici_s": 0.29857570727272725,
+        "npvi": 28.52811487290971,
+        "rubato_slope": -0.3047926364465171,
+        "terminal_ici_ratio": 0.5620990769975487
+      },
+      "n": 55,
+      "vowel": "i",
+      "whale_id_raw": "PINCHY"
+    },
+    {
+      "means": {
+        "click_rate_hz": 3.989390007362859,
+        "drift_s": -0.23279908857142861,
+        "ici_cv": 0.3935222017950328,
+        "initial_ici_ratio": 1.5314594814999356,
+        "mean_ici_s": 0.32293425714285723,
+        "npvi": 26.335551711719624,
+        "rubato_slope": -0.2773699024066523,
+        "terminal_ici_ratio": 0.5684696004233137
+      },
+      "n": 35,
+      "vowel": "a",
+      "whale_id_raw": "TBB"
+    },
+    {
+      "means": {
+        "click_rate_hz": 4.516931413911221,
+        "drift_s": -0.19697413333333333,
+        "ici_cv": 0.3721412387449609,
+        "initial_ici_ratio": 1.512303111159252,
+        "mean_ici_s": 0.2809731366666666,
+        "npvi": 25.19831088727988,
+        "rubato_slope": -0.26659466903022866,
+        "terminal_ici_ratio": 0.5780867147810105
+      },
+      "n": 15,
+      "vowel": "i",
+      "whale_id_raw": "TBB"
+    }
+  ]
+}
