@@ -247,6 +247,34 @@ class ExtractionQC(BaseModel):
     join: JoinQC | None = None
 
 
+class DetectionState(str, Enum):
+    detected = "detected"
+    not_observable = "not_observable"
+    failed = "failed"
+
+
+class CodaDetection(BaseModel):
+    coda_id: str
+    click_times_s: list[float]
+    click_count: int
+
+
+class DetectionMetrics(BaseModel):
+    n_clicks: int = 0
+    n_codas: int = 0
+    parity: str = "unverified"
+
+
+class DetectionResult(BaseArtifact):
+    state: DetectionState
+    detector_version: str = "energy-envelope-v1"
+    params_hash: str
+    source_wav_sha256: str | None = None
+    detections: list[CodaDetection] = Field(default_factory=list)
+    metrics: DetectionMetrics = Field(default_factory=DetectionMetrics)
+    error: str | None = None
+
+
 class ExtractionResult(BaseModel):
     schema_version: str = SchemaVersion.v0_1_0.value
     code_version: str = "coda-extractor-v1"
@@ -305,3 +333,48 @@ class FeatureSet(BaseModel):
     partition_contrasts: list[FeatureContrast] = Field(default_factory=list)
     whale_feature_means: list[WhaleFeatureMean] = Field(default_factory=list)
     details: dict[str, Any] = Field(default_factory=dict)
+
+
+class AnalystEvidence(BaseModel):
+    """Frozen evidence bundle handed to the analyst model.
+
+    Everything the model may cite lives inside this document; evidence_refs
+    are validated as JSON Pointers against it. Deterministic sample: the
+    first N gate-partition feature records by coda_id sort.
+    """
+
+    schema_version: str = SchemaVersion.v0_1_0.value
+    gate: GateResult
+    partition_contrasts: list[FeatureContrast] = Field(default_factory=list)
+    whale_feature_means: list[WhaleFeatureMean] = Field(default_factory=list)
+    feature_records_sample: list[PhonologyFeature] = Field(default_factory=list)
+    evidence_manifest: dict[str, str] = Field(default_factory=dict)
+    notes: list[str] = Field(default_factory=list)
+
+
+class ModelCallRecord(BaseModel):
+    call_id: str
+    model: str
+    reasoning_effort: str = ""
+    params_hash: str
+    request_sha256: str
+    response: Any = None
+    usage: dict[str, int] = Field(default_factory=dict)
+    cache_key: str
+
+
+class RankedHypothesis(BaseModel):
+    rank: int
+    score: float
+    score_components: dict[str, float] = Field(default_factory=dict)
+    reasons: list[str] = Field(default_factory=list)
+    hypothesis: dict[str, Any]
+    uncertainty: dict[str, Any] = Field(default_factory=dict)
+
+
+class RankedHypotheses(BaseModel):
+    schema_version: str = SchemaVersion.v0_1_0.value
+    selection_rule_version: str = "rank-v1"
+    evidence_manifest: dict[str, str] = Field(default_factory=dict)
+    state: str = "ok"
+    ranked: list[RankedHypothesis] = Field(default_factory=list)
