@@ -2,6 +2,8 @@
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Deployed](https://img.shields.io/badge/site-rosetta--coda.vercel.app-0aa)](https://rosetta-coda.vercel.app)
 
 **Phonological hypothesis instrument for sperm-whale codas.**
 
@@ -146,6 +148,15 @@ the model stage (analyst → rank → calibrate → report) ran once against the
 frozen evidence and is hash-sealed in `artifacts/release/`. Deployed at
 <https://rosetta-coda.vercel.app>. See the [roadmap](docs/roadmap.md) and
 [architecture](docs/architecture.md).
+
+## Community
+
+- [Contributing](CONTRIBUTING.md) — setup, spec workflow, PR conventions
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Security policy](SECURITY.md) — how to report vulnerabilities
+- [Changelog](CHANGELOG.md)
+- [Citing this work](CITATION.cff) — GitHub renders a "Cite this repository" panel from this file
+- License: [MIT](LICENSE)
 
 ---
 

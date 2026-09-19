@@ -1,7 +1,9 @@
 # Rosetta Coda — Spec-driven roadmap
 
-Status: Proposed  
+Status: Implemented — SPECs 000–013 complete; sealed release at `artifacts/release/`; deployed at https://rosetta-coda.vercel.app  
 Planning assumption: one engineer plus researcher review. Replan every four weeks or after any scientific gate.
+
+> As-built notes: `SPEC-006` detector parity remains `unverified` (no published WAV/MATLAB fixtures); `SPEC-012` calibration is `indeterminate` on the current four-whale corpus (degenerate grouped split — all whales in holdout); the "microservices or cloud deployment" exclusion still holds for the pipeline — the public site serves only static, sealed artifacts.
 
 ## Operating model
 

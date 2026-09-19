@@ -1,7 +1,7 @@
 # Rosetta Coda — Architecture
 
-Status: Proposed  
-Date: 2026-07-12
+Status: Implemented (as-built; SPECs 000–013)  
+Date: 2026-07-12 · revised post-implementation
 
 ## Requirements
 
@@ -27,7 +27,7 @@ Scientific invariants:
 
 ## Architecture choice
 
-Use a modular monolith with ports and adapters. Python owns scientific computation and orchestration; a separate TypeScript web client consumes a versioned local API. LangGraph coordinates stages but contains no scientific calculations.
+A modular Python monolith. `scripts/run_pipeline.py` orchestrates the stages and owns no scientific calculations. Two consumers read the immutable artifacts: a versioned local FastAPI (`api/`) and static UIs (`demo/`, `research/`) that work with zero backend — which is also what the public Vercel deployment serves.
 
 ```mermaid
 flowchart LR
@@ -39,7 +39,7 @@ flowchart LR
     N --> G{Reproduction gate}
     G -->|pass| P[Phonological feature engine]
     G -->|fail or indeterminate| X[Stop report]
-    P --> L[Claude analyst adapter]
+    P --> L[LLM analyst adapter]
     L --> C[Contextual interpreter]
     C --> R[Report generator]
     I --> S[(Immutable run artifacts)]
@@ -62,24 +62,23 @@ rosetta-coda/
   uv.lock
   contracts/            # Pydantic models and exported JSON Schema
   data/                 # Metadata loaders, validation, provenance
-  analysis/             # normalization and statistical gates
+  analysis/             # normalization, statistical gates, held-out calibration
   detector/             # optional WAV click/coda detection
-  phonology/             # deterministic rhythm/tempo/ornament/rubato features
-  llm/                   # provider-neutral ports; Claude adapter
-  interpretation/       # ranked, falsifiable hypotheses
+  phonology/            # timing extraction + deterministic feature engine
+  interpretation/       # analyst adapter + ranked, falsifiable hypotheses
   reporting/            # citable reports and limitations
-  orchestration/        # LangGraph state and stage transitions
   storage/              # manifests, hashes, atomic artifact writes
-  api/                  # versioned local HTTP/SSE API
-  web/                   # waveform, time-time plot, evidence trace
-  specs/                 # accepted implementation contracts
-  tests/
-    unit/
-    integration/
-    fixtures/
-    golden/
-  external/              # pinned upstream datasets/repos; read-only
-  artifacts/runs/        # ignored generated outputs
+  api/                  # versioned local HTTP/SSE API (local only)
+  demo/                 # SPEC-004 gate demo (static)
+  research/             # research console over the sealed release (static)
+  scripts/              # run_pipeline.py, run_foundation.py, replay_release.py
+  specs/                # accepted implementation contracts
+  tests/                # unit, integration, golden, fixture tests
+  external/             # pinned upstream datasets; read-only
+  artifacts/
+    runs/               # ignored generated outputs
+    release/            # sealed golden run (committed, hash-pinned)
+    demo/  gates/       # demo-facing frozen artifacts
 ```
 
 ## Module boundaries
@@ -92,18 +91,17 @@ rosetta-coda/
 | `analysis` | Baselines, z-scores, preregistered tests | baseline tables, gate results | `contracts` |
 | `detector` | Envelope/click/coda detection from WAV | detections and detector metrics | `contracts` |
 | `phonology` | Deterministic combinatorial features | feature records | `contracts`, `analysis` |
-| `llm` | Typed model calls, cache, model provenance | model call records | `contracts` |
-| `interpretation` | Non-semantic hypotheses and falsifiers | hypothesis records | `contracts` |
+| `interpretation` | Typed model calls, candidate ranking, non-semantic hypotheses and falsifiers | model call records, hypothesis records | `contracts` |
 | `reporting` | Evidence assembly and limitations | reports | all stage contracts, read-only |
-| `orchestration` | Dependency gates, retries, checkpoints | run state | public module interfaces only |
+| `scripts` | Pipeline orchestration: dependency order, gate stop, manifest | run state | public module interfaces only |
 | `storage` | Atomic immutable artifacts and content hashes | run filesystem | `contracts` |
-| `api` | Local read/execute/stream surface | no scientific data | orchestration, storage |
+| `api` | Local read/stream surface | no scientific data | `storage`, `contracts` |
 
-Numeric modules never import LangGraph, FastAPI, UI, or provider SDKs. LLM modules never mutate observations or deterministic measurements.
+Numeric modules never import FastAPI, UI, or provider SDKs. The model adapter never mutates observations or deterministic measurements, and requires a `pass` gate plus a frozen evidence bundle before any call.
 
 ## Core contracts
 
-Every artifact includes `schema_version`, `run_id`, `created_at`, `code_revision`, `config_hash`, `input_hashes`, and `producer`.
+Every artifact carries `schema_version`; the run `manifest.json` binds `run_id`, input SHA-256s, and the SHA-256 of every artifact, so `created_at`/`code_revision` provenance is content-addressed rather than embedded per file.
 
 `CodaRecord`:
 
@@ -123,17 +121,16 @@ Every artifact includes `schema_version`, `run_id`, `created_at`, `code_revision
 }
 ```
 
-`EvidenceTrace` replaces any promise of raw private chain-of-thought:
+`EvidenceTrace` replaces any promise of raw private chain-of-thought. Evidence references are JSON Pointers into the frozen analyst-evidence bundle, validated at rank time:
 
 ```json
 {
   "claim_id": "hyp-001",
   "claim_kind": "phonological_hypothesis",
   "claim": "...",
-  "evidence_refs": ["stage-01/codas.jsonl#dominica:1234"],
-  "transformations": ["individual_zscore:v1"],
+  "evidence_refs": ["/gate/per_whale_effects/0/raw_diff_a_minus_i", "/features/partition_contrasts/2/a_minus_i"],
   "alternatives": ["individual timing variation"],
-  "uncertainty": {"kind": "epistemic", "estimate": 0.42, "calibration_version": null},
+  "uncertainty": {"kind": "model", "label": "heuristic"},
   "falsifiers": ["effect disappears in held-out resolved whales"]
 }
 ```
@@ -168,29 +165,30 @@ Before implementation, `SPEC-004` freezes:
 - success, failure, and indeterminate criteria;
 - sensitivity analyses.
 
-Recommended primary estimand: within-whale mean difference `mean(z_duration_a) - mean(z_duration_i)`, aggregated across eligible whales with a whale-cluster bootstrap. Pass requires positive effect and 95% interval above zero. Failure stops stages 2–4. Insufficient eligible data is `indeterminate`, not failure and not success.
+Primary estimand as implemented: a linear mixed-effects model on `codamd.csv` duration with vowel code as fixed effect and whale as random effect; pass requires the published negative coefficient for `i` within the preregistered tolerance plus same-direction within-whale effects. Failure stops downstream stages. Insufficient eligible data is `indeterminate`, not failure and not success.
 
-Current blocker: `DominicaCodas.csv` has `CodaType` but no explicit, verified coda-level `a/i/ī` quality column or spectral formants. No mapping from coda type to vowel quality may be invented. `SPEC-004` cannot be accepted until the label source is verified from Beguš data/code or a cited operational mapping.
+Resolved blocker: verified coda-level `a/i` labels come from `external/phonology-osf-9t6qu/codamd.csv` (Beguš phonology release), joined back to `DominicaCodas.csv` on coda number for timing data. The gate returned `pass` (628 observations, four whales; see `artifacts/gates/spec-004-duration-gate.json`).
 
 ## Run storage
 
 ```text
 artifacts/runs/{run_id}/
   manifest.json
-  config.json
-  inputs/source-manifest.json
-  stage-01/codas.jsonl
-  stage-01/qc.json
-  stage-02/baselines.jsonl
-  stage-02/normalized-codas.jsonl
-  stage-02/reproduction-gate.json
-  stage-03/phonology.jsonl
-  stage-03/model-calls.jsonl
-  stage-04/hypotheses.jsonl
-  report/report.json
-  report/report.md
+  spec-002-load.json
+  spec-003-normalization.json
+  spec-004-duration-gate.json
+  spec-005-extraction.json
+  spec-007-phonology.jsonl
+  spec-007-featureset.json
+  spec-008-analyst-evidence.json
+  spec-008-model-calls.jsonl
+  spec-009-ranked-hypotheses.json(.jsonl)
+  spec-010-report.json / .md
+  spec-012-calibration.json
   events.jsonl
 ```
+
+`{run_id}` is `pipeline-<dataset-sha12>-<codamd-sha12>`: identical inputs always produce the same run id and the same deterministic artifacts (see `scripts/replay_release.py`).
 
 Writes use temporary files plus atomic rename. Finalized artifacts are immutable. Manifest contains SHA-256 hashes for every input/output. LLM calls store request schema, model ID, provider parameters, response, usage, and cache key; secrets are never persisted.
 
@@ -210,7 +208,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ### ADR-001 — Modular monolith
 
-- Status: Proposed
+- Status: Accepted
 - Context: Small team, coupled scientific stages, local batch workload.
 - Decision: One Python package with enforced module boundaries.
 - Consequences: Simple deployment and reproducibility; modules can be extracted later.
@@ -218,7 +216,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ### ADR-002 — Local immutable artifacts as source of truth
 
-- Status: Proposed
+- Status: Accepted
 - Context: Full replay and auditability required.
 - Decision: Versioned JSON/JSONL artifacts plus hash manifest; optional SQLite index is disposable.
 - Consequences: Human-readable audit trail; larger numeric corpora may later add Parquet as a derived artifact.
@@ -226,7 +224,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ### ADR-003 — Deterministic science outside LLM
 
-- Status: Proposed
+- Status: Accepted
 - Context: Numeric results must be reproducible; model outputs are non-deterministic.
 - Decision: Extraction, normalization, statistics, and feature measurement are pure versioned code. LLM only proposes structured hypotheses over frozen evidence.
 - Consequences: Strong audit boundary; less flexibility for model-led feature invention.
@@ -234,7 +232,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ### ADR-004 — Evidence trace, not raw chain-of-thought
 
-- Status: Proposed
+- Status: Accepted
 - Context: Researchers require auditability, while private model reasoning is neither a stable API nor valid evidence.
 - Decision: Persist structured claims, evidence, transformations, alternatives, uncertainty, and falsifiers.
 - Consequences: Auditable scientific rationale without claiming access to hidden reasoning.
@@ -242,7 +240,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ## Dependency assessment
 
-Current application has no `pyproject.toml`, lockfile, package graph, or implemented modules. Only `scripts/inspect_schema.py` depends on pandas; therefore coupling and circular-dependency metrics are not yet meaningful. Pin Python 3.11 and all dependencies with `uv.lock` in `SPEC-001`.
+Python 3.11+; all dependencies pinned in `uv.lock` (pydantic, pandas, numpy, statsmodels, openai-compatible SDK, fastapi/starlette for the local API). The model provider is OpenAI-compatible: `ROSETTA_API_KEY`/`ROSETTA_BASE_URL`/`ROSETTA_MODEL` (DeepSeek defaults; see `docs/model-provider-research.md`). Numeric modules carry no provider SDK dependency.
 
 ## Risks
 
