@@ -1,22 +1,81 @@
 {
   "calibration_version": "calibration-v1",
   "caveats": [
-    "4 resolved whales; split is illustrative, not a powered evaluation",
-    "degenerate split (empty fit or hold-out group); evaluating claims on the same whales they were derived from would be circular, so no held-out evaluation is reported"
+    "4 resolved whales; split is illustrative, not a powered evaluation"
   ],
-  "claims": [],
-  "corpus_replication_rate": null,
+  "claims": [
+    {
+      "claim_ref": "hypotheses.jsonl#rank-1",
+      "claim_title": "Within-whale monotone a>i effect across all four whales drives the pooled vowel contrast",
+      "detail": "no evaluable contrast reference in evidence_refs",
+      "evaluated_contrasts": [],
+      "replicated": null
+    },
+    {
+      "claim_ref": "hypotheses.jsonl#rank-2",
+      "claim_title": "Vowel-conditioned click-rate contrast with lengthened a-intervals",
+      "detail": "2 contrast(s) evaluated on hold-out",
+      "evaluated_contrasts": [
+        {
+          "direction": "a_minus_i_negative",
+          "feature": "click_rate_hz",
+          "holdout_effect": -0.25826032571940916,
+          "n_whales": 1,
+          "replicated": true
+        },
+        {
+          "direction": "a_minus_i_positive",
+          "feature": "mean_ici_s",
+          "holdout_effect": 0.01791649027629233,
+          "n_whales": 1,
+          "replicated": true
+        }
+      ],
+      "replicated": true
+    },
+    {
+      "claim_ref": "hypotheses.jsonl#rank-3",
+      "claim_title": "Rhythm-variability (NPVI and ICI-CV) increase in a-labeled codas",
+      "detail": "3 contrast(s) evaluated on hold-out",
+      "evaluated_contrasts": [
+        {
+          "direction": "a_minus_i_positive",
+          "feature": "ici_cv",
+          "holdout_effect": -0.006251467765150065,
+          "n_whales": 1,
+          "replicated": false
+        },
+        {
+          "direction": "a_minus_i_positive",
+          "feature": "npvi",
+          "holdout_effect": -0.6246415269326171,
+          "n_whales": 1,
+          "replicated": false
+        },
+        {
+          "direction": "a_minus_i_negative",
+          "feature": "terminal_ici_ratio",
+          "holdout_effect": 6.469475741921471e-05,
+          "n_whales": 1,
+          "replicated": false
+        }
+      ],
+      "replicated": false
+    }
+  ],
+  "corpus_replication_rate": 0.5,
   "groups": {
-    "fit": [],
-    "holdout": [
+    "fit": [
       "ATWOOD",
       "FORK",
-      "PINCHY",
       "TBB"
+    ],
+    "holdout": [
+      "PINCHY"
     ]
   },
   "schema_version": "0.1.0",
   "split_rule": "sha256(whale_id + seed) mod 2",
   "split_seed": "calibration-v1",
-  "state": "indeterminate"
+  "state": "ok"
 }

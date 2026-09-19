@@ -38,7 +38,7 @@ For every whale in the frozen cohort, the within-whale raw difference a_minus_i 
 
 In the frozen cohort, codas labeled with vowel 'a' are produced at a lower click_rate_hz than codas labeled 'i' (a_minus_i = -0.542 Hz, 95% CI entirely below zero), and this rate difference co-occurs with longer mean_ici_s for 'a' (a_minus_i = +0.0337 s, CI above zero), consistent with 'a'-labeled codas having more spaced click train timing rather than merely more clicks.
 
-- uncertainty: sampling (heuristic)
+- uncertainty: sampling (empirically_checked)
 - evidence: `/partition_contrasts/0`, `/partition_contrasts/1`, `/gate/mixed_model/coefficient_value`, `/gate/mixed_model/p_value`, `/whale_feature_means/0/means/click_rate_hz`, `/whale_feature_means/1/means/click_rate_hz`
 - alternatives: The rate difference could reflect a per-whale production-style effect rather than a vowel-associated phonological contrast, since only four whales contribute.; The click_rate_hz contrast could be an artifact of duration normalization (duration_z) rather than an independent rate parameter.
 - falsifiers: A re-partition with additional whales whose a_minus_i click_rate_hz CI includes zero.; Demonstration that the click_rate_hz contrast disappears after conditioning on mean_ici_s or click_count within this frozen cohort.; Evidence that the vowel labels are not comparable across whales (e.g., differing annotation conventions).
@@ -47,20 +47,21 @@ In the frozen cohort, codas labeled with vowel 'a' are produced at a lower click
 
 Within the frozen cohort, 'a'-labeled codas show higher timing variability than 'i'-labeled codas on two independent dispersion features: npvi (a_minus_i = +2.14, CI above zero) and ici_cv (a_minus_i = +0.031, CI above zero), while terminal_ici_ratio is lower for 'a' (a_minus_i = -0.0129, CI below zero), suggesting the vowel partition covaries with rhythmic dispersion and with the terminal inter-click interval specifically.
 
-- uncertainty: sampling (heuristic)
+- uncertainty: sampling (empirically_checked)
 - evidence: `/partition_contrasts/2`, `/partition_contrasts/3`, `/partition_contrasts/5`, `/feature_records_sample/0/npvi`, `/feature_records_sample/0/ici_cv`, `/feature_records_sample/0/terminal_ici_ratio`, `/feature_records_sample/48/npvi`
 - alternatives: The npvi contrast, though CI-positive, could be dominated by a few high-NPVI outlier records rather than a systematic a/i distribution shift.; The terminal_ici_ratio contrast could reflect a boundary or segmentation artifact at the end of codas rather than a phonological property of the vowel partition.
 - falsifiers: Recomputing the contrasts with outlier-trimmed records yields CIs spanning zero for npvi and/or ici_cv.; The terminal_ici_ratio effect reverses sign in an independent cohort with different segmentation parameters.; The npvi and ici_cv effects are found to be driven by click_count rather than vowel label.
 
 ## Calibration
-- indeterminate
+- replication rate: 0.5 (calibration-v1)
+- caveat: 4 resolved whales; split is illustrative, not a powered evaluation
 
 ## Limitations
 
 - No semantic ground truth exists; nothing in this report is a translation.
 - Unresolved-identity codas are excluded from individual-controlled inference.
 - Audio-dependent features are not_observable in this run (no WAV input).
-- Confidence labels are heuristic unless an empirical calibration report exists.
+- Confidence labels are empirically_checked where the calibration report evaluated them; the whale split is illustrative.
 
 ## Cannot conclude
 
@@ -73,7 +74,8 @@ Within the frozen cohort, 'a'-labeled codas show higher timing variability than 
 
 - DominicaCodas.csv — `53dd44fbfb0040da93656aa44883954f3abe18dd6539e90c625af86a96db6b45`
 - codamd.csv (OSF 10.17605/OSF.IO/9T6QU) — `e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899`
-- code revision `2bc1fb3d0b8bd70396a4af7c6760552010c81e42`
+- code revision `c3e073b5456d47d1f3445de3d98f74d3d990c488`
+- model `deepseek-chat`
 - `uv sync --all-extras`
 - `uv run python -m scripts.run_pipeline`
-- `uv run python -m scripts.replay`
+- `uv run python -m scripts.replay_release`

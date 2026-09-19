@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import pytest
-
 from analysis.calibration import (
     apply_calibration_labels,
     evaluate_claims,
@@ -55,13 +53,24 @@ class TestSplit:
         assert set(first["fit"] + first["holdout"]) == set(whales)
         assert not set(first["fit"]) & set(first["holdout"])
 
-    def test_real_partition_is_degenerate(self):
-        """Documents the actual corpus outcome: all four whales land in
-        hold-out under calibration-v1, so evaluation is indeterminate."""
+    def test_split_matches_spec_012_formula(self):
+        """sha256(whale_id + seed) as int mod 2, no separator (SPEC-012)."""
+        import hashlib
+
+        seed = "calibration-v1"
+        whale = "ATWOOD"
+        digest = hashlib.sha256(f"{whale}{seed}".encode()).digest()
+        expected = "fit" if int.from_bytes(digest, "big") % 2 == 0 else "holdout"
+        groups = split_whales([whale], seed)
+        assert groups[expected] == [whale]
+        assert groups["fit" if expected == "holdout" else "holdout"] == []
+
+    def test_real_partition_is_three_one(self):
+        """SPEC-012 formula on the four gate whales: 3 fit / 1 holdout."""
         whales = ["ATWOOD", "FORK", "PINCHY", "TBB"]
         groups = split_whales(whales)
-        assert groups["fit"] == []
-        assert groups["holdout"] == whales
+        assert groups["fit"] == ["ATWOOD", "FORK", "TBB"]
+        assert groups["holdout"] == ["PINCHY"]
 
 
 class TestEvaluate:
@@ -76,10 +85,6 @@ class TestEvaluate:
                 "W4": {"a": [0.31, 0.31], "i": [0.21, 0.21]},
             }
         )
-        # Force a non-degenerate split for the fixture
-        groups = split_whales(["W1", "W2", "W3", "W4"])
-        if not groups["fit"] or not groups["holdout"]:
-            pytest.skip("fixture whales produced degenerate split")
         ranked = make_ranked(["/partition_contrasts/0"])
         report = evaluate_claims(features, ranked, self.DOC)
         assert report.state == "ok"
@@ -88,16 +93,9 @@ class TestEvaluate:
         assert claim.evaluated_contrasts[0]["holdout_effect"] > 0
 
     def test_degenerate_split_is_indeterminate(self):
+        # A single whale always leaves fit or hold-out empty.
         features = partition_features_for(
             {"ATWOOD": {"a": [0.3, 0.3], "i": [0.2, 0.2]}}
-        )
-        # extend to all four gate whales -> known degenerate split
-        features += partition_features_for(
-            {
-                "FORK": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
-                "PINCHY": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
-                "TBB": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
-            }
         )
         ranked = make_ranked(["/partition_contrasts/0"])
         report = evaluate_claims(features, ranked, self.DOC)
@@ -110,13 +108,13 @@ class TestEvaluate:
             {
                 "W1": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
                 "W2": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
+                "W3": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
+                "W4": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
             }
         )
-        groups = split_whales(["W1", "W2"])
-        if not groups["fit"] or not groups["holdout"]:
-            pytest.skip("fixture whales produced degenerate split")
         ranked = make_ranked(["/some/other/path"])
         report = evaluate_claims(features, ranked, {"some": {"other": 1}})
+        assert report.state == "ok"
         assert report.claims[0].replicated is None
         assert "no evaluable contrast" in report.claims[0].detail
 
@@ -125,13 +123,13 @@ class TestEvaluate:
             {
                 "W1": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
                 "W2": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
+                "W3": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
+                "W4": {"a": [0.3, 0.3], "i": [0.2, 0.2]},
             }
         )
-        groups = split_whales(["W1", "W2"])
-        if not groups["fit"] or not groups["holdout"]:
-            pytest.skip("fixture whales produced degenerate split")
         ranked = make_ranked(["/partition_contrasts/0"])
         report = evaluate_claims(features, ranked, self.DOC)
+        assert report.state == "ok"
         updated = apply_calibration_labels(ranked, report, "x" * 64)
         assert updated.ranked[0].uncertainty["label"] == "empirically_checked"
         assert updated.ranked[0].uncertainty["calibration_report_sha256"] == "x" * 64

@@ -34,6 +34,57 @@ def _has_api_key() -> bool:
     return bool(os.environ.get("ROSETTA_API_KEY") or os.environ.get("OPENAI_API_KEY"))
 
 
+def write_run_manifest(
+    run_dir: Path,
+    *,
+    run_id: str,
+    inputs: dict[str, str],
+    artifact_paths: dict[str, Path],
+    gate_state: str,
+    model_stage: str,
+    evidence_manifest_sha256: str | None = None,
+    note: str | None = None,
+) -> dict:
+    manifest: dict = {
+        "run_id": run_id,
+        "schema_version": "0.1.0",
+        "inputs": inputs,
+        "artifacts": {
+            name: {"path": str(path), "sha256": sha256_file(path)}
+            for name, path in artifact_paths.items()
+        },
+        "gate_state": gate_state,
+        "model_stage": model_stage,
+    }
+    if evidence_manifest_sha256 is not None:
+        manifest["evidence_manifest_sha256"] = evidence_manifest_sha256
+    if note is not None:
+        manifest["note"] = note
+    manifest["manifest_sha256"] = hashlib.sha256(
+        json.dumps(manifest["artifacts"], sort_keys=True).encode()
+    ).hexdigest()
+    write_json_atomic(manifest, run_dir / "manifest.json")
+    return manifest
+
+
+def analyst_candidates(
+    evidence,
+    *,
+    run_model_stage: bool,
+) -> tuple[list, list, str]:
+    """Run the LLM candidate stage. Failures do not abort deterministic work."""
+    if not run_model_stage:
+        return [], [], "not_generated"
+    if not _has_api_key():
+        return [], [], "skipped_no_api_key"
+    try:
+        candidates, records = generate_candidates(evidence, k=CANDIDATE_COUNT)
+    except Exception:
+        return [], [], "generation_failed"
+    state = "generated" if candidates else "generation_failed"
+    return candidates, records, state
+
+
 def run_pipeline(
     dominica_path: Path = DEFAULT_DOMINICA,
     codamd_path: Path = DEFAULT_CODAMD,
@@ -79,14 +130,20 @@ def run_pipeline(
          "n_partition": feature_set.n_gate_partition}
     )
 
+    inputs = {
+        str(dominica_path): loaded.dataset_hash,
+        str(codamd_path): gate.codamd_hash,
+    }
     if gate.state.value != "pass":
-        manifest = {
-            "run_id": run_id,
-            "schema_version": "0.1.0",
-            "gate_state": gate.state.value,
-            "note": "gate did not pass; downstream stages not run",
-        }
-        write_json_atomic(manifest, run_dir / "manifest.json")
+        write_run_manifest(
+            run_dir,
+            run_id=run_id,
+            inputs=inputs,
+            artifact_paths=artifact_paths,
+            gate_state=gate.state.value,
+            model_stage="not_generated",
+            note="gate did not pass; downstream stages not run",
+        )
         return run_dir, gate.state.value
 
     stage_hashes = {
@@ -103,17 +160,13 @@ def run_pipeline(
     evidence_doc = evidence.model_dump(mode="json")
     evidence_sha = sha256_file(artifact_paths["evidence"])
 
-    call_records = []
-    candidates = []
-    model_state = "not_generated"
-    if run_model_stage and _has_api_key():
-        candidates, call_records = generate_candidates(evidence, k=CANDIDATE_COUNT)
+    candidates, call_records, model_state = analyst_candidates(
+        evidence, run_model_stage=run_model_stage
+    )
+    if call_records:
         artifact_paths["model_calls"] = write_jsonl_atomic(
             call_records, run_dir / "spec-008-model-calls.jsonl"
         )
-        model_state = "generated" if candidates else "generation_failed"
-    elif run_model_stage:
-        model_state = "skipped_no_api_key"
     events.append(
         {"seq": len(events), "stage": "analyst", "state": model_state}
     )
@@ -153,6 +206,16 @@ def run_pipeline(
         json.dumps(stage_hashes, sort_keys=True).encode()
     ).hexdigest()
 
+    write_run_manifest(
+        run_dir,
+        run_id=run_id,
+        inputs=inputs,
+        artifact_paths=artifact_paths,
+        gate_state=gate.state.value,
+        model_stage=model_state,
+        evidence_manifest_sha256=evidence_manifest_sha,
+    )
+
     report = build_report(run_dir)
     report = report.model_copy(update={"manifest_sha256": evidence_manifest_sha})
     artifact_paths["report_json"] = write_json_atomic(
@@ -167,25 +230,15 @@ def run_pipeline(
     artifact_paths["events"] = run_dir / "events.jsonl"
     write_jsonl_atomic(events, artifact_paths["events"])
 
-    manifest = {
-        "run_id": run_id,
-        "schema_version": "0.1.0",
-        "inputs": {
-            str(dominica_path): loaded.dataset_hash,
-            str(codamd_path): gate.codamd_hash,
-        },
-        "artifacts": {
-            name: {"path": str(path), "sha256": sha256_file(path)}
-            for name, path in artifact_paths.items()
-        },
-        "gate_state": gate.state.value,
-        "model_stage": model_state,
-        "evidence_manifest_sha256": evidence_manifest_sha,
-    }
-    manifest["manifest_sha256"] = hashlib.sha256(
-        json.dumps(manifest["artifacts"], sort_keys=True).encode()
-    ).hexdigest()
-    write_json_atomic(manifest, run_dir / "manifest.json")
+    write_run_manifest(
+        run_dir,
+        run_id=run_id,
+        inputs=inputs,
+        artifact_paths=artifact_paths,
+        gate_state=gate.state.value,
+        model_stage=model_state,
+        evidence_manifest_sha256=evidence_manifest_sha,
+    )
     return run_dir, gate.state.value
 
 

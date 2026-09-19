@@ -50,6 +50,22 @@ def lint_report_text(text: str) -> list[str]:
     ]
 
 
+def _model_id(run_dir: Path, hypothesis: dict[str, Any] | None) -> str | None:
+    """Prefer the demo hypothesis artifact; fall back to model-calls.jsonl."""
+    if hypothesis and hypothesis.get("model"):
+        return str(hypothesis["model"])
+    calls = run_dir / "spec-008-model-calls.jsonl"
+    if not calls.is_file():
+        return None
+    for line in calls.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        record = json.loads(line)
+        if record.get("model"):
+            return str(record["model"])
+    return None
+
+
 def build_report(run_dir: str | Path) -> ReportContract:
     """Assemble the report from a run directory's immutable artifacts."""
     run_dir = Path(run_dir)
@@ -61,11 +77,13 @@ def build_report(run_dir: str | Path) -> ReportContract:
     ranked = _read_json(run_dir / "spec-009-ranked-hypotheses.json")
     calibration = _read_json(run_dir / "spec-012-calibration.json")
     hypothesis = _read_json(run_dir / "spec-008-hypothesis.json")
+    model_id = _model_id(run_dir, hypothesis)
 
     sections: dict[str, Any] = {}
 
+    run_id = manifest.get("run_id") or run_dir.name
     sections["inputs"] = {
-        "run_id": run_dir.name,
+        "run_id": run_id,
         "inputs": manifest.get("inputs", {}),
         "load": (
             {
@@ -133,7 +151,7 @@ def build_report(run_dir: str | Path) -> ReportContract:
         "commands": [
             "uv sync --all-extras",
             "uv run python -m scripts.run_pipeline",
-            "uv run python -m scripts.replay",
+            "uv run python -m scripts.replay_release",
         ],
         "environment": "Python 3.11, uv.lock pinned",
         "manifest_sha256": manifest.get("manifest_sha256"),
@@ -158,7 +176,7 @@ def build_report(run_dir: str | Path) -> ReportContract:
             },
         ],
         "code_revision": _code_revision(),
-        "model": (hypothesis or {}).get("model"),
+        "model": model_id,
         "selection_rule": (ranked or {}).get("selection_rule_version"),
         "calibration_version": (calibration or {}).get("calibration_version"),
     }
@@ -167,7 +185,7 @@ def build_report(run_dir: str | Path) -> ReportContract:
         raise ValueError("report requires non-empty limitations and cannot_conclude")
 
     return ReportContract(
-        run_id=run_dir.name,
+        run_id=run_id,
         sections=sections,
         citations=citations,
         limitations=limitations,
