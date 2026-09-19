@@ -90,9 +90,10 @@ deployment serves static artifacts instead of a live endpoint.
 
 The static site is deployed on Vercel: <https://rosetta-coda.vercel.app>
 
-- `/` — redirects to the research console
-- `/research/` — research console over `artifacts/release/` (gate, contrasts, hypotheses, calibration, report)
-- `/demo/` — SPEC-004 gate instrument panel (live hypothesis artifact included)
+- `/` — duration-gate instrument (SPEC-004)
+- `/evidence` — citable paper over `artifacts/release/` (gate, contrasts, time-time plot, hypotheses, calibration, report)
+- `/research` — redirects to `/evidence`
+- `/demo` — redirects to `/`
 - `/artifacts/` — immutable JSON artifacts, served with immutable caching
 
 Deploy: `vercel --prod` from the repo root (`.vercelignore` keeps the Python
@@ -107,7 +108,7 @@ structured hypothesis panel. Serve the repo root and open the demo:
 
 ```bash
 python3 -m http.server 8000
-# then open http://localhost:8000/demo/
+# then open http://localhost:8000/
 ```
 
 The hypothesis panel renders a real, schema-validated model output when

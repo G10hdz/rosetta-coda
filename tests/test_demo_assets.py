@@ -34,15 +34,31 @@ def test_demo_asset_present_and_nonempty(asset: str) -> None:
 
 
 def test_index_states_all_disclaimers() -> None:
-    html = (DEMO / "index.html").read_text(encoding="utf-8")
+    html = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
     for phrase in REQUIRED_DISCLAIMERS:
-        assert phrase in html, f"disclaimer missing from index.html: {phrase!r}"
+        assert phrase in html, f"disclaimer missing from homepage: {phrase!r}"
 
 
 def test_index_wires_stylesheet_and_script() -> None:
+    html = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
+    # Root-absolute paths: Vercel `trailingSlash: false` turns /demo/ into /demo,
+    # so href="styles.css" would 404 at /styles.css.
+    assert 'href="/demo/styles.css"' in html
+    assert 'src="/demo/app.js"' in html
+
+
+def test_homepage_is_the_instrument() -> None:
+    html = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
+    assert 'aria-current="page">Instrument</a>' in html
+    assert 'href="/evidence"' in html
+    assert 'class="instrument"' in html
+    assert 'class="frame-mark' in html
+
+
+def test_demo_path_redirects_home() -> None:
     html = (DEMO / "index.html").read_text(encoding="utf-8")
-    assert 'href="styles.css"' in html
-    assert 'src="app.js"' in html
+    assert 'location.replace("/")' in html
+    assert 'url=/"' in html or "url=/" in html
 
 
 def test_app_loads_real_gate_artifact() -> None:
@@ -67,9 +83,9 @@ def test_app_never_labels_the_mock_as_a_model_output() -> None:
 def test_app_no_inter_click_duration_claim() -> None:
     """The gate measures total coda duration, never 'inter-click duration'."""
     app = (DEMO / "app.js").read_text(encoding="utf-8").lower()
-    index = (DEMO / "index.html").read_text(encoding="utf-8").lower()
+    index = (REPO_ROOT / "index.html").read_text(encoding="utf-8").lower()
     assert "inter-click" not in app, "app.js still claims 'inter-click duration'"
-    assert "inter-click" not in index, "index.html still claims 'inter-click duration'"
+    assert "inter-click" not in index, "homepage still claims 'inter-click duration'"
 
 
 def test_app_has_no_invalid_coda_type_alternative_or_falsifier() -> None:
@@ -92,7 +108,7 @@ def test_app_distinguishes_raw_coefficient_from_standardized_effect() -> None:
     """The raw-seconds mixed-model coefficient must never be presented as a
     standardized effect; the per-whale bars are the standardized quantity."""
     app = (DEMO / "app.js").read_text(encoding="utf-8")
-    index = (DEMO / "index.html").read_text(encoding="utf-8")
+    index = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
     # The mock claim frames the coefficient explicitly as raw seconds.
     assert ("raw −0.132 s" in app) or ("raw -0.132 s" in app)
     # The mixed-model panel labels the coefficient as raw seconds, not normalized.

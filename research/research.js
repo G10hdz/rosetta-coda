@@ -7,7 +7,7 @@
    ════════════════════════════════════════════════════════════════════ */
 "use strict";
 
-const BASE = "../artifacts/release/";
+const BASE = "/artifacts/release/";
 const FILES = {
   manifest: "manifest.json",
   gate: "spec-004-duration-gate.json",
@@ -305,6 +305,34 @@ function renderTimeTime(r) {
     )
     .join("");
 
+  function meanPair(vowel) {
+    let sx = 0, sy = 0, n = 0;
+    for (const p of points) {
+      if (p.vowel !== vowel) continue;
+      sx += p.x; sy += p.y; n += 1;
+    }
+    return n ? { x: sx / n, y: sy / n, n } : null;
+  }
+  const meanA = meanPair("a");
+  const meanI = meanPair("i");
+  const meanMarks = [meanA && { m: meanA, cls: "a", label: "mean a" }, meanI && { m: meanI, cls: "i", label: "mean i" }]
+    .filter(Boolean)
+    .map(({ m, cls, label }) => {
+      const cx = xOf(m.x);
+      const cy = yOf(m.y);
+      const lx = L + INNER - 8;
+      return `
+        <g class="tt-mean-g" aria-hidden="true">
+          <line class="tt-leader" x1="${lx - 2}" y1="${cy}" x2="${cx + 6}" y2="${cy}" />
+          <line class="tt-mean tt-mean--${cls}" x1="${cx - 5}" y1="${cy}" x2="${cx + 5}" y2="${cy}" />
+          <line class="tt-mean tt-mean--${cls}" x1="${cx}" y1="${cy - 5}" x2="${cx}" y2="${cy + 5}" />
+          <text class="tt-anno" x="${lx}" y="${cy - 6}" text-anchor="end">${label}</text>
+        </g>`;
+    })
+    .join("");
+  const isoLabelX = xOf(domain * 0.72);
+  const isoLabelY = yOf(domain * 0.72);
+
   const el = body("sec-timetime");
   el.innerHTML = `
     <div class="tt-toolbar">
@@ -317,31 +345,51 @@ function renderTimeTime(r) {
         <div class="tt-whales__opts">${whaleBoxes || NO_OBS}</div>
       </fieldset>
     </div>
-    <figure class="tt-figure">
-      <svg class="tt-svg" viewBox="0 0 ${VB_W} ${VB_H}" role="img"
-        aria-label="Time-time scatter of successive normalized inter-click intervals, colored by vowel. Dashed line is the isochronous y equals x reference.">
-        <defs>
-          <clipPath id="tt-clip"><rect x="${L}" y="${T}" width="${INNER}" height="${INNER}" /></clipPath>
-        </defs>
-        <g class="tt-chrome" aria-hidden="true">
-          <rect class="tt-plot-bg" x="${L}" y="${T}" width="${INNER}" height="${INNER}" />
-          <line class="tt-diag" x1="${xOf(0)}" y1="${yOf(0)}" x2="${xOf(domain)}" y2="${yOf(domain)}" stroke-dasharray="4 3" />
-          ${tickMarks}
-          <text class="tt-axis-label" x="${L + INNER / 2}" y="${VB_H - 4}" text-anchor="middle">ICI_k / mean</text>
-          <text class="tt-axis-label" text-anchor="middle" transform="translate(12, ${T + INNER / 2}) rotate(-90)">ICI_k+1 / mean</text>
-        </g>
-        <g class="tt-points" clip-path="url(#tt-clip)"></g>
-      </svg>
-      <figcaption>
-        <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(points.length)}</span> successive pairs
-        from <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(recs.length)}</span> gate-partition codas.
-        Axes are ICI divided by coda mean.
-      </figcaption>
-    </figure>
+    <div class="tt-shell">
+      <span class="tt-shell__mark tt-shell__mark--tl" aria-hidden="true"></span>
+      <span class="tt-shell__mark tt-shell__mark--tr" aria-hidden="true"></span>
+      <span class="tt-shell__mark tt-shell__mark--bl" aria-hidden="true"></span>
+      <span class="tt-shell__mark tt-shell__mark--br" aria-hidden="true"></span>
+      <ul class="tt-callouts" aria-hidden="true">
+        <li><span class="tt-callouts__pin tt-callouts__pin--a"></span> vowel a</li>
+        <li><span class="tt-callouts__pin tt-callouts__pin--i"></span> vowel i</li>
+        <li><span class="tt-callouts__pin tt-callouts__pin--iso"></span> isochrony y = x</li>
+      </ul>
+      <figure class="tt-figure">
+        <svg class="tt-svg" viewBox="0 0 ${VB_W} ${VB_H}" role="img"
+          aria-label="Time-time scatter of successive normalized inter-click intervals, colored by vowel. Dashed line is the isochronous y equals x reference. Crosses mark per-vowel means.">
+          <defs>
+            <clipPath id="tt-clip"><rect x="${L}" y="${T}" width="${INNER}" height="${INNER}" /></clipPath>
+          </defs>
+          <g class="tt-chrome" aria-hidden="true">
+            <rect class="tt-plot-bg" x="${L}" y="${T}" width="${INNER}" height="${INNER}" />
+            <line class="tt-diag" x1="${xOf(0)}" y1="${yOf(0)}" x2="${xOf(domain)}" y2="${yOf(domain)}" stroke-dasharray="4 3" />
+            <text class="tt-anno" x="${isoLabelX + 8}" y="${isoLabelY - 6}">y = x</text>
+            ${tickMarks}
+            ${meanMarks}
+            <text class="tt-axis-label" x="${L + INNER / 2}" y="${VB_H - 4}" text-anchor="middle">ICI_k / mean</text>
+            <text class="tt-axis-label" text-anchor="middle" transform="translate(12, ${T + INNER / 2}) rotate(-90)">ICI_k+1 / mean</text>
+          </g>
+          <g class="tt-points" clip-path="url(#tt-clip)"></g>
+        </svg>
+        <figcaption>
+          <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(points.length)}</span> successive pairs
+          from <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(recs.length)}</span> gate-partition codas.
+          Axes are ICI divided by coda mean.
+        </figcaption>
+      </figure>
+      <dl class="tt-readout">
+        <div><dt>pairs</dt><dd class="mono">${fmt.int(points.length)}</dd></div>
+        <div><dt>whales</dt><dd class="mono">${fmt.int(whales.length)}</dd></div>
+        <div><dt>domain</dt><dd class="mono">0–${fmt.fixed(domain, domain < 2 ? 2 : 1)}</dd></div>
+        <div><dt>mean a n</dt><dd class="mono">${meanA ? fmt.int(meanA.n) : NO_OBS}</dd></div>
+        <div><dt>mean i n</dt><dd class="mono">${meanI ? fmt.int(meanI.n) : NO_OBS}</dd></div>
+      </dl>
+    </div>
     <p class="tt-detail-wrap"><output class="tt-detail" aria-live="polite">Hover or click a point for coda details.</output></p>
     <p class="footnote">Each point is one successive pair from <span class="mono">ici_pattern</span> (normalized ICI / mean).
-    The dashed line is y = x, the isochronous-rhythm reference. Density and any clusters are descriptive structure only —
-    not meaning, intent, or words.</p>`;
+    The dashed line is y = x, the isochronous-rhythm reference. Crosses are per-vowel means of those pairs.
+    Density and any clusters are descriptive structure only — not meaning, intent, or words.</p>`;
 
   const g = el.querySelector(".tt-points");
   const NS = "http://www.w3.org/2000/svg";

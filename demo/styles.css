@@ -18,7 +18,7 @@
   /* Ink */
   --bone:  oklch(0.94 0.012 215);
   --muted: oklch(0.72 0.022 218);
-  --faint: oklch(0.58 0.020 220);
+  --faint: oklch(0.70 0.018 220);
 
   /* Signals — CETI ocean palette */
   --teal:    oklch(0.76 0.08 200);
@@ -121,18 +121,60 @@ body::before {
 .instrument {
   height: 100vh;
   height: 100dvh;
-  padding: clamp(0.7rem, 1.4vw, 1.35rem);
+  padding: clamp(0.85rem, 1.5vw, 1.5rem);
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   grid-template-areas:
     "mast mast"
+    "rail rail"
     "evid hypo";
-  gap: var(--gap);
+  column-gap: 0;
+  row-gap: var(--gap);
   max-width: 1680px;
   margin-inline: auto;
   position: relative;
   z-index: 1;
+  border: 1px solid var(--line);
+  background: oklch(0.12 0.022 240 / 0.35);
+}
+.instrument .evidence { padding-right: var(--gap); border-right: 1px solid var(--line); }
+.instrument .hypo { padding-left: var(--gap); border-radius: 0; }
+
+.frame-mark {
+  position: absolute; width: 8px; height: 8px; pointer-events: none;
+  border-color: var(--teal); border-style: solid; opacity: 0.55; z-index: 2;
+}
+.frame-mark--tl { top: 5px; left: 5px; border-width: 1px 0 0 1px; }
+.frame-mark--tr { top: 5px; right: 5px; border-width: 1px 1px 0 0; }
+.frame-mark--bl { bottom: 5px; left: 5px; border-width: 0 0 1px 1px; }
+.frame-mark--br { bottom: 5px; right: 5px; border-width: 0 1px 1px 0; }
+
+.site-nav {
+  display: flex; align-items: center; gap: 0.9rem;
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.site-nav a {
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid transparent; padding-bottom: 0.12rem;
+}
+.site-nav a:hover { color: var(--bone); }
+.site-nav a[aria-current="page"] {
+  color: var(--bone); border-bottom-color: var(--teal);
+}
+
+.rail {
+  grid-area: rail;
+  display: flex; align-items: center; gap: 0.7rem;
+  margin: 0; padding: 0 0.15rem;
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--faint);
+}
+.rail .mono { color: var(--teal); letter-spacing: 0.08em; }
+.rail__rule {
+  flex: 1; height: 1px; background: var(--line); min-width: 2rem;
 }
 
 /* ── Masthead ────────────────────────────────────────────────────── */
@@ -140,6 +182,7 @@ body::before {
   grid-area: mast;
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
   padding-bottom: clamp(0.4rem, 0.9vw, 0.8rem);
   border-bottom: 1px solid var(--line);
 }
@@ -555,7 +598,9 @@ body::before {
 @media (max-height: 620px), (max-width: 860px) {
   body { overflow: auto; }
   .instrument { height: auto; min-height: 100dvh; grid-template-columns: 1fr;
-    grid-template-areas: "mast" "evid" "hypo"; }
+    grid-template-areas: "mast" "rail" "evid" "hypo"; }
+  .instrument .evidence { padding-right: 0; border-right: 0; }
+  .instrument .hypo { padding-left: 0; }
   .evidence { grid-template-columns: 1fr; grid-template-areas: "cohort" "model" "whales"; }
   .whales { min-height: 200px; }
   /* On a stacked layout the hypothesis detail flows with the page rather than

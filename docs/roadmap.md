@@ -49,6 +49,7 @@ Outcome: researchers can inspect, replay, compare, and cite complete analyses wi
 | `SPEC-011` | Local API and research UI | waveform/time-time/evidence views replay golden run | 010 |
 | `SPEC-012` | Confidence calibration and held-out evaluation | grouped whale/bout split; empirical calibration report | 008–011 |
 | `SPEC-013` | Reproducible research release | clean-machine replay from locked environment and manifests | 012 |
+| — | Query over sealed artifacts | A researcher asks a question in plain language and gets an answer that only cites frozen JSON Pointers into `artifacts/release/`. No new measurements, no semantic claims. A later spec will pick the retrieval tool (local search first; an external deep-research model only if it cannot invent evidence). | 013 |
 
 ## Dependency map
 
