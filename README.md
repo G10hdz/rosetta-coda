@@ -90,8 +90,9 @@ deployment serves static artifacts instead of a live endpoint.
 
 The static site is deployed on Vercel: <https://rosetta-coda.vercel.app>
 
+- `/` — redirects to the research console
+- `/research/` — research console over `artifacts/release/` (gate, contrasts, hypotheses, calibration, report)
 - `/demo/` — SPEC-004 gate instrument panel (live hypothesis artifact included)
-- `/research/` — research console over `artifacts/release/`
 - `/artifacts/` — immutable JSON artifacts, served with immutable caching
 
 Deploy: `vercel --prod` from the repo root (`.vercelignore` keeps the Python
