@@ -2,7 +2,7 @@
   "artifacts": {
     "calibration": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-012-calibration.json",
-      "sha256": "a3bb0a3549ba85b72487e9d4163393811cbf41bb2697db107dab83a46485c158"
+      "sha256": "717c643b30c9e57f56940722e72d9d29504fac8ace19168fa2ae1ca51096134f"
     },
     "events": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/events.jsonl",
@@ -42,19 +42,19 @@
     },
     "ranked": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-009-ranked-hypotheses.jsonl",
-      "sha256": "74bc127af45730fb2e97eb4c8d28ae43266f798c6eeb1482209f5d5202ffe815"
+      "sha256": "13309c005c46e64684cd5a4877e8d3bb2b6a4820a08df9ab796a9208831934d0"
     },
     "ranked_doc": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-009-ranked-hypotheses.json",
-      "sha256": "c4979999a897b955da68944f6ca33efd1aadec413a009cf6ecf16948e0868cc6"
+      "sha256": "607442cbd93e2a0a9c839e01a1ec7c6622b7823119010cf5f575af5d4ac19a80"
     },
     "report_json": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-010-report.json",
-      "sha256": "8955230c0a70c20b89d7e77e40a668e318677f2f52ef207019014c4e2ec8364a"
+      "sha256": "63b0de8bde57f1530cc0b8917f35cb15f5776320751be3516047b0af85e95321"
     },
     "report_md": {
       "path": "artifacts/runs/pipeline-53dd44fbfb00-e3fc6b402eea/spec-010-report.md",
-      "sha256": "397b0f5b2ebcb1d5aa8cd14aec56ab7e9cb7332635844704beab0204d3879b94"
+      "sha256": "8b203a945b872fdc34659ae46f6fc65b4a8d299d5f64ba0561f6b13020d195a9"
     }
   },
   "evidence_manifest_sha256": "e98773ecf18f33d916d1ac861a0802cfa678428eb7c0a25c923356d8978f59db",
@@ -63,7 +63,7 @@
     "external/phonology-osf-9t6qu/codamd.csv": "e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899",
     "external/sw-combinatoriality/data/DominicaCodas.csv": "53dd44fbfb0040da93656aa44883954f3abe18dd6539e90c625af86a96db6b45"
   },
-  "manifest_sha256": "c04bb1ee44c5093e063298a8872e509369e4bd3eaa360e393f3dccfd688e2c3c",
+  "manifest_sha256": "4558df247d239c097c03c9680d8236edceb3b0fae59d3bce567dd45205779dae",
   "model_stage": "generated",
   "run_id": "pipeline-53dd44fbfb00-e3fc6b402eea",
   "schema_version": "0.1.0"

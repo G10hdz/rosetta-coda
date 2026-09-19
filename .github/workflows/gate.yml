@@ -1,0 +1,33 @@
+name: gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          python-version: "3.11"
+
+      - name: Fetch pinned corpus
+        run: |
+          mkdir -p external/sw-combinatoriality/data external/phonology-osf-9t6qu
+          curl -fsSL -o external/sw-combinatoriality/data/DominicaCodas.csv \
+            https://raw.githubusercontent.com/pratyushasharma/sw-combinatoriality/7228c8eed2cc27ddd23b74c51aeccec9d762389e/data/DominicaCodas.csv
+          curl -fsSL -L -o external/phonology-osf-9t6qu/codamd.csv \
+            https://osf.io/download/ytsq9/
+
+      - name: Install
+        run: uv sync --all-extras
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Tests
+        run: uv run pytest

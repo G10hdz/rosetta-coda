@@ -7,7 +7,7 @@
   ],
   "citations": {
     "calibration_version": "calibration-v1",
-    "code_revision": "2bc1fb3d0b8bd70396a4af7c6760552010c81e42",
+    "code_revision": "c3e073b5456d47d1f3445de3d98f74d3d990c488",
     "datasets": [
       {
         "name": "DominicaCodas.csv",
@@ -18,7 +18,7 @@
         "sha256": "e3fc6b402eeafa94a168ed215255255ed3d3acbeef2d65abe54312526b42a899"
       }
     ],
-    "model": null,
+    "model": "deepseek-chat",
     "selection_rule": "rank-v1"
   },
   "generated_by": "report-generator-v1",
@@ -26,7 +26,7 @@
     "No semantic ground truth exists; nothing in this report is a translation.",
     "Unresolved-identity codas are excluded from individual-controlled inference.",
     "Audio-dependent features are not_observable in this run (no WAV input).",
-    "Confidence labels are heuristic unless an empirical calibration report exists."
+    "Confidence labels are empirically_checked where the calibration report evaluated them; the whale split is illustrative."
   ],
   "manifest_sha256": "e98773ecf18f33d916d1ac861a0802cfa678428eb7c0a25c923356d8978f59db",
   "run_id": "pipeline-53dd44fbfb00-e3fc6b402eea",
@@ -35,11 +35,10 @@
     "calibration": {
       "calibration_version": "calibration-v1",
       "caveats": [
-        "4 resolved whales; split is illustrative, not a powered evaluation",
-        "degenerate split (empty fit or hold-out group); evaluating claims on the same whales they were derived from would be circular, so no held-out evaluation is reported"
+        "4 resolved whales; split is illustrative, not a powered evaluation"
       ],
-      "corpus_replication_rate": null,
-      "state": "indeterminate"
+      "corpus_replication_rate": 0.5,
+      "state": "ok"
     },
     "features": {
       "code_version": "phonology-features-v1",
@@ -340,8 +339,9 @@
             "uncertainty_honesty": 0.5
           },
           "uncertainty": {
+            "calibration_report_sha256": "717c643b30c9e57f56940722e72d9d29504fac8ace19168fa2ae1ca51096134f",
             "kind": "sampling",
-            "label": "heuristic"
+            "label": "empirically_checked"
           }
         },
         {
@@ -388,8 +388,9 @@
             "uncertainty_honesty": 0.5
           },
           "uncertainty": {
+            "calibration_report_sha256": "717c643b30c9e57f56940722e72d9d29504fac8ace19168fa2ae1ca51096134f",
             "kind": "sampling",
-            "label": "heuristic"
+            "label": "empirically_checked"
           }
         }
       ],
@@ -417,10 +418,10 @@
       "commands": [
         "uv sync --all-extras",
         "uv run python -m scripts.run_pipeline",
-        "uv run python -m scripts.replay"
+        "uv run python -m scripts.replay_release"
       ],
       "environment": "Python 3.11, uv.lock pinned",
-      "manifest_sha256": "582fc6df0f7bd741f9be96cf627058686d4ea4095614ba2cdb91320b0a069ae4"
+      "manifest_sha256": "c04bb1ee44c5093e063298a8872e509369e4bd3eaa360e393f3dccfd688e2c3c"
     }
   }
 }

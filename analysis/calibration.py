@@ -28,11 +28,15 @@ _FORBIDDEN_LANGUAGE = (
 def split_whales(
     whale_ids: list[str], seed: str = SPLIT_SEED
 ) -> dict[str, list[str]]:
-    """Deterministic grouped split: sha256(whale_id + seed) mod 2."""
+    """Deterministic grouped split: sha256(whale_id + seed) as int mod 2.
+
+    Concatenation is `whale_id + seed` with no separator, matching SPEC-012.
+    """
     groups: dict[str, list[str]] = {"fit": [], "holdout": []}
     for whale in sorted(set(whale_ids)):
-        digest = hashlib.sha256(f"{whale}:{seed}".encode()).digest()
-        groups["fit" if digest[0] % 2 == 0 else "holdout"].append(whale)
+        digest = hashlib.sha256(f"{whale}{seed}".encode()).digest()
+        assigned = int.from_bytes(digest, "big") % 2
+        groups["fit" if assigned == 0 else "holdout"].append(whale)
     return groups
 
 

@@ -95,8 +95,9 @@
         "uncertainty_honesty": 0.5
       },
       "uncertainty": {
+        "calibration_report_sha256": "717c643b30c9e57f56940722e72d9d29504fac8ace19168fa2ae1ca51096134f",
         "kind": "sampling",
-        "label": "heuristic"
+        "label": "empirically_checked"
       }
     },
     {
@@ -143,8 +144,9 @@
         "uncertainty_honesty": 0.5
       },
       "uncertainty": {
+        "calibration_report_sha256": "717c643b30c9e57f56940722e72d9d29504fac8ace19168fa2ae1ca51096134f",
         "kind": "sampling",
-        "label": "heuristic"
+        "label": "empirically_checked"
       }
     }
   ],

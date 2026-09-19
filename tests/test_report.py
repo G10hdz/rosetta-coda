@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
@@ -117,6 +118,24 @@ class TestBuildReport:
 
         with pytest.raises(Exception):
             ReportContract(run_id="x", limitations=[], cannot_conclude=[])
+
+    def test_reproduction_names_replay_release(self, tmp_path):
+        report = build_report(make_run_dir(tmp_path))
+        commands = report.sections["reproduction"]["commands"]
+        assert any("scripts.replay_release" in cmd for cmd in commands)
+        assert not any(cmd.endswith("scripts.replay") for cmd in commands)
+
+    def test_model_id_from_model_calls_jsonl(self, tmp_path):
+        run = Path(make_run_dir(tmp_path))
+        (run / "spec-008-model-calls.jsonl").write_text(
+            json.dumps({"call_id": "call-0001", "model": "deepseek-chat"}) + "\n"
+        )
+        report = build_report(run)
+        assert report.citations["model"] == "deepseek-chat"
+
+    def test_inputs_come_from_manifest(self, tmp_path):
+        report = build_report(make_run_dir(tmp_path))
+        assert report.sections["inputs"]["inputs"]["DominicaCodas.csv"] == "a" * 64
 
 
 class TestMarkdown:

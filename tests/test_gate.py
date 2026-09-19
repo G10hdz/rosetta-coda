@@ -24,13 +24,12 @@ class TestGateHash:
             h.hexdigest() == CODAMD_EXPECTED_HASH
         ), "codamd.csv hash has drifted from pinned value"
 
-    def test_indeterminate_on_hash_mismatch(self):
-        result = run_duration_gate(str(CODAMD_PATH))
-        assert result.state in (
-            GateState.pass_,
-            GateState.fail,
-            GateState.indeterminate,
-        )
+    def test_indeterminate_on_hash_mismatch(self, tmp_path):
+        fake = tmp_path / "codamd.csv"
+        fake.write_text("codanum,whale,codatype,Duration,handv\n1,ATWOOD,1+1+3,0.5,a\n")
+        result = run_duration_gate(str(fake))
+        assert result.state == GateState.indeterminate
+        assert "hash mismatch" in result.summary
 
     def test_missing_file_is_indeterminate(self):
         result = run_duration_gate("does-not-exist.csv")
