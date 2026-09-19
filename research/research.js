@@ -88,6 +88,7 @@ async function boot() {
   renderHeader(manifest);
   renderGate(gate);
   renderContrasts(features);
+  renderTimeTime(features);
   renderHypotheses(hypos);
   renderCalibration(calibration);
   renderReport(reportMd);
@@ -214,7 +215,7 @@ function renderContrasts(r) {
   body("sec-contrasts").innerHTML = `
     <div class="table-wrap">
       <table class="data">
-        <caption>${fmt.int(f.n_gate_partition ?? 0)} gate-partition codas · ${esc(f.code_version ?? "")}</caption>
+        <caption>${Number.isFinite(f.n_gate_partition) ? fmt.int(f.n_gate_partition) : "—"} gate-partition codas · ${esc(f.code_version ?? "")}</caption>
         <thead><tr>
           <th>feature</th><th class="num">a_mean</th><th class="num">i_mean</th>
           <th class="num">a − i</th><th class="num">CI95</th><th>direction</th>
@@ -227,7 +228,201 @@ function renderContrasts(r) {
     Rows with a CI that excludes zero are marked with a thin foam edge — descriptive, not an inferential claim.</p>`;
 }
 
-/* ── d) Ranked hypotheses ────────────────────────────────────────── */
+/* ── d) Time-time plot ───────────────────────────────────────────── */
+function renderTimeTime(r) {
+  if (r.status !== "fulfilled") return markMissing("sec-timetime");
+  const f = r.value;
+  const F = FILES.features;
+  const recs = f.partition_features || [];
+
+  const points = [];
+  const whaleSet = new Set();
+  recs.forEach((coda, i) => {
+    const pat = coda.ici_pattern;
+    if (!Array.isArray(pat) || pat.length < 2) return;
+    const whale = coda.whale_id_raw == null || coda.whale_id_raw === "" ? "" : String(coda.whale_id_raw);
+    if (whale) whaleSet.add(whale);
+    for (let k = 0; k < pat.length - 1; k++) {
+      const x = pat[k];
+      const y = pat[k + 1];
+      if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+      points.push({
+        x,
+        y,
+        vowel: coda.vowel == null ? "" : String(coda.vowel),
+        whale,
+        coda_id: coda.coda_id == null ? "" : String(coda.coda_id),
+        coda_type: coda.coda_type == null ? "" : String(coda.coda_type),
+        src: `${F}#/partition_features/${i}/ici_pattern/${k}`,
+      });
+    }
+  });
+
+  if (!points.length) {
+    body("sec-timetime").innerHTML = `<p class="loading">${NO_OBS}</p>
+      <p class="footnote">No successive ICI pairs in <span class="mono" data-src="${esc(F)}#/partition_features">/partition_features</span>.</p>`;
+    return;
+  }
+
+  const whales = Array.from(whaleSet).sort();
+  let rawMax = 0;
+  for (const p of points) rawMax = Math.max(rawMax, p.x, p.y);
+  const domain = niceCeilIci(rawMax);
+
+  const L = 56;
+  const R = 14;
+  const T = 14;
+  const B = 44;
+  const INNER = 360;
+  const VB_W = L + INNER + R;
+  const VB_H = T + INNER + B;
+  const xOf = (v) => L + (v / domain) * INNER;
+  const yOf = (v) => T + INNER - (v / domain) * INNER;
+
+  const step = domain <= 1 ? 0.25 : domain <= 2.5 ? 0.5 : 1;
+  const ticks = [];
+  for (let t = 0; t <= domain + 1e-9; t += step) ticks.push(Number(t.toFixed(4)));
+  const tickDec = step < 0.5 ? 2 : 1;
+
+  const tickMarks = ticks
+    .map((t) => {
+      const x = xOf(t);
+      const y = yOf(t);
+      return `
+        <line class="tt-tick" x1="${x}" y1="${T + INNER}" x2="${x}" y2="${T + INNER + 5}" />
+        <text class="tt-tick-label" x="${x}" y="${T + INNER + 16}" text-anchor="middle">${fmt.fixed(t, tickDec)}</text>
+        <line class="tt-tick" x1="${L}" y1="${y}" x2="${L - 5}" y2="${y}" />
+        <text class="tt-tick-label" x="${L - 8}" y="${y + 3}" text-anchor="end">${fmt.fixed(t, tickDec)}</text>`;
+    })
+    .join("");
+
+  const whaleBoxes = whales
+    .map(
+      (w) => `<label class="tt-whale">
+        <input type="checkbox" name="tt-whale" value="${esc(w)}" checked />
+        <span class="mono">${esc(w)}</span>
+      </label>`
+    )
+    .join("");
+
+  const el = body("sec-timetime");
+  el.innerHTML = `
+    <div class="tt-toolbar">
+      <ul class="tt-legend" aria-label="Vowel color key">
+        <li><span class="tt-legend__swatch tt-legend__swatch--a" aria-hidden="true"></span> vowel a</li>
+        <li><span class="tt-legend__swatch tt-legend__swatch--i" aria-hidden="true"></span> vowel i</li>
+      </ul>
+      <fieldset class="tt-whales">
+        <legend>Whales</legend>
+        <div class="tt-whales__opts">${whaleBoxes || NO_OBS}</div>
+      </fieldset>
+    </div>
+    <figure class="tt-figure">
+      <svg class="tt-svg" viewBox="0 0 ${VB_W} ${VB_H}" role="img"
+        aria-label="Time-time scatter of successive normalized inter-click intervals, colored by vowel. Dashed line is the isochronous y equals x reference.">
+        <defs>
+          <clipPath id="tt-clip"><rect x="${L}" y="${T}" width="${INNER}" height="${INNER}" /></clipPath>
+        </defs>
+        <g class="tt-chrome" aria-hidden="true">
+          <rect class="tt-plot-bg" x="${L}" y="${T}" width="${INNER}" height="${INNER}" />
+          <line class="tt-diag" x1="${xOf(0)}" y1="${yOf(0)}" x2="${xOf(domain)}" y2="${yOf(domain)}" stroke-dasharray="4 3" />
+          ${tickMarks}
+          <text class="tt-axis-label" x="${L + INNER / 2}" y="${VB_H - 4}" text-anchor="middle">ICI_k / mean</text>
+          <text class="tt-axis-label" text-anchor="middle" transform="translate(12, ${T + INNER / 2}) rotate(-90)">ICI_k+1 / mean</text>
+        </g>
+        <g class="tt-points" clip-path="url(#tt-clip)"></g>
+      </svg>
+      <figcaption>
+        <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(points.length)}</span> successive pairs
+        from <span class="mono" data-src="${esc(F)}#/partition_features">${fmt.int(recs.length)}</span> gate-partition codas.
+        Axes are ICI divided by coda mean.
+      </figcaption>
+    </figure>
+    <p class="tt-detail-wrap"><output class="tt-detail" aria-live="polite">Hover or click a point for coda details.</output></p>
+    <p class="footnote">Each point is one successive pair from <span class="mono">ici_pattern</span> (normalized ICI / mean).
+    The dashed line is y = x, the isochronous-rhythm reference. Density and any clusters are descriptive structure only —
+    not meaning, intent, or words.</p>`;
+
+  const g = el.querySelector(".tt-points");
+  const NS = "http://www.w3.org/2000/svg";
+  const frag = document.createDocumentFragment();
+  for (const p of points) {
+    const c = document.createElementNS(NS, "circle");
+    const vClass = p.vowel === "a" ? "tt-pt tt-pt--a" : p.vowel === "i" ? "tt-pt tt-pt--i" : "tt-pt";
+    c.setAttribute("class", vClass);
+    c.setAttribute("cx", String(xOf(p.x)));
+    c.setAttribute("cy", String(yOf(p.y)));
+    c.setAttribute("r", "2.5");
+    c.dataset.codaId = p.coda_id;
+    c.dataset.codaType = p.coda_type;
+    c.dataset.whale = p.whale;
+    c.dataset.vowel = p.vowel;
+    c.dataset.x = String(p.x);
+    c.dataset.y = String(p.y);
+    c.dataset.src = p.src;
+    frag.appendChild(c);
+  }
+  g.appendChild(frag);
+
+  const out = el.querySelector(".tt-detail");
+  const svg = el.querySelector(".tt-svg");
+  let active = null;
+
+  function show(pt) {
+    if (active) active.classList.remove("is-active");
+    active = pt;
+    pt.classList.add("is-active");
+    const id = pt.dataset.codaId;
+    const typ = pt.dataset.codaType;
+    const whale = pt.dataset.whale;
+    const vowel = pt.dataset.vowel;
+    const src = pt.dataset.src;
+    const x = Number(pt.dataset.x);
+    const y = Number(pt.dataset.y);
+    out.innerHTML = [
+      id ? `<span class="mono" data-src="${esc(src)}">${esc(id)}</span>` : NO_OBS,
+      typ ? `<span class="mono">${esc(typ)}</span>` : NO_OBS,
+      whale ? `<span class="mono">${esc(whale)}</span>` : NO_OBS,
+      vowel ? `vowel <span class="mono">${esc(vowel)}</span>` : `vowel ${NO_OBS}`,
+      `(${num(x, 3, src)}, ${num(y, 3, src)})`,
+    ].join(" · ");
+  }
+
+  function fromEvent(ev) {
+    const t = ev.target;
+    if (t && t.classList && t.classList.contains("tt-pt")) show(t);
+  }
+  svg.addEventListener("pointerover", fromEvent);
+  svg.addEventListener("click", fromEvent);
+
+  const boxes = el.querySelectorAll('input[name="tt-whale"]');
+  function applyWhaleFilter() {
+    const on = new Set();
+    boxes.forEach((b) => {
+      if (b.checked) on.add(b.value);
+    });
+    g.querySelectorAll(".tt-pt").forEach((c) => {
+      const w = c.dataset.whale;
+      c.setAttribute("visibility", !w || on.has(w) ? "visible" : "hidden");
+    });
+    if (active && active.getAttribute("visibility") === "hidden") {
+      active.classList.remove("is-active");
+      active = null;
+    }
+  }
+  boxes.forEach((b) => b.addEventListener("change", applyWhaleFilter));
+}
+
+/* Nice upper bound so both axes share a round, equal domain. */
+function niceCeilIci(x) {
+  if (!Number.isFinite(x) || x <= 0) return 1;
+  const pow = 10 ** Math.floor(Math.log10(x));
+  const n = x / pow;
+  const nice = n <= 1 ? 1 : n <= 1.5 ? 1.5 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 3 ? 3 : n <= 5 ? 5 : 10;
+  return nice * pow;
+}
+
+/* ── e) Ranked hypotheses ────────────────────────────────────────── */
 function renderHypotheses(r) {
   const el = body("sec-hypotheses");
   if (r.status !== "fulfilled") {
@@ -303,7 +498,7 @@ function renderHypotheses(r) {
     </ol>`;
 }
 
-/* ── e) Calibration ──────────────────────────────────────────────── */
+/* ── f) Calibration ──────────────────────────────────────────────── */
 function renderCalibration(r) {
   if (r.status !== "fulfilled") return markMissing("sec-calibration");
   const c = r.value;
@@ -326,13 +521,13 @@ function renderCalibration(r) {
     </div>` : ""}`;
 }
 
-/* ── f) Report ───────────────────────────────────────────────────── */
+/* ── g) Report ───────────────────────────────────────────────────── */
 function renderReport(r) {
   if (r.status !== "fulfilled") return markMissing("sec-report");
   body("sec-report").innerHTML = `<pre class="report-pre" tabindex="0" aria-label="spec-010 report, preformatted markdown">${esc(r.value)}</pre>`;
 }
 
-/* ── g) Footer manifest ──────────────────────────────────────────── */
+/* ── h) Footer manifest ──────────────────────────────────────────── */
 function renderManifest(r) {
   if (r.status !== "fulfilled") return markMissing("sec-manifest");
   const m = r.value;
