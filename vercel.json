@@ -3,6 +3,9 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/research", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/artifacts/(.*)",
