@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rosetta Coda — Research Console</title>
+  <title>Rosetta Coda — Evidence</title>
+  <link rel="canonical" href="/evidence" />
   <meta name="description" content="Static research console rendering the frozen Rosetta Coda release artifacts. Not a whale translator." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%235fd0c4' stroke-width='2.4' stroke-linecap='round'%3E%3Cline x1='7' y1='9' x2='7' y2='31'/%3E%3Cline x1='15' y1='6' x2='15' y2='34'/%3E%3Cline x1='23' y1='14' x2='23' y2='26'/%3E%3Cline x1='31' y1='10' x2='31' y2='30'/%3E%3C/g%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="research.css" />
+  <link rel="stylesheet" href="/research/research.css" />
 </head>
 <body>
   <div class="particles" aria-hidden="true">
@@ -38,11 +39,16 @@
         <div class="ident__text">
           <h1>Rosetta&nbsp;Coda</h1>
           <p class="ident__sub">
-            <span class="ident__tag">Not a whale translator</span><span class="ident__sep" aria-hidden="true">·</span>Research console
+            <span class="ident__tag">Not a whale translator</span><span class="ident__sep" aria-hidden="true">·</span>Evidence
             <span class="ident__sep" aria-hidden="true">·</span>run <span class="mono" id="run-id">—</span>
           </p>
         </div>
       </div>
+
+      <nav class="site-nav" aria-label="Site">
+        <a href="/">Instrument</a>
+        <a href="/evidence" aria-current="page">Evidence</a>
+      </nav>
 
       <div class="status" role="status" aria-live="polite">
         <span class="badge" data-state="loading" id="verdict-badge" aria-label="gate verdict: loading">…</span>
@@ -125,7 +131,7 @@
         </div>
       </section>
       <nav class="foot__nav" aria-label="Site navigation">
-        <a href="/demo/">Duration-gate demo</a>
+        <a href="/">Duration-gate instrument</a>
       </nav>
       <p class="creed" aria-label="Instrument principles">
         <span>Not a whale translator.</span>
@@ -135,6 +141,6 @@
     </footer>
   </div>
 
-  <script src="research.js" defer></script>
+  <script src="/research/research.js" defer></script>
 </body>
 </html>

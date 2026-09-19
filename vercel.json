@@ -4,7 +4,12 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/", "destination": "/research", "permanent": false }
+    { "source": "/research", "destination": "/evidence", "permanent": false },
+    { "source": "/research/", "destination": "/evidence", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/evidence", "destination": "/research" },
+    { "source": "/evidence/(.*)", "destination": "/research/$1" }
   ],
   "headers": [
     {

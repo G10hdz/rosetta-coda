@@ -18,7 +18,7 @@
   /* Ink */
   --bone:  oklch(0.94 0.012 215);
   --muted: oklch(0.72 0.022 218);
-  --faint: oklch(0.58 0.020 220);
+  --faint: oklch(0.70 0.018 220);
 
   /* Signals — CETI ocean palette */
   --teal:    oklch(0.76 0.08 200);
@@ -123,6 +123,21 @@ body::before {
 }
 
 /* ── Masthead ──────────────────────────────────────────────────── */
+
+.site-nav {
+  display: flex; align-items: center; gap: 0.9rem;
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.site-nav a {
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid transparent; padding-bottom: 0.12rem;
+}
+.site-nav a:hover { color: var(--bone); }
+.site-nav a[aria-current="page"] {
+  color: var(--bone); border-bottom-color: var(--teal);
+}
+
 .masthead {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; flex-wrap: wrap;
@@ -377,6 +392,56 @@ table.data tr.is-sig td:first-child { box-shadow: inset 2px 0 0 var(--foam); }
 /* ── Time-time plot ────────────────────────────────────────────── */
 #sec-timetime,
 #sec-timetime .section-body { min-width: 0; }
+
+.tt-shell {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--abyss);
+  padding: 0.75rem 0.75rem 0.65rem;
+  min-width: 0;
+}
+.tt-shell__mark {
+  position: absolute; width: 7px; height: 7px; pointer-events: none;
+  border-color: var(--faint); border-style: solid; opacity: 0.7;
+}
+.tt-shell__mark--tl { top: 4px; left: 4px; border-width: 1px 0 0 1px; }
+.tt-shell__mark--tr { top: 4px; right: 4px; border-width: 1px 1px 0 0; }
+.tt-shell__mark--bl { bottom: 4px; left: 4px; border-width: 0 0 1px 1px; }
+.tt-shell__mark--br { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+.tt-callouts {
+  display: flex; flex-wrap: wrap; gap: 0.45rem 0.9rem;
+  margin: 0 0 0.55rem; padding: 0; list-style: none;
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.tt-callouts li { display: flex; align-items: center; gap: 0.35rem; }
+.tt-callouts__pin {
+  width: 6px; height: 6px; border: 1px solid currentColor; border-radius: 1px;
+}
+.tt-callouts__pin--a { color: var(--foam); background: oklch(0.82 0.09 175 / 0.35); }
+.tt-callouts__pin--i { color: var(--amber); background: oklch(0.84 0.11 85 / 0.35); }
+.tt-callouts__pin--iso { color: var(--faint); }
+.tt-mean { fill: none; stroke: var(--bone); stroke-width: 1.1; }
+.tt-mean--a { stroke: var(--foam); }
+.tt-mean--i { stroke: var(--amber); }
+.tt-anno {
+  fill: var(--muted); font-family: var(--mono); font-size: 8px;
+  letter-spacing: 0.06em;
+}
+.tt-leader { stroke: var(--line); stroke-width: 1; fill: none; stroke-dasharray: 2 3; }
+.tt-readout {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: 0.25rem 1rem; margin: 0.55rem 0 0;
+  padding-top: 0.45rem; border-top: 1px solid var(--line);
+}
+.tt-readout div { display: flex; justify-content: space-between; gap: 0.6rem;
+  border-bottom: 1px dotted var(--line); padding-bottom: 0.15rem; }
+.tt-readout dt {
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+}
+.tt-readout dd { margin: 0; font-family: var(--mono); font-size: 0.78rem; color: var(--bone); }
+
 .tt-toolbar {
   display: flex; align-items: center; justify-content: space-between;
   gap: 0.7rem 1.2rem; flex-wrap: wrap; margin: 0 0 0.7rem;
@@ -416,7 +481,7 @@ table.data tr.is-sig td:first-child { box-shadow: inset 2px 0 0 var(--foam); }
 
 .tt-figure { margin: 0; min-width: 0; width: 100%; max-width: 100%; }
 .tt-svg {
-  width: 100%; max-width: 34rem; height: auto; display: block;
+  width: 100%; max-width: min(34rem, 100%); height: auto; display: block;
 }
 .tt-chrome { pointer-events: none; }
 .tt-plot-bg { fill: var(--abyss); stroke: var(--line); stroke-width: 1; }
