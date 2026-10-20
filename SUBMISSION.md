@@ -10,22 +10,22 @@ Provider choice and cost notes: [docs/model-provider-research.md](docs/model-pro
 
 > Not a whale translator. Rosetta Coda runs deterministic stats first; an
 > OpenAI-compatible LLM then proposes one falsifiable phonological hypothesis
-> over frozen evidence—with exact JSON refs, alternatives, uncertainty and
+> over frozen evidence, with exact JSON refs, alternatives, uncertainty and
 > falsifiers. No semantic claims.
 
 ## 30-second recording
 
-1. **0–4s — Hook:** README title and the line “not a translator.” Overlay:
+1. **0-4s, Hook:** README title and the line “not a translator.” Overlay:
    `AI does careful science, not vibes.`
-2. **4–10s — Frozen evidence:** show the passing gate, 628 observations, and
+2. **4-10s, Frozen evidence:** show the passing gate, 628 observations, and
    the mixed-model coefficient from
    `artifacts/gates/spec-004-duration-gate.json`.
-3. **10–18s — Hypothesis boundary:** run
+3. **10-18s, Hypothesis boundary:** run
    `uv run python -m scripts.run_hypothesis_demo`.
    Cut the wait, but keep the command and successful output visible.
-4. **18–28s — Result:** show `model`, `source_artifact_sha256`, `claim`,
+4. **18-28s, Result:** show `model`, `source_artifact_sha256`, `claim`,
    `evidence_refs`, `alternatives`, and `falsifiers` from the generated JSON.
-5. **28–30s — Close:** overlay `No meaning claims. Every claim can lose.`
+5. **28-30s, Close:** overlay `No meaning claims. Every claim can lose.`
 
 Use a 16:9 crop, large terminal text, no narration unless the audio is clean,
 and keep the cursor moving only when it directs attention.

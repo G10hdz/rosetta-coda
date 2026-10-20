@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   Rosetta Coda — research console
+   Rosetta Coda: research console
    Same CETI-inspired deep-ocean tokens and visual language as
    demo/styles.css, adapted to a single-column flowing page.
    Standalone: no imports, no build step.
@@ -8,7 +8,7 @@
 :root {
   color-scheme: dark;
 
-  /* Water column — CETI deep */
+  /* Water column: CETI deep */
   --abyss:   oklch(0.12 0.022 240);
   --deep:    oklch(0.18 0.028 236);
   --panel:   oklch(0.21 0.030 234);
@@ -20,7 +20,7 @@
   --muted: oklch(0.72 0.022 218);
   --faint: oklch(0.70 0.018 220);
 
-  /* Signals — CETI ocean palette */
+  /* Signals: CETI ocean palette */
   --teal:    oklch(0.76 0.08 200);
   --foam:    oklch(0.82 0.09 175);
   --deepsea: oklch(0.65 0.075 235);

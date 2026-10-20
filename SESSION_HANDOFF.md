@@ -5,7 +5,7 @@
 **Branch/repo**: `main` @ `7c8947d` → github.com/G10hdz/rosetta-coda
 
 ## Current state
-PR #1 (pipeline SPECs 005–013 + six review blockers) and PR #3 (homepage
+PR #1 (pipeline SPECs 005-013 + six review blockers) and PR #3 (homepage
 → research console) are merged to `main`. Production
 https://rosetta-coda.vercel.app/ returns 307 to `/research` (console HTML,
 not the July launcher). `/demo/` still serves the duration-gate panel.
@@ -32,4 +32,4 @@ Sealed release replay: 7/7 deterministic, 6/6 sealed. Tests: 152 passed.
 - `analysis/calibration.py`, `reporting/report.py`, `scripts/run_pipeline.py`
 - `.github/workflows/gate.yml`, `tests/test_pipeline.py`
 - `artifacts/release/` resealed (report model ID, split, replay command)
-- `index.html`, `vercel.json` — `/` redirects to `/research/`
+- `index.html`, `vercel.json`: `/` redirects to `/research/`

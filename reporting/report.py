@@ -197,7 +197,7 @@ def build_report(run_dir: str | Path) -> ReportContract:
 def render_markdown(report: ReportContract) -> str:
     s = report.sections
     lines = [
-        f"# Rosetta Coda — run report `{report.run_id}`",
+        f"# Rosetta Coda: run report `{report.run_id}`",
         "",
         "## Inputs and provenance",
     ]
@@ -215,7 +215,7 @@ def render_markdown(report: ReportContract) -> str:
     if gate.get("state"):
         mm = gate.get("mixed_model") or {}
         lines.append(
-            f"- state: **{gate['state']}** — {gate.get('summary', '')}"
+            f"- state: **{gate['state']}**; {gate.get('summary', '')}"
         )
         if mm:
             lines.append(
@@ -234,7 +234,7 @@ def render_markdown(report: ReportContract) -> str:
             f"{features['n_gate_partition']} gate-partition codas"
         )
         lines.append("")
-        lines.append("| feature | a − i | CI95 |")
+        lines.append("| feature | a - i | CI95 |")
         lines.append("|---|---|---|")
         for c in features["partition_contrasts"]:
             lo, hi = c.get("ci95_low"), c.get("ci95_high")
@@ -284,7 +284,7 @@ def render_markdown(report: ReportContract) -> str:
     citations = report.citations
     lines += ["", "## Citations and reproduction", ""]
     for ds in citations.get("datasets", []):
-        lines.append(f"- {ds['name']} — `{ds['sha256']}`")
+        lines.append(f"- {ds['name']}: `{ds['sha256']}`")
     if citations.get("code_revision"):
         lines.append(f"- code revision `{citations['code_revision']}`")
     if citations.get("model"):

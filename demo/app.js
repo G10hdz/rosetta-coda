@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   Rosetta Coda — duration-gate instrument
+   Rosetta Coda: duration-gate instrument
    Loads real evidence from the frozen SPEC-004 gate artifact and renders
    it. The hypothesis panel shows a LIVE hypothesis only if the instrument
    actually produced one; otherwise a clearly-labelled Preview mock. The
@@ -57,14 +57,14 @@ async function boot() {
       hypo = await fetchJSON(HYPOTHESIS_URL);
     }
   } catch {
-    hypo = null; // no manifest / no live artifact — expected Preview path
+    hypo = null; // no manifest / no live artifact: expected Preview path
   }
   renderHypothesis(hypo, gate);
 }
 
 async function fetchJSON(url) {
   const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${url}`);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}: ${url}`);
   return res.json();
 }
 
@@ -160,7 +160,7 @@ function renderWhales(effects) {
       const id = esc(e.whale_id ?? "?");
       const n = (e.n_a ?? 0) + (e.n_i ?? 0);
       const rawTxt = Number.isFinite(raw) ? `+${fmt.fixed(raw, 3)} s raw` : "raw n/a";
-      const tip = `${id}: +${fmt.fixed(z, 2)} z-score (a − i), ${rawTxt}, n=${fmt.int(n)}`;
+      const tip = `${id}: +${fmt.fixed(z, 2)} z-score (a - i), ${rawTxt}, n=${fmt.int(n)}`;
       return `
         <div class="whale" title="${esc(tip)}">
           <span class="whale__val mono">+${fmt.fixed(z, 2)}<span class="whale__z">z</span></span>
@@ -191,7 +191,7 @@ function renderHypothesis(run, gate) {
   } else {
     origin.dataset.origin = "mock";
     origin.textContent = "Preview · illustrative";
-    origin.title = "Illustrative preview — not produced by any model";
+    origin.title = "Illustrative preview · not produced by any model";
   }
 
   const alts = h.alternatives || [];
@@ -221,7 +221,7 @@ function renderHypothesis(run, gate) {
   // Compact one-line preview note (pinned, mock only).
   const previewNote = isLive
     ? ""
-    : `<p class="preview-note"><strong>Preview.</strong> Illustrative structure — <strong>not</strong> a model output. Run <code>uv&nbsp;run&nbsp;python&nbsp;-m&nbsp;scripts.run_hypothesis_demo</code> for a live, schema-validated hypothesis.</p>`;
+    : `<p class="preview-note"><strong>Preview.</strong> Illustrative structure: <strong>not</strong> a model output. Run <code>uv&nbsp;run&nbsp;python&nbsp;-m&nbsp;scripts.run_hypothesis_demo</code> for a live, schema-validated hypothesis.</p>`;
 
   // Pinned (never scrolls): preview note, claim, top evidence, the single
   // strongest alternative and the single decisive falsifier.
@@ -280,9 +280,9 @@ function renderHypothesis(run, gate) {
    the frozen gate artifact. No semantic claims. Clearly labelled as preview. */
 function mockHypothesis() {
   return {
-    title: "A stable within-whale a–i coda-duration contrast",
+    title: "A stable within-whale a-i coda-duration contrast",
     claim:
-      "Within coda type 1+1+3, codas hand-labelled a have a longer total coda duration than those labelled i. The pooled mixed-effects model estimates a raw −0.132 s difference for i; the same direction holds within every resolved whale after per-individual standardization (z-scoring).",
+      "Within coda type 1+1+3, codas hand-labelled a have a longer total coda duration than those labelled i. The pooled mixed-effects model estimates a raw -0.132 s difference for i; the same direction holds within every resolved whale after per-individual standardization (z-scoring).",
     evidence_refs: [
       "/mixed_model/coefficient_value",
       "/mixed_model/p_value",
@@ -299,9 +299,9 @@ function mockHypothesis() {
       "The contrast is sensitive to the analyst's a/i hand-labels; a stricter or independent re-labelling could attenuate it.",
     ],
     falsifiers: [
-      "On a whale held out of model fitting, its z-scored a−i duration difference is non-positive.",
+      "On a whale held out of model fitting, its z-scored a-i duration difference is non-positive.",
       "The sign reverses or the effect loses significance under an independent re-labelling of the a/i categories.",
-      "On independent replication the −0.132 s coefficient falls outside the preregistered ±0.02 s tolerance around −0.13 s.",
+      "On independent replication the -0.132 s coefficient falls outside the preregistered ±0.02 s tolerance around -0.13 s.",
     ],
     limitations: [
       "Only four resolved whales; the model MLE sits on a variance boundary (boundary-of-parameter-space note).",
@@ -320,7 +320,7 @@ function renderGateError(err) {
   $("gate-state-label").textContent = "Gate · unavailable";
 
   $("hypo-detail").setAttribute("aria-busy", "false");
-  $("hypo-pinned").innerHTML = `<p class="empty">Gate artifact unavailable — see error below.</p>`;
+  $("hypo-pinned").innerHTML = `<p class="empty">Gate artifact unavailable. See error below.</p>`;
   $("hypo-detail").innerHTML = `
     <div class="error-box">
       <p style="margin:0 0 0.5rem"><strong>Could not load the gate artifact.</strong></p>
@@ -335,7 +335,7 @@ function renderGateError(err) {
 
   const toast = $("toast");
   toast.hidden = false;
-  toast.textContent = "Evidence artifact failed to load — see the hypothesis panel.";
+  toast.textContent = "Evidence artifact failed to load. See the hypothesis panel.";
 }
 
 if (document.readyState === "loading") {

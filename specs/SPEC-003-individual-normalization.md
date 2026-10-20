@@ -1,4 +1,4 @@
-# SPEC-003 — Individual duration normalization
+# SPEC-003: Individual duration normalization
 
 Status: Verified  
 Owner: Engineering  

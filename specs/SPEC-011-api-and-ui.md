@@ -1,4 +1,4 @@
-# SPEC-011 — Local API and research UI
+# SPEC-011: Local API and research UI
 
 Status: Accepted  
 Owner: Engineering  
@@ -7,7 +7,7 @@ Depends on: SPEC-010
 ## Outcome
 
 Inspect, replay, and cite a complete run through a versioned local HTTP API
-and a research UI that renders gate, feature, hypothesis, and report views —
+and a research UI that renders gate, feature, hypothesis, and report views,
 with the UI also consumable as a static site reading frozen artifacts.
 
 ## Scope
@@ -23,7 +23,7 @@ Included:
 Excluded:
 
 - Multi-user auth or cloud deployment (roadmap: no requirement).
-- Write endpoints beyond run creation — no artifact mutation over HTTP.
+- Write endpoints beyond run creation: no artifact mutation over HTTP.
 
 ## API contract
 
@@ -43,11 +43,11 @@ returns `400`.
 ## UI contract
 
 - Static assets under `web/`; reads `/artifacts/...` when served statically
-  (Vercel) and `/v1/runs/{id}/artifacts/...` when served by the API — one
+  (Vercel) and `/v1/runs/{id}/artifacts/...` when served by the API, one
   configurable base URL, same code path.
 - States: loading, populated, empty (`not_observable` / `not_generated` shown
   as first-class states, never blank panels).
-- Reduced-motion respected; keyboard-operable controls; no invented data —
+- Reduced-motion respected; keyboard-operable controls; no invented data:
   every displayed number carries its artifact path in a `data-` attribute or
   tooltip.
 

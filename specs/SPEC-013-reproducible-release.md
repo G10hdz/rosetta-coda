@@ -1,4 +1,4 @@
-# SPEC-013 — Reproducible research release
+# SPEC-013: Reproducible research release
 
 Status: Accepted  
 Owner: Engineering  

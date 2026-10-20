@@ -1,4 +1,4 @@
-# SPEC-002 — Metadata loader and identity cohorts
+# SPEC-002: Metadata loader and identity cohorts
 
 Status: Verified  
 Owner: Engineering  

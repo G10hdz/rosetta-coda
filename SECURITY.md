@@ -17,5 +17,5 @@ an acknowledgement within a week; fixes land on `main` before disclosure.
 - The FastAPI surface (`api/`) is intended for local use only and is not
   part of the deployment. Do not expose it publicly; it has no auth.
 - The LLM stage reads provider keys from environment variables. Keys must
-  never appear in artifacts, logs, committed files, or frontend code —
-  report any leak of this kind immediately as a vulnerability.
+  never appear in artifacts, logs, committed files, or frontend code.
+  Report any leak of this kind immediately as a vulnerability.

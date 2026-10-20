@@ -1,4 +1,4 @@
-# SPEC-008 — Phonological analyst adapter
+# SPEC-008: Phonological analyst adapter
 
 Status: Accepted  
 Owner: Engineering  
@@ -8,7 +8,7 @@ Depends on: SPEC-007
 
 Obtain schema-valid, falsifiable hypotheses from an LLM over frozen
 deterministic evidence so that every model claim is auditable against exact
-artifact paths — extending the existing gate-evidence hypothesis stage to the
+artifact paths, extending the existing gate-evidence hypothesis stage to the
 full feature evidence bundle.
 
 ## Scope

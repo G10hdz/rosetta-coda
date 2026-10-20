@@ -1,9 +1,9 @@
-# Rosetta Coda — Spec-driven roadmap
+# Rosetta Coda: Spec-driven roadmap
 
-Status: Implemented — SPECs 000–013 complete; sealed release at `artifacts/release/`; deployed at https://rosetta-coda.vercel.app  
+Status: Implemented; SPECs 000-013 complete; sealed release at `artifacts/release/`; deployed at https://rosetta-coda.vercel.app  
 Planning assumption: one engineer plus researcher review. Replan every four weeks or after any scientific gate.
 
-> As-built notes: `SPEC-006` detector parity remains `unverified` (no published WAV/MATLAB fixtures); `SPEC-012` calibration is `indeterminate` on the current four-whale corpus (degenerate grouped split — all whales in holdout); the "microservices or cloud deployment" exclusion still holds for the pipeline — the public site serves only static, sealed artifacts.
+> As-built notes: `SPEC-006` detector parity remains `unverified` (no published WAV/MATLAB fixtures); `SPEC-012` calibration is `indeterminate` on the current four-whale corpus (degenerate grouped split: all whales in holdout); the "microservices or cloud deployment" exclusion still holds for the pipeline. The public site serves only static, sealed artifacts.
 
 ## Operating model
 
@@ -11,7 +11,7 @@ Each unit starts as `specs/SPEC-NNN-title.md`. Implementation begins only after 
 
 Priority follows scientific dependency and risk. RICE is intentionally not used: reach and business impact are not measurable for this pre-validation research tool, so numeric scores would create false precision.
 
-## Now — 0–6 weeks, committed
+## Now: 0-6 weeks, committed
 
 Outcome: researchers can load the primary corpus, separate unresolved identities, normalize valid individuals, and determine whether the published duration result reproduces without analytic flexibility.
 
@@ -25,7 +25,7 @@ Outcome: researchers can load the primary corpus, separate unresolved identities
 
 Hard stop: no later spec starts unless `SPEC-004` returns `pass`. If label data is unavailable, result is `indeterminate` and roadmap pauses at evidence acquisition.
 
-## Next — 6–12 weeks, conditional on gate
+## Next: 6-12 weeks, conditional on gate
 
 Outcome: researchers can derive reproducible phonological measurements from metadata and optional audio, then obtain constrained hypotheses grounded in those measurements.
 
@@ -37,9 +37,9 @@ Outcome: researchers can derive reproducible phonological measurements from meta
 | `SPEC-008` | Phonological Analyst adapter | schema-valid hypotheses; evidence refs resolve; no semantic claims | 007 |
 | `SPEC-009` | Contextual Interpreter | ranked hypotheses include uncertainty type and falsifiers | 008 |
 
-Audio-dependent outputs—spectral quality, formants, edge-click coarticulation—must return `not_observable` when WAV evidence is absent.
+Audio-dependent outputs (spectral quality, formants, edge-click coarticulation) must return `not_observable` when WAV evidence is absent.
 
-## Later — 12+ weeks, exploratory
+## Later: 12+ weeks, exploratory
 
 Outcome: researchers can inspect, replay, compare, and cite complete analyses without losing provenance or limitations.
 
@@ -47,9 +47,9 @@ Outcome: researchers can inspect, replay, compare, and cite complete analyses wi
 |---|---|---|---|
 | `SPEC-010` | Report generator | citation checks; mandatory limitations and “cannot conclude” sections | 009 |
 | `SPEC-011` | Local API and research UI | waveform/time-time/evidence views replay golden run | 010 |
-| `SPEC-012` | Confidence calibration and held-out evaluation | grouped whale/bout split; empirical calibration report | 008–011 |
+| `SPEC-012` | Confidence calibration and held-out evaluation | grouped whale/bout split; empirical calibration report | 008-011 |
 | `SPEC-013` | Reproducible research release | clean-machine replay from locked environment and manifests | 012 |
-| — | Query over sealed artifacts | A researcher asks a question in plain language and gets an answer that only cites frozen JSON Pointers into `artifacts/release/`. No new measurements, no semantic claims. A later spec will pick the retrieval tool (local search first; an external deep-research model only if it cannot invent evidence). | 013 |
+| - | Query over sealed artifacts | A researcher asks a question in plain language and gets an answer that only cites frozen JSON Pointers into `artifacts/release/`. No new measurements, no semantic claims. A later spec will pick the retrieval tool (local search first; an external deep-research model only if it cannot invent evidence). | 013 |
 
 ## Dependency map
 

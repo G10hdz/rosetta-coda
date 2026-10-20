@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rosetta Coda — Hydrophone Station</title>
+  <title>Rosetta Coda: Hydrophone Station</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -569,7 +569,7 @@ body {
           </dl>
           <p class="warn" id="model-warn" hidden style="font-size:0.65rem;color:oklch(0.84 0.11 85);font-style:italic;margin-top:0.4rem"></p>
 
-          <h2 class="evid-panel__title" style="margin-top:0.6rem">Per-whale a − i</h2>
+          <h2 class="evid-panel__title" style="margin-top:0.6rem">Per-whale a - i</h2>
           <div class="whale-row" id="whales">
             <p class="empty-text">Awaiting data…</p>
           </div>
@@ -732,7 +732,7 @@ async function boot() {
 
 async function fetchJSON(url) {
   const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${url}`);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}: ${url}`);
   return res.json();
 }
 
@@ -823,7 +823,7 @@ function renderHypothesis(run) {
     badge.textContent = `Live · ${esc(run.model || "model")}`;
   } else {
     badge.className = "badge badge--mock";
-    badge.textContent = "Preview — illustrative";
+    badge.textContent = "Preview · illustrative";
   }
 
   const list = (items, cls) =>
@@ -880,12 +880,12 @@ function renderHypothesis(run) {
 
 function mockHypothesis() {
   return {
-    title: "A stable within-whale a–i duration contrast",
-    claim: "Codas labelled code a show a longer normalized inter-click duration than those labelled code i, a contrast that holds within each of the four resolved whales after per-individual z-scoring (mixed-effects β = −0.132, p ≈ 3.7×10⁻¹¹).",
+    title: "A stable within-whale a-i duration contrast",
+    claim: "Codas labelled code a show a longer normalized inter-click duration than those labelled code i, a contrast that holds within each of the four resolved whales after per-individual z-scoring (mixed-effects β = -0.132, p ≈ 3.7×10⁻¹¹).",
     evidence_refs: ["/mixed_model/coefficient_value","/mixed_model/p_value","/mixed_model/n_obs","/cohort_flow/n_a","/cohort_flow/n_i","/per_whale_effects/0/z_diff_a_minus_i","/per_whale_effects/3/z_diff_a_minus_i"],
     uncertainty_kind: "sampling",
     alternatives: ["The pooled coefficient is driven by the two best-sampled whales (ATWOOD, FORK) rather than a shared effect.","An unmodelled covariate correlated with the a/i label (e.g. coda type or click count) produces the duration gap.","A recording or segmentation artifact systematically lengthens code-a intervals."],
-    falsifiers: ["The z-scored a−i difference is non-positive for any held-out whale on re-analysis.","The coefficient loses significance once coda type is added as a fixed effect.","The sign reverses under an independent re-labelling of a/i categories."],
+    falsifiers: ["The z-scored a-i difference is non-positive for any held-out whale on re-analysis.","The coefficient loses significance once coda type is added as a fixed effect.","The sign reverses under an independent re-labelling of a/i categories."],
     limitations: ["Only four resolved whales; the model MLE sits on a variance boundary.","The a/i labels are analyst-assigned phonological categories, not semantic units.","Duration is one deterministic feature; no acoustic or contextual features are modelled."],
   };
 }

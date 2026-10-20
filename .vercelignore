@@ -1,4 +1,4 @@
-# Python pipeline / dev-only files — the deployed site is fully static
+# Python pipeline / dev-only files: the deployed site is fully static
 .venv/
 __pycache__/
 *.pyc

@@ -1,8 +1,8 @@
 /* ══════════════════════════════════════════════════════════════════
-   Rosetta Coda — research console
+   Rosetta Coda: research console
    Renders the frozen release artifacts. No frameworks, no CDNs.
    Every section loads independently: a failed fetch degrades only its
-   own panel to a .state-missing state. No number is invented — cells
+   own panel to a .state-missing state. No number is invented: cells
    carry their artifact source in a data-src attribute / tooltip.
    ════════════════════════════════════════════════════════════════════ */
 "use strict";
@@ -54,12 +54,12 @@ function badge(state, label) {
 /* ── Fetching ────────────────────────────────────────────────────── */
 async function fetchJSON(name) {
   const res = await fetch(BASE + FILES[name], { cache: "no-store" });
-  if (!res.ok) throw new Error(`${res.status} — ${FILES[name]}`);
+  if (!res.ok) throw new Error(`${res.status}: ${FILES[name]}`);
   return res.json();
 }
 async function fetchText(name) {
   const res = await fetch(BASE + FILES[name], { cache: "no-store" });
-  if (!res.ok) throw new Error(`${res.status} — ${FILES[name]}`);
+  if (!res.ok) throw new Error(`${res.status}: ${FILES[name]}`);
   return res.text();
 }
 
@@ -101,7 +101,7 @@ function renderHeader(r) {
   if (r.status !== "fulfilled") {
     vb.dataset.state = "unknown";
     vb.textContent = "unknown";
-    vb.setAttribute("aria-label", "gate verdict: unknown — manifest artifact not available");
+    vb.setAttribute("aria-label", "gate verdict: unknown; manifest artifact not available");
     $("run-id").textContent = "—";
     return;
   }
@@ -133,7 +133,7 @@ function renderGate(r) {
       <div><dt>coefficient</dt><dd>${num(mm.coefficient_value, 4, `${F}#/mixed_model/coefficient_value`)}</dd></div>
       <div><dt>p-value</dt><dd class="mono${pv && mm.p_value < 0.05 ? " sig" : ""}" data-src="${F}#/mixed_model/p_value">${pv ? fmt.sci(mm.p_value) : NO_OBS}</dd></div>
     </dl>
-    ${mm.coefficient_label ? `<p class="footnote">Coefficient label: <span class="mono">${esc(mm.coefficient_label)}</span>. Raw seconds difference for i vs a — not a standardized effect.</p>` : ""}
+    ${mm.coefficient_label ? `<p class="footnote">Coefficient label: <span class="mono">${esc(mm.coefficient_label)}</span>. Raw seconds difference for i vs a, not a standardized effect.</p>` : ""}
     ${(g.details?.model_warnings || []).length ? `<p class="warn">Model note: ${esc(g.details.model_warnings.join(" "))}</p>` : ""}`;
 
   const effects = g.per_whale_effects || [];
@@ -157,7 +157,7 @@ function renderGate(r) {
     ${stats}
     <div class="table-wrap">
       <table class="data">
-        <caption>Per-whale a − i duration effects (raw seconds and per-individual z-score)</caption>
+        <caption>Per-whale a - i duration effects (raw seconds and per-individual z-score)</caption>
         <thead><tr>
           <th>whale</th><th class="num">n_a</th><th class="num">n_i</th>
           <th class="num">raw_diff</th><th class="num">z_diff</th><th>direction</th>
@@ -218,14 +218,14 @@ function renderContrasts(r) {
         <caption>${Number.isFinite(f.n_gate_partition) ? fmt.int(f.n_gate_partition) : "—"} gate-partition codas · ${esc(f.code_version ?? "")}</caption>
         <thead><tr>
           <th>feature</th><th class="num">a_mean</th><th class="num">i_mean</th>
-          <th class="num">a − i</th><th class="num">CI95</th><th>direction</th>
+          <th class="num">a - i</th><th class="num">CI95</th><th>direction</th>
         </tr></thead>
         <tbody>${rows || `<tr><td colspan="6">${NO_OBS}</td></tr>`}</tbody>
       </table>
     </div>
     <p class="footnote">a_mean / i_mean are derived in-browser as n-weighted means of the per-whale vowel means
     (<span class="mono">/whale_feature_means</span>); the artifact stores contrasts, not pooled means.
-    Rows with a CI that excludes zero are marked with a thin foam edge — descriptive, not an inferential claim.</p>`;
+    Rows with a CI that excludes zero are marked with a thin foam edge, descriptive, not an inferential claim.</p>`;
 }
 
 /* ── d) Time-time plot ───────────────────────────────────────────── */
@@ -381,7 +381,7 @@ function renderTimeTime(r) {
       <dl class="tt-readout">
         <div><dt>pairs</dt><dd class="mono">${fmt.int(points.length)}</dd></div>
         <div><dt>whales</dt><dd class="mono">${fmt.int(whales.length)}</dd></div>
-        <div><dt>domain</dt><dd class="mono">0–${fmt.fixed(domain, domain < 2 ? 2 : 1)}</dd></div>
+        <div><dt>domain</dt><dd class="mono">0-${fmt.fixed(domain, domain < 2 ? 2 : 1)}</dd></div>
         <div><dt>mean a n</dt><dd class="mono">${meanA ? fmt.int(meanA.n) : NO_OBS}</dd></div>
         <div><dt>mean i n</dt><dd class="mono">${meanI ? fmt.int(meanI.n) : NO_OBS}</dd></div>
       </dl>
@@ -389,7 +389,7 @@ function renderTimeTime(r) {
     <p class="tt-detail-wrap"><output class="tt-detail" aria-live="polite">Hover or click a point for coda details.</output></p>
     <p class="footnote">Each point is one successive pair from <span class="mono">ici_pattern</span> (normalized ICI / mean).
     The dashed line is y = x, the isochronous-rhythm reference. Crosses are per-vowel means of those pairs.
-    Density and any clusters are descriptive structure only — not meaning, intent, or words.</p>`;
+    Density and any clusters are descriptive structure only, not meaning, intent, or words.</p>`;
 
   const g = el.querySelector(".tt-points");
   const NS = "http://www.w3.org/2000/svg";
@@ -499,7 +499,7 @@ function renderHypotheses(r) {
       ${badge(doc.state)}
       <span class="chip">selection rule <strong class="mono">${esc(doc.selection_rule_version ?? "—")}</strong></span>
     </div>
-    <p class="footnote">Ranked by a deterministic heuristic score. These are model-generated hypotheses —
+    <p class="footnote">Ranked by a deterministic heuristic score. These are model-generated hypotheses,
     candidates for future tests, not established results.</p>
     <ol class="hypo-list">
       ${ranked

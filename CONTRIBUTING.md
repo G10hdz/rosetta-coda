@@ -6,9 +6,9 @@ Thanks for your interest. This is a scientific research project, and contributio
 
 Rosetta Coda is spec-driven. Before writing code, read the [roadmap](docs/roadmap.md) and check existing [specs](specs/). Every change should tie to an accepted spec.
 
-- **Bugs and data issues** — open an issue with a minimal reproduction.
-- **Feature work** — must start as a spec proposal (see `specs/SPEC_TEMPLATE.md`).
-- **Scientific contributions** — label mappings, validated datasets, or phonological feature definitions require cited evidence and researcher review.
+- **Bugs and data issues**: open an issue with a minimal reproduction.
+- **Feature work**: must start as a spec proposal (see `specs/SPEC_TEMPLATE.md`).
+- **Scientific contributions**: label mappings, validated datasets, or phonological feature definitions require cited evidence and researcher review.
 
 ## Development setup
 
@@ -51,7 +51,7 @@ GitHub Flow: `main` stays stable; every change arrives on a short branch.
 - Never commit API keys, credentials, private URLs, or raw provider logs
   containing them. The LLM stage reads `ROSETTA_API_KEY` /
   `ROSETTA_BASE_URL` / `ROSETTA_MODEL`; keep values in your local env only.
-- Public artifacts ship precomputed model outputs — never a live key-bearing
+- Public artifacts ship precomputed model outputs, never a live key-bearing
   endpoint. If a contribution needs a public model call, stop and discuss in
   an issue first.
 

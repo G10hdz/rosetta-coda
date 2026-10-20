@@ -1,6 +1,6 @@
-# SPEC-006 — Optional Python WAV detector
+# SPEC-006: Optional Python WAV detector
 
-Status: Accepted — parity verification blocked on unavailable reference data  
+Status: Accepted. Parity verification blocked on unavailable reference data  
 Owner: Engineering  
 Depends on: SPEC-005
 
@@ -70,7 +70,7 @@ exist.
 - [ ] Synthetic WAV with known click times recovers times within one sample.
 - [ ] Grouping splits codas at gaps > `max_ici_s`.
 - [ ] `not_observable` path covered by test.
-- [ ] Parity suite: blocked — documented in artifact and spec status.
+- [ ] Parity suite: blocked, documented in artifact and spec status.
 
 ## Stop conditions
 

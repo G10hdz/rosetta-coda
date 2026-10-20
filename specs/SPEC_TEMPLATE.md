@@ -1,4 +1,4 @@
-# SPEC-NNN — Title
+# SPEC-NNN: Title
 
 Status: Draft | In review | Accepted | Implemented | Verified | Blocked  
 Owner:  

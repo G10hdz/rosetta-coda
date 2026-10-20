@@ -1,15 +1,15 @@
-# Demo Handoff — Rosetta Coda demo site
+# Demo Handoff: Rosetta Coda demo site
 
 **For:** next agent  
 **Do NOT:** commit/push unless asked; spend API credits without need. Preserve session notes.
 
 ## What exists (done, working)
 
-- `demo/index.html`, `demo/styles.css`, `demo/app.js` — single-viewport 16:9 dark
+- `demo/index.html`, `demo/styles.css`, `demo/app.js`: single-viewport 16:9 dark
   scientific-instrument dashboard. Plain HTML/CSS/JS, no build deps.
 - Loads real evidence from `/artifacts/gates/spec-004-duration-gate.json`:
   gate status + frozen hash, cohort funnel (1375→628, 338 a / 290 i, 4 whales),
-  mixed-model β=−0.132 / p=3.7e-11 / t / groups / obs, per-whale a−i z-diff bars,
+  mixed-model β=-0.132 / p=3.7e-11 / t / groups / obs, per-whale a-i z-diff bars,
   model boundary warning.
 - Hypothesis panel: renders live `/artifacts/demo/hypothesis.json` if
   `artifacts/demo/manifest.json` has `hypothesis_available: true`, else a
@@ -17,7 +17,7 @@
   refs are real JSON Pointers into the gate. Never implied to come from a model.
 - Disclaimers present: "Not a whale translator." / "Deterministic science first." /
   "No semantic claims." + creed strip.
-- `tests/test_demo_assets.py` — smoke tests for assets, disclaimers, gate shape,
+- `tests/test_demo_assets.py`: smoke tests for assets, disclaimers, gate shape,
   mock refs, mock-not-labelled-as-model.
 - Provider research: `docs/model-provider-research.md` (DeepSeek default).
 

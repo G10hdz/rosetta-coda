@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- One logical change. What and why — link the spec or issue. -->
+<!-- One logical change. What and why: link the spec or issue. -->
 
 Spec / issue:
 
