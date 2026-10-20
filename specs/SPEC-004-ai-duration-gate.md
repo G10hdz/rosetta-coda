@@ -1,6 +1,6 @@
-# SPEC-004 — a/i duration reproduction gate
+# SPEC-004: a/i duration reproduction gate
 
-Status: Verified — PASS  
+Status: Verified (PASS)  
 Owner: Engineering + scientific reviewer  
 Depends on: SPEC-003
 

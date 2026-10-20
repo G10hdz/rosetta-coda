@@ -110,7 +110,7 @@ def test_app_distinguishes_raw_coefficient_from_standardized_effect() -> None:
     app = (DEMO / "app.js").read_text(encoding="utf-8")
     index = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
     # The mock claim frames the coefficient explicitly as raw seconds.
-    assert ("raw −0.132 s" in app) or ("raw -0.132 s" in app)
+    assert ("raw -0.132 s" in app) or ("raw -0.132 s" in app)
     # The mixed-model panel labels the coefficient as raw seconds, not normalized.
     assert "not a standardized effect" in index
     # The per-whale panel labels its bars as z-scored / standardized.
@@ -126,7 +126,7 @@ def test_hypothesis_manifest_flag_matches_artifact_presence() -> None:
     assert "MANIFEST_URL" in app
     assert "hypothesis_available" in app
     manifest = REPO_ROOT / "artifacts" / "demo" / "manifest.json"
-    assert manifest.is_file(), "demo manifest missing — Preview path would 404"
+    assert manifest.is_file(), "demo manifest missing: Preview path would 404"
     data = json.loads(manifest.read_text(encoding="utf-8"))
     artifact = REPO_ROOT / "artifacts" / "demo" / "hypothesis.json"
     assert data["hypothesis_available"] == artifact.is_file()

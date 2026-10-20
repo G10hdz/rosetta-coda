@@ -7,7 +7,7 @@
 
 **Phonological hypothesis instrument for sperm-whale codas.**
 
-Rosetta Coda is a local-first research instrument for generating falsifiable phonological hypotheses about sperm-whale vocalisations (codas). It is **not** a translator — there is no semantic ground truth. Every transformation is reproducible from immutable inputs, versioned code, configuration, and model identifiers.
+Rosetta Coda is a local-first research instrument for generating falsifiable phonological hypotheses about sperm-whale vocalisations (codas). It is **not** a translator: there is no semantic ground truth. Every transformation is reproducible from immutable inputs, versioned code, configuration, and model identifiers.
 
 ---
 
@@ -83,18 +83,18 @@ uv run uvicorn api.app:app --port 8787
 # GET /v1/runs, /v1/runs/{id}/codas, /v1/runs/{id}/artifacts/{name}, SSE events
 ```
 
-The API is read-only over `artifacts/runs/` — local use only; the public
+The API is read-only over `artifacts/runs/`: local use only; the public
 deployment serves static artifacts instead of a live endpoint.
 
 ### Deployed site
 
 The static site is deployed on Vercel: <https://rosetta-coda.vercel.app>
 
-- `/` — duration-gate instrument (SPEC-004)
-- `/evidence` — citable paper over `artifacts/release/` (gate, contrasts, time-time plot, hypotheses, calibration, report)
-- `/research` — redirects to `/evidence`
-- `/demo` — redirects to `/`
-- `/artifacts/` — immutable JSON artifacts, served with immutable caching
+- `/`: duration-gate instrument (SPEC-004)
+- `/evidence`: citable paper over `artifacts/release/` (gate, contrasts, time-time plot, hypotheses, calibration, report)
+- `/research`: redirects to `/evidence`
+- `/demo`: redirects to `/`
+- `/artifacts/`: immutable JSON artifacts, served with immutable caching
 
 Deploy: `vercel --prod` from the repo root (`.vercelignore` keeps the Python
 pipeline and source CSVs out of the upload).
@@ -102,8 +102,8 @@ pipeline and source CSVs out of the upload).
 ### Demo site (local preview)
 
 A single-viewport instrument panel that visualises the frozen SPEC-004
-duration gate — gate status, cohort flow, the mixed-effects coefficient,
-per-whale a − i duration effects, and the frozen artifact hash — alongside a
+duration gate (gate status, cohort flow, the mixed-effects coefficient,
+per-whale a - i duration effects, and the frozen artifact hash) alongside a
 structured hypothesis panel. Serve the repo root and open the demo:
 
 ```bash
@@ -120,7 +120,7 @@ model call). No audio, waveform, or semantic data is invented.
 
 After the deterministic reproduction gate passes, generate one structured,
 falsifiable hypothesis over that frozen evidence via any OpenAI-compatible
-endpoint (default: DeepSeek — see [docs/model-provider-research.md](docs/model-provider-research.md)):
+endpoint (default: DeepSeek; see [docs/model-provider-research.md](docs/model-provider-research.md)):
 
 ```bash
 export ROSETTA_API_KEY="..."          # or OPENAI_API_KEY
@@ -144,7 +144,7 @@ alternatives, falsifiers, uncertainty, and limitations.
 
 ## Status
 
-Spec-driven: SPECs 000–013 implemented. The deterministic pipeline
+Spec-driven: SPECs 000-013 implemented. The deterministic pipeline
 (load → normalize → gate → extract → features) is verified reproducible;
 the model stage (analyst → rank → calibrate → report) ran once against the
 frozen evidence and is hash-sealed in `artifacts/release/`. Deployed at
@@ -153,11 +153,11 @@ frozen evidence and is hash-sealed in `artifacts/release/`. Deployed at
 
 ## Community
 
-- [Contributing](CONTRIBUTING.md) — setup, spec workflow, PR conventions
+- [Contributing](CONTRIBUTING.md): setup, spec workflow, PR conventions
 - [Code of conduct](CODE_OF_CONDUCT.md)
-- [Security policy](SECURITY.md) — how to report vulnerabilities
+- [Security policy](SECURITY.md): how to report vulnerabilities
 - [Changelog](CHANGELOG.md)
-- [Citing this work](CITATION.cff) — GitHub renders a "Cite this repository" panel from this file
+- [Citing this work](CITATION.cff): GitHub renders a "Cite this repository" panel from this file
 - License: [MIT](LICENSE)
 
 ---
@@ -166,7 +166,7 @@ frozen evidence and is hash-sealed in `artifacts/release/`. Deployed at
 
 Instrumento de hipótesis fonológicas para codas de cachalotes.
 
-Rosetta Coda es un instrumento de investigación local-first para generar hipótesis fonológicas falseables sobre las vocalizaciones (codas) de cachalotes. **No** es un traductor — no existe una verdad semántica de referencia. Cada transformación es reproducible a partir de entradas inmutables, código versionado, configuración e identificadores de modelo.
+Rosetta Coda es un instrumento de investigación local-first para generar hipótesis fonológicas falseables sobre las vocalizaciones (codas) de cachalotes. **No** es un traductor: no existe una verdad semántica de referencia. Cada transformación es reproducible a partir de entradas inmutables, código versionado, configuración e identificadores de modelo.
 
 ### Resumen
 
@@ -194,7 +194,7 @@ Requiere Python 3.11+ y [uv](https://docs.astral.sh/uv/).
 ### Demo de hipótesis estructurada (opcional)
 
 Después de que pase la compuerta determinista de reproducción (endpoint
-OpenAI-compatible; por defecto DeepSeek — ver
+OpenAI-compatible; por defecto DeepSeek: ver
 [docs/model-provider-research.md](docs/model-provider-research.md)):
 
 ```bash
@@ -216,7 +216,7 @@ falseadores, incertidumbre y limitaciones.
 
 ### Estado
 
-Desarrollo guiado por especificaciones: SPECs 000–013 implementados. El
+Desarrollo guiado por especificaciones: SPECs 000-013 implementados. El
 pipeline determinista (carga → normalización → compuerta → extracción →
 características) es reproducible verificado; la etapa de modelo corrió una
 vez sobre la evidencia congelada y está sellada por hash en

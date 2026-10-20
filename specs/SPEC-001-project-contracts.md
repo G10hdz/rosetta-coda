@@ -1,4 +1,4 @@
-# SPEC-001 — Project bootstrap and contracts
+# SPEC-001: Project bootstrap and contracts
 
 Status: Verified  
 Owner: Engineering  

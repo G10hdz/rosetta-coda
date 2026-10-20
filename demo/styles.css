@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   Rosetta Coda — duration-gate instrument
+   Rosetta Coda: duration-gate instrument
    Aesthetic: CETI-inspired deep ocean hydrophone station.
    Dark abyss, bioluminescent particles, sonar pulse lamp,
    animated click-train identity. Fits one 16:9 viewport.
@@ -8,7 +8,7 @@
 :root {
   color-scheme: dark;
 
-  /* Water column — CETI deep */
+  /* Water column: CETI deep */
   --abyss:   oklch(0.12 0.022 240);
   --deep:    oklch(0.18 0.028 236);
   --panel:   oklch(0.21 0.030 234);
@@ -20,7 +20,7 @@
   --muted: oklch(0.72 0.022 218);
   --faint: oklch(0.70 0.018 220);
 
-  /* Signals — CETI ocean palette */
+  /* Signals: CETI ocean palette */
   --teal:    oklch(0.76 0.08 200);
   --foam:    oklch(0.82 0.09 175);
   --deepsea: oklch(0.65 0.075 235);
@@ -68,7 +68,7 @@ body::before {
 .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0;
   overflow: hidden; will-change: transform; }
 
-/* Whale silhouette — subtle ambient element */
+/* Whale silhouette: subtle ambient element */
 .whale-bg {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background: url("assets/whale-silhouette.png") right bottom / min(50vw, 600px) auto no-repeat;
@@ -475,7 +475,7 @@ body::before {
   background: oklch(0.84 0.11 85 / 0.1);
 }
 
-/* Pinned region — head, claim title/text, compact preview. Never scrolls. */
+/* Pinned region: head, claim title/text, compact preview. Never scrolls. */
 .hypo__pinned { flex: none; }
 
 /* Scrollable region with shadow indicator */
@@ -562,7 +562,7 @@ body::before {
 }
 .creed span::before { content: "▸"; color: var(--teal); font-size: 0.8em; }
 
-/* Preview note — compact single strip */
+/* Preview note: compact single strip */
 .preview-note {
   font-size: 0.78rem; line-height: 1.4; color: oklch(0.86 0.05 48);
   padding: 0.4rem 0.6rem; margin: 0 0 0.6rem;
@@ -604,7 +604,7 @@ body::before {
   .evidence { grid-template-columns: 1fr; grid-template-areas: "cohort" "model" "whales"; }
   .whales { min-height: 200px; }
   /* On a stacked layout the hypothesis detail flows with the page rather than
-     scrolling inside a short box — everything stays reachable. */
+     scrolling inside a short box: everything stays reachable. */
   .hypo { overflow: visible; }
   .hypo__detail { overflow: visible; max-height: none; background: none; }
 }

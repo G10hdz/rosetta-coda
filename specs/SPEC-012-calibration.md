@@ -1,6 +1,6 @@
-# SPEC-012 — Confidence calibration and held-out evaluation
+# SPEC-012: Confidence calibration and held-out evaluation
 
-Status: Accepted — confidence language requires scientific reviewer sign-off  
+Status: Accepted. Confidence language requires scientific reviewer sign-off  
 Owner: Engineering + scientific reviewer  
 Depends on: SPEC-008, SPEC-009, SPEC-010, SPEC-011
 
@@ -8,7 +8,7 @@ Depends on: SPEC-008, SPEC-009, SPEC-010, SPEC-011
 
 Measure empirically whether claimed effects replicate on held-out whales and
 bouts so that confidence labels move from `heuristic` to `empirically_checked`
-with a citation — or stay honest when they do not replicate.
+with a citation, or stay honest when they do not replicate.
 
 ## Scope
 
@@ -37,10 +37,10 @@ Excluded:
 
 - Deterministic assignment: `group = sha256(whale_id + split_seed) mod 2`,
   seed `calibration-v1`; approximately half of resolved whales per side.
-- Bout nesting: where a `date` exists, all codas of a whale stay together —
+- Bout nesting: where a `date` exists, all codas of a whale stay together:
   the whale is the split unit, bouts nest inside.
 - Replication rule per claim: the claim's stated direction (e.g.,
-  `feature_X[a] − feature_X[i] > 0`) is computed on hold-out whales with the
+  `feature_X[a] - feature_X[i] > 0`) is computed on hold-out whales with the
   same aggregate; `replicated = sign matches AND |effect| > 0`. Margins and
   effect sizes are reported, not thresholded into significance language.
 - Partition size is recorded; with four resolved whales the split is
@@ -67,7 +67,7 @@ Excluded:
 
 1. No whale leakage between fit and hold-out.
 2. Split assignment is hash-deterministic; re-running yields identical groups.
-3. Report language stays qualitative — no "p <", "significant", or
+3. Report language stays qualitative: no "p <", "significant", or
    probability-of-truth phrasing (lint-enforced).
 
 ## Acceptance criteria

@@ -1,6 +1,6 @@
-# Rosetta Coda — Architecture
+# Rosetta Coda: Architecture
 
-Status: Implemented (as-built; SPECs 000–013)  
+Status: Implemented (as-built; SPECs 000-013)  
 Date: 2026-07-12 · revised post-implementation
 
 ## Requirements
@@ -27,7 +27,7 @@ Scientific invariants:
 
 ## Architecture choice
 
-A modular Python monolith. `scripts/run_pipeline.py` orchestrates the stages and owns no scientific calculations. Two consumers read the immutable artifacts: a versioned local FastAPI (`api/`) and static UIs (`demo/`, `research/`) that work with zero backend — which is also what the public Vercel deployment serves.
+A modular Python monolith. `scripts/run_pipeline.py` orchestrates the stages and owns no scientific calculations. Two consumers read the immutable artifacts: a versioned local FastAPI (`api/`) and static UIs (`demo/`, `research/`) that work with zero backend, which is also what the public Vercel deployment serves.
 
 ```mermaid
 flowchart LR
@@ -206,7 +206,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 
 ## ADRs
 
-### ADR-001 — Modular monolith
+### ADR-001: Modular monolith
 
 - Status: Accepted
 - Context: Small team, coupled scientific stages, local batch workload.
@@ -214,7 +214,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 - Consequences: Simple deployment and reproducibility; modules can be extracted later.
 - Alternatives: Microservices rejected as operational overhead without independent scaling need.
 
-### ADR-002 — Local immutable artifacts as source of truth
+### ADR-002: Local immutable artifacts as source of truth
 
 - Status: Accepted
 - Context: Full replay and auditability required.
@@ -222,7 +222,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 - Consequences: Human-readable audit trail; larger numeric corpora may later add Parquet as a derived artifact.
 - Alternatives: Database-only persistence rejected because export/replay becomes implicit.
 
-### ADR-003 — Deterministic science outside LLM
+### ADR-003: Deterministic science outside LLM
 
 - Status: Accepted
 - Context: Numeric results must be reproducible; model outputs are non-deterministic.
@@ -230,7 +230,7 @@ Errors use `{ "error": { "code": "...", "message": "...", "details": {} } }`.
 - Consequences: Strong audit boundary; less flexibility for model-led feature invention.
 - Alternatives: End-to-end LLM analyst rejected as unauditable.
 
-### ADR-004 — Evidence trace, not raw chain-of-thought
+### ADR-004: Evidence trace, not raw chain-of-thought
 
 - Status: Accepted
 - Context: Researchers require auditability, while private model reasoning is neither a stable API nor valid evidence.

@@ -1,4 +1,4 @@
-# SPEC-000 — Scientific contract
+# SPEC-000: Scientific contract
 
 Status: Accepted  
 Owner: Rosetta Coda  

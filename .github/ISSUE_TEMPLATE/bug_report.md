@@ -25,4 +25,4 @@ labels: bug
 - [ ] Does this affect a frozen artifact or gate result? If so, which
       `artifacts/` file and which sha256 in `manifest.json`?
 - [ ] Does it involve a semantic, intent, or translation claim? (Those are
-      never valid output — say so explicitly.)
+      never valid output: say so explicitly.)

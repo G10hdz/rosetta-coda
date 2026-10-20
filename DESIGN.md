@@ -1,20 +1,20 @@
-# Rosetta Coda — design system
+# Rosetta Coda: design system
 
 ## Identity
 
 Rosetta Coda is a **duration-gate instrument**: a deterministic scientific dashboard
 for bioacoustics researchers studying sperm whale codas. It does not translate
-whale language. It surfaces reproducible evidence — cohort funnel, mixed-effects
-model, per-whale effects — in a single viewport.
+whale language. It surfaces reproducible evidence (cohort funnel, mixed-effects
+model, per-whale effects) in a single viewport.
 
 ### Design ethos
 
 - **Unity & empathy.** Every pixel serves the researcher's question. The interface
-  is an instrument, not a dashboard. Calm, patient, oceanic — like a hydrophone
+  is an instrument, not a dashboard. Calm, patient, oceanic, like a hydrophone
   array waiting for the next click train.
 - **Wow factor of technology.** The tech is real: frozen SHA-256 gates, schema-
   validated structured hypotheses, mixed-effects models. The UI surfaces this with
-  precision — cyan data ink, tabular numerics, ambient sonar pulses — not with
+  precision (cyan data ink, tabular numerics, ambient sonar pulses), not with
   decorative gradients or animation.
 - **Ridiculously simple.** One viewport. Two columns. No tabs, no settings, no
   onboarding. At 1440×810 every number is visible without scrolling.
@@ -23,7 +23,7 @@ model, per-whale effects — in a single viewport.
 
 ### Inspiration
 
-[Project CETI — listen](https://listen.projectceti.org/): deep ocean dark,
+[Project CETI: listen](https://listen.projectceti.org/): deep ocean dark,
 hydrophone-as-interface, minimal chrome, oceanic calm. The user is underwater
 with the data.
 
@@ -69,8 +69,8 @@ All tokens in OKLch for perceptual uniformity.
 ### Accent discipline
 
 - `--teal` is the primary data accent: used for the logo glow, funnel terminal
-  step, inline code refs, focus rings. At most 2–3 visible uses per panel.
-- `--foam` / `--deepsea` are split-bar and per-whale chart colours — data only,
+  step, inline code refs, focus rings. At most 2-3 visible uses per panel.
+- `--foam` / `--deepsea` are split-bar and per-whale chart colours: data only,
   never chrome.
 - `--amber` is the signal lamp: exactly one instance, with sonar pulse rings.
 - `--coral` is caution: the preview badge only.
@@ -83,12 +83,12 @@ All tokens in OKLch for perceptual uniformity.
 |------|-----------|--------|------|
 | Display / panel titles | `Inter`, `SF Pro Display`, -apple-system, system-ui, sans-serif | 500 | `clamp(0.82rem, 1.1vw, 0.98rem)` (panel) / `clamp(1.25rem, 2.1vw, 1.9rem)` (masthead) |
 | Body | `Spectral`, `Iowan Old Style`, Palatino, Georgia, serif | 400 | `clamp(0.85rem, 1.1vw, 0.96rem)` |
-| Numerics / code | `SF Mono`, `Cascadia Code`, `Roboto Mono`, ui-monospace | 400 | 0.72–0.92rem |
-| Labels & small | `Inter`, system-ui, sans-serif | 450 | 0.68–0.78rem |
+| Numerics / code | `SF Mono`, `Cascadia Code`, `Roboto Mono`, ui-monospace | 400 | 0.72-0.92rem |
+| Labels & small | `Inter`, system-ui, sans-serif | 450 | 0.68-0.78rem |
 
 ### Letter-spacing rules
 
-- ALL CAPS labels: `0.14em–0.16em`
+- ALL CAPS labels: `0.14em-0.16em`
 - Body text: `0` (default)
 - Numerics: `-0.01em` (tight)
 - Display text ≥ 32px: `-0.01em`
@@ -118,7 +118,7 @@ numerics and code refs.
 └────────────────┴─────────────────┘
 ```
 
-- Single 16:9 viewport — no scrolling on the outer page.
+- Single 16:9 viewport, no scrolling on the outer page.
 - Evidence column (1.08fr) wider than hypothesis (0.92fr).
 - Max width 1680px, centered.
 
@@ -126,11 +126,11 @@ numerics and code refs.
 
 ```
 .hypo (flex column)
-  .hypo__head       — pinned: panel title + origin badge
-  .hypo__pinned     — pinned: compact preview note + claim title + claim text
-  .hypo__detail     — scrollable: evidence refs, uncertainty, alternatives,
+  .hypo__head       - pinned: panel title + origin badge
+  .hypo__pinned     - pinned: compact preview note + claim title + claim text
+  .hypo__detail     - scrollable: evidence refs, uncertainty, alternatives,
                       falsifiers, limitations, meta chips
-  .creed            — pinned: instrument principles
+  .creed            - pinned: instrument principles
 ```
 
 ### Spacing
@@ -144,13 +144,13 @@ numerics and code refs.
 - Panel body padding: `var(--pad)`
 - Grid gap: `var(--gap)`
 - Semi-transparent hairline borders
-- Top-edge gradient line (2–3px) on each panel
+- Top-edge gradient line (2-3px) on each panel
 
 ## Component rules
 
 ### Ambient background
 - Very deep oceanic gradient with subtle radial glows
-- CSS-animated bioluminescent particles (15–20 tiny dots drifting upward)
+- CSS-animated bioluminescent particles (15-20 tiny dots drifting upward)
 - No external images, pure CSS
 
 ### Sonar status lamp
@@ -172,7 +172,7 @@ numerics and code refs.
 
 ### Data display
 - Tabular numerics with `font-variant-numeric: tabular-nums`
-- Big coefficient values (clamp 1.9–3rem)
+- Big coefficient values (clamp 1.9-3rem)
 - Small stats in grid layout (`1fr 1fr`) with dotted bottom borders
 - Funnel steps with left-border color coding (terminal = teal)
 
@@ -207,4 +207,4 @@ numerics and code refs.
 - No shadows except the sonar lamp glow
 - No tabs, drawers, or multi-page navigation
 - No settings or configuration panels
-- No "demo only" labels on real data — only on the preview mock
+- No "demo only" labels on real data; only on the preview mock

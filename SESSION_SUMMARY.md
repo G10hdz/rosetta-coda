@@ -18,7 +18,7 @@
 
 **In progress / unfinished**:
 
-- No Stage 2–4 pipeline work started.
+- No Stage 2-4 pipeline work started.
 - `SPEC-005` remains draft work for next session.
 - Root directory is not a git repository, so no commit exists.
 

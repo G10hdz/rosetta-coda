@@ -1,4 +1,4 @@
-# SPEC-009 — Contextual interpreter
+# SPEC-009: Contextual interpreter
 
 Status: Accepted  
 Owner: Engineering + scientific reviewer (confidence language)  
@@ -17,7 +17,7 @@ Included:
 - Candidate set: `k` hypothesis candidates for the same frozen
   `AnalystEvidence` bundle (single list-mode model call or `k` recorded calls;
   generation detail belongs to SPEC-008).
-- Deterministic ranking rubric `rank-v1` — pure code over validated fields.
+- Deterministic ranking rubric `rank-v1`: pure code over validated fields.
 - `RankedHypotheses` artifact: rank, score components, reasons, and the
   selection rule version.
 

@@ -1,4 +1,4 @@
-# Model provider research — Rosetta Coda hypothesis stage
+# Model provider research: Rosetta Coda hypothesis stage
 
 Status: research snapshot (2026-08)  
 Scope: one structured, falsifiable phonological hypothesis over a frozen ~2KB gate artifact.  
@@ -12,7 +12,7 @@ Not in scope: measurements, audio models, multi-agent stacks, OpenAI/Anthropic b
 | **Default model** | DeepSeek V4-Flash / `deepseek-chat` (use current catalog id) |
 | **Why** | Lowest paid cost that still follows instructions + JSON; same client shape as OpenAI SDK via `base_url` |
 | **Offline fallback** | Ollama on local GPU (`qwen3:30b` or similar) |
-| **Quality gate** | Repo validators — Pydantic schema, JSON Pointer resolution, semantic-claim ban — not the vendor logo |
+| **Quality gate** | Repo validators (Pydantic schema, JSON Pointer resolution, semantic-claim ban), not the vendor logo |
 
 **Sol / GPT-5.6 / Anthropic are not required** for science or for a course final. They only matter if a marketing pitch names them.
 
@@ -33,7 +33,7 @@ Nice:
 - Native structured outputs (JSON Schema / Pydantic)
 - Stable logged `model` id for provenance
 
-Input size: gate artifact ≈ **1.8–2.2 KB**. Cost is almost all **output (+ reasoning) tokens**, not input.
+Input size: gate artifact ≈ **1.8-2.2 KB**. Cost is almost all **output (+ reasoning) tokens**, not input.
 
 ---
 
@@ -52,9 +52,9 @@ Science creed: deterministic stats first; LLM last; evidence-bound. Model is a r
 
 ## Price ladder (USD / 1M tokens, short context, ~Aug 2026)
 
-### OpenAI GPT-5.6 family (reference only — not required)
+### OpenAI GPT-5.6 family (reference only: not required)
 
-Post–30 Jul 2026 Terra/Luna cut:
+Post-30 Jul 2026 Terra/Luna cut:
 
 | Model | Input | Output | Notes |
 |---|---:|---:|---|
@@ -64,12 +64,12 @@ Post–30 Jul 2026 Terra/Luna cut:
 
 Sources: OpenAI pricing / GPT-5.6 posts (verify live before spend).
 
-Rough **one-run** cost (≈1–2k in, 0.5–3k out + optional reasoning):
+Rough **one-run** cost (≈1-2k in, 0.5-3k out + optional reasoning):
 
 | Path | Ballpark / run |
 |---|---|
 | Sol medium reasoning | cents → tens of cents |
-| Terra | ~⅓–½ of Sol |
+| Terra | ~⅓-½ of Sol |
 | Luna | pennies |
 | DeepSeek Flash | fractions of a cent |
 | Gemini 2.5 Flash | pennies |
@@ -87,20 +87,20 @@ OpenRouter sometimes applies temporary discounts (e.g. Terra 50% off); treat as 
 | **DeepSeek** | **V4-Flash** | **$0.14 / $0.28** | JSON mode; validate with Pydantic | **Best $/quality default** |
 | DeepSeek | V4-Pro | $0.435 / $0.87 | same | If Flash fails schema once |
 | **Zhipu / Z.ai** | **GLM-5.2** | OR promo ~$0.28/$0.88; list higher | OpenAI-compat hosts | Strong reasoning |
-| Z.ai | GLM-5 | ~$0.60–1.00 / $1.92–3.20 | same | Flagship, still ≪ Sol |
-| **Alibaba Qwen** | Flash / Plus | ~$0.10–0.40 / $0.30–1.80 | DashScope / OR | Good JSON with schema in prompt |
+| Z.ai | GLM-5 | ~$0.60-1.00 / $1.92-3.20 | same | Flagship, still ≪ Sol |
+| **Alibaba Qwen** | Flash / Plus | ~$0.10-0.40 / $0.30-1.80 | DashScope / OR | Good JSON with schema in prompt |
 | Qwen | Qwen3.8-Max | $2 / $6 | yes | Overkill vs DeepSeek Flash |
 | **Moonshot Kimi** | K2.5 | ~$0.60 / $3.00 | OpenAI-compat | OK, pricier than DS Flash |
 | Kimi | K2.6 | ~$0.95 / $4.00 | same | Mid |
-| Kimi | K3 | ~$2.90–3 / $14–15 | same | Near-flagship price → skip |
+| Kimi | K3 | ~$2.90-3 / $14-15 | same | Near-flagship price → skip |
 | **Local** | qwen3:30b (Ollama) | **$0** | prompt + validate | Best $0 offline path |
 
 ### Ranked for *this* repo
 
-1. **DeepSeek V4-Flash** — default paid cloud  
+1. **DeepSeek V4-Flash**: default paid cloud  
 2. **GLM-5.2 via OpenRouter** (when discounted)  
 3. **Qwen Flash/Plus**  
-4. **Ollama qwen3:30b** — $0  
+4. **Ollama qwen3:30b**: $0  
 5. Skip Kimi K3 / Qwen Max for a 2KB artifact  
 
 **Caveats (DeepSeek):**
@@ -140,7 +140,7 @@ Client shape:
 - Reject bad pointers and semantic claims in-process (already implemented).
 - Persist `model` id on the artifact for provenance.
 
-Artifact path (post–Sol cleanup):
+Artifact path (post-Sol cleanup):
 
 - `artifacts/demo/hypothesis.json`
 - Manifest flag: `hypothesis_available`
@@ -154,7 +154,7 @@ Artifact path (post–Sol cleanup):
 |---|---|
 | Course final, low cost | **DeepSeek Flash** |
 | Offline / no cloud | **Ollama qwen3:30b** |
-| Compare models for rubric | Same schema, 2–3 models, table of cost + validator pass |
+| Compare models for rubric | Same schema, 2-3 models, table of cost + validator pass |
 | Need Gemini-class structured free tier | Gemini 2.5 Flash |
 | Someone insists on US flagship branding | One paid call, freeze JSON, never call again |
 
@@ -186,4 +186,4 @@ Artifact path (post–Sol cleanup):
 |---|---|
 | 2026-08 | Research captured from provider docs / OpenRouter listings; Sol branding removed from product surfaces; default recommendation = DeepSeek Flash + validator gate. |
 
-Prices and model ids drift — re-check official pricing before any budget commitment.
+Prices and model ids drift, re-check official pricing before any budget commitment.

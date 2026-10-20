@@ -1,4 +1,4 @@
-# SPEC-010 — Report generator
+# SPEC-010: Report generator
 
 Status: Accepted  
 Owner: Engineering  
@@ -16,7 +16,7 @@ Included:
 
 - `report/report.json`: structured sections, citations, limitations,
   cannot-conclude list.
-- `report/report.md`: rendered human-readable form generated from the JSON —
+- `report/report.md`: rendered human-readable form generated from the JSON,
   never hand-edited.
 - Citation block: dataset names, SHA-256 input hashes, OSF DOI
   `10.17605/OSF.IO/9T6QU`, code revision, spec versions, model ID when a
@@ -35,13 +35,13 @@ Excluded:
 3. Feature summary (partition contrasts, feature counts).
 4. Hypotheses (ranked; each with evidence refs, alternatives, falsifiers,
    uncertainty kind) or the explicit `not_generated` / `indeterminate` state.
-5. Limitations — always present; must include at minimum:
+5. Limitations: always present; must include at minimum:
    - no semantic ground truth;
    - unresolved-identity cohort excluded from controlled inference;
    - audio-dependent features `not_observable` in this run;
    - confidence labels are `heuristic` unless SPEC-012 calibration exists.
-6. Cannot conclude — explicit list (e.g., "coda meaning", "individual
-   intent", "clan-level grammar" — nothing beyond measured timing structure).
+6. Cannot conclude: explicit list (e.g., "coda meaning", "individual
+   intent", "clan-level grammar", nothing beyond measured timing structure).
 7. Reproduction: exact commands, locked environment, artifact manifest hash.
 
 ## Invariants
@@ -74,5 +74,5 @@ Excluded:
 ## Stop conditions
 
 Missing upstream artifact ⇒ section records its state (`not_observable`,
-`not_generated`, `indeterminate`) rather than failing the report — except the
+`not_generated`, `indeterminate`) rather than failing the report, except the
 gate section: a non-passing gate produces a stop report only.

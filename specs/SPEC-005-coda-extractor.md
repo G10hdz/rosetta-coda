@@ -1,4 +1,4 @@
-# SPEC-005 — Metadata-first coda extractor
+# SPEC-005: Metadata-first coda extractor
 
 Status: Accepted  
 Owner: Engineering  
@@ -63,7 +63,7 @@ join mismatches), input hashes. Known corpus expectations:
 - 1,374 timings through the codamd join; 4 cross-file duration mismatches
   flagged. Codanum 5092 is a member of the published 628-coda gate
   partition whose Dominica row was quarantined by SPEC-002 QC, so it is
-  reported as unjoined rather than reconstructed — the feature partition
+  reported as unjoined rather than reconstructed. The feature partition
   therefore covers 627/628 gate codas.
 
 ## Invariants
