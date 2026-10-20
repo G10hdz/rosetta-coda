@@ -1,0 +1,5 @@
+title = "rosetta-coda gitleaks config"
+
+[allowlist]
+description = "Falsos positivos confirmados: $DOPPLER_TOKEN es variable de entorno en pr-whatsapp.yml; spec-008-model-calls.jsonl trae cache_key sha256 de contenido, no credenciales"
+paths = ['''\.github/workflows/pr-whatsapp\.yml''', '''artifacts/release/spec-008-model-calls\.jsonl''']
